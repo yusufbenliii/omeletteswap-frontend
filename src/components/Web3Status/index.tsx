@@ -10,10 +10,8 @@ import { useWalletModalToggle } from '../../state/application/hooks'
 import { TransactionDetails } from '../../state/transactions/reducer'
 
 import Identicon from '../Identicon'
-import PortisIcon from '../../assets/images/portisIcon.png'
 import WalletModal from '../WalletModal'
 import { ButtonSecondary } from '../Button'
-import FortmaticIcon from '../../assets/images/fortmaticIcon.png'
 import WalletConnectIcon from '../../assets/images/walletConnectIcon.svg'
 import CoinbaseWalletIcon from '../../assets/images/coinbaseWalletIcon.svg'
 
@@ -21,7 +19,7 @@ import { RowBetween } from '../Row'
 import { shortenAddress } from '../../utils'
 import { useAllTransactions } from '../../state/transactions/hooks'
 import { NetworkContextName } from '../../constants'
-import { injected, walletconnect, walletlink, fortmatic, portis } from '../../connectors'
+import { injected, walletconnect, walletlink } from '../../connectors'
 import Loader from '../Loader'
 
 const IconWrapper = styled.div<{ size?: number }>`
@@ -167,18 +165,6 @@ export default function Web3Status() {
       return (
         <IconWrapper size={16}>
           <img src={CoinbaseWalletIcon} alt={''} />
-        </IconWrapper>
-      )
-    } else if (connector === fortmatic) {
-      return (
-        <IconWrapper size={16}>
-          <img src={FortmaticIcon} alt={''} />
-        </IconWrapper>
-      )
-    } else if (connector === portis) {
-      return (
-        <IconWrapper size={16}>
-          <img src={PortisIcon} alt={''} />
         </IconWrapper>
       )
     }
