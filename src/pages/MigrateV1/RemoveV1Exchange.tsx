@@ -1,5 +1,5 @@
 import { TransactionResponse } from '@ethersproject/abstract-provider'
-import { JSBI, Token, TokenAmount, WETH, Fraction, Percent } from '@uniswap/sdk'
+import { JSBI, Token, TokenAmount, WOMC, Fraction, Percent } from '@uniswap/sdk'
 import React, { useCallback, useMemo, useState } from 'react'
 import ReactGA from 'react-ga'
 import { Redirect, RouteComponentProps } from 'react-router'
@@ -79,7 +79,7 @@ function V1PairRemoval({
         })
 
         addTransaction(response, {
-          summary: `Remove ${token.equals(WETH[chainId]) ? 'WETH' : token.symbol}/ETH V1 liquidity`
+          summary: `Remove ${token.equals(WOMC[chainId]) ? 'WOMC' : token.symbol}/ETH V1 liquidity`
         })
         setPendingRemovalHash(response.hash)
       })
@@ -119,7 +119,7 @@ function V1PairRemoval({
       </LightCard>
       <TYPE.darkGray style={{ textAlign: 'center' }}>
         {`Your Uniswap V1 ${
-          token.equals(WETH[chainId]) ? 'WETH' : token.symbol
+          token.equals(WOMC[chainId]) ? 'WOMC' : token.symbol
         }/ETH liquidity will be redeemed for underlying assets.`}
       </TYPE.darkGray>
     </AutoColumn>

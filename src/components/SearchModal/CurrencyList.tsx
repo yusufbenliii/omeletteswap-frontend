@@ -1,4 +1,4 @@
-import { Currency, CurrencyAmount, currencyEquals, ETHER, JSBI, Token } from '@uniswap/sdk'
+import { Currency, CurrencyAmount, currencyEquals, OMC, JSBI, Token } from '@uniswap/sdk'
 import React, { CSSProperties, memo, useContext, useMemo } from 'react'
 import { FixedSizeList } from 'react-window'
 import { Text } from 'rebass'
@@ -18,7 +18,7 @@ import Loader from '../Loader'
 import { isDefaultToken } from '../../utils'
 
 function currencyKey(currency: Currency): string {
-  return currency instanceof Token ? currency.address : currency === ETHER ? 'ETHER' : ''
+  return currency instanceof Token ? currency.address : currency === OMC ? 'OMC' : ''
 }
 
 export default function CurrencyList({
@@ -46,11 +46,11 @@ export default function CurrencyList({
 
   const CurrencyRow = useMemo(() => {
     return memo(function CurrencyRow({ index, style }: { index: number; style: CSSProperties }) {
-      const currency = index === 0 ? Currency.ETHER : currencies[index - 1]
+      const currency = index === 0 ? Currency.OMC : currencies[index - 1]
       const key = currencyKey(currency)
       const isDefault = isDefaultToken(defaultTokens, currency)
       const customAdded = Boolean(!isDefault && currency instanceof Token && allTokens[currency.address])
-      const balance = currency === ETHER ? ETHBalance : allBalances[key]
+      const balance = currency === OMC ? ETHBalance : allBalances[key]
 
       const zeroBalance = balance && JSBI.equal(JSBI.BigInt(0), balance.raw)
 
