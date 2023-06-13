@@ -201,7 +201,7 @@ export default function RemoveLiquidity({
     if (!liquidityAmount) throw new Error('missing liquidity amount')
 
     const currencyBIsETH = currencyB === OMC
-    const oneCurrencyIsETH = currencyA === OMC || currencyBIsETH
+    const oneCurrencyIsOMC = currencyA === OMC || currencyBIsETH
     const deadlineFromNow = Math.ceil(Date.now() / 1000) + deadline
 
     if (!tokenA || !tokenB) throw new Error('could not wrap')
@@ -210,7 +210,7 @@ export default function RemoveLiquidity({
     // we have approval, use normal remove liquidity
     if (approval === ApprovalState.APPROVED) {
       // removeLiquidityETH
-      if (oneCurrencyIsETH) {
+      if (oneCurrencyIsOMC) {
         methodNames = ['removeLiquidityETH', 'removeLiquidityETHSupportingFeeOnTransferTokens']
         args = [
           currencyBIsETH ? tokenA.address : tokenB.address,
@@ -238,7 +238,7 @@ export default function RemoveLiquidity({
     // we have a signataure, use permit versions of remove liquidity
     else if (signatureData !== null) {
       // removeLiquidityETHWithPermit
-      if (oneCurrencyIsETH) {
+      if (oneCurrencyIsOMC) {
         methodNames = ['removeLiquidityETHWithPermit', 'removeLiquidityETHWithPermitSupportingFeeOnTransferTokens']
         args = [
           currencyBIsETH ? tokenA.address : tokenB.address,
@@ -420,8 +420,8 @@ export default function RemoveLiquidity({
     [onUserInput]
   )
 
-  const oneCurrencyIsETH = currencyA === OMC || currencyB === OMC
-  const oneCurrencyIsWETH = Boolean(
+  const oneCurrencyIsOMC = currencyA === OMC || currencyB === OMC
+  const oneCurrencyIsWOMC = Boolean(
     chainId &&
       ((currencyA && currencyEquals(WOMC[chainId], currencyA)) ||
         (currencyB && currencyEquals(WOMC[chainId], currencyB)))
@@ -543,9 +543,9 @@ export default function RemoveLiquidity({
                         </Text>
                       </RowFixed>
                     </RowBetween>
-                    {chainId && (oneCurrencyIsWETH || oneCurrencyIsETH) ? (
+                    {chainId && (oneCurrencyIsWOMC || oneCurrencyIsOMC) ? (
                       <RowBetween style={{ justifyContent: 'flex-end' }}>
-                        {oneCurrencyIsETH ? (
+                        {oneCurrencyIsOMC ? (
                           <StyledInternalLink
                             to={`/remove/${currencyA === OMC ? WOMC[chainId].address : currencyIdA}/${
                               currencyB === OMC ? WOMC[chainId].address : currencyIdB
@@ -553,11 +553,11 @@ export default function RemoveLiquidity({
                           >
                             Receive WETH
                           </StyledInternalLink>
-                        ) : oneCurrencyIsWETH ? (
+                        ) : oneCurrencyIsWOMC ? (
                           <StyledInternalLink
                             to={`/remove/${
-                              currencyA && currencyEquals(currencyA, WOMC[chainId]) ? 'ETH' : currencyIdA
-                            }/${currencyB && currencyEquals(currencyB, WOMC[chainId]) ? 'ETH' : currencyIdB}`}
+                              currencyA && currencyEquals(currencyA, WOMC[chainId]) ? 'OMC' : currencyIdA
+                            }/${currencyB && currencyEquals(currencyB, WOMC[chainId]) ? 'OMC' : currencyIdB}`}
                           >
                             Receive ETH
                           </StyledInternalLink>
@@ -677,7 +677,7 @@ export default function RemoveLiquidity({
 
       {pair ? (
         <AutoColumn style={{ minWidth: '20rem', marginTop: '1rem' }}>
-          <MinimalPositionCard showUnwrapped={oneCurrencyIsWETH} pair={pair} />
+          <MinimalPositionCard showUnwrapped={oneCurrencyIsWOMC} pair={pair} />
         </AutoColumn>
       ) : null}
     </>

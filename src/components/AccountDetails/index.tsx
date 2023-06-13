@@ -331,7 +331,7 @@ export default function AccountDetails({
                           href={getEtherscanLink(chainId, ENSName, 'address')}
                         >
                           <LinkIcon size={16} />
-                          <span style={{ marginLeft: '4px' }}>View on Etherscan</span>
+                          <span style={{ marginLeft: '4px' }}>View on Omchain Explorer</span>
                         </AddressLink>
                       </div>
                     </AccountControl>
@@ -349,7 +349,7 @@ export default function AccountDetails({
                           href={getEtherscanLink(chainId, account, 'address')}
                         >
                           <LinkIcon size={16} />
-                          <span style={{ marginLeft: '4px' }}>View on Etherscan</span>
+                          <span style={{ marginLeft: '4px' }}>View on Omchain Explorer</span>
                         </AddressLink>
                       </div>
                     </AccountControl>

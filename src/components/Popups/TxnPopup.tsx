@@ -20,7 +20,7 @@ export default function TxnPopup({ hash, success, summary }: { hash: string; suc
       </div>
       <AutoColumn gap="8px">
         <TYPE.body fontWeight={500}>{summary ?? 'Hash: ' + hash.slice(0, 8) + '...' + hash.slice(58, 65)}</TYPE.body>
-        <ExternalLink href={getEtherscanLink(chainId, hash, 'transaction')}>View on Etherscan</ExternalLink>
+        <ExternalLink href={getEtherscanLink(chainId, hash, 'transaction')}>View on Omchain Explorer</ExternalLink>
       </AutoColumn>
     </AutoRow>
   )
