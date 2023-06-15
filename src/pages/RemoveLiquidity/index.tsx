@@ -200,8 +200,8 @@ export default function RemoveLiquidity({
     const liquidityAmount = parsedAmounts[Field.LIQUIDITY]
     if (!liquidityAmount) throw new Error('missing liquidity amount')
 
-    const currencyBIsETH = currencyB === OMC
-    const oneCurrencyIsOMC = currencyA === OMC || currencyBIsETH
+    const currencyBIsOMC = currencyB === OMC
+    const oneCurrencyIsOMC = currencyA === OMC || currencyBIsOMC
     const deadlineFromNow = Math.ceil(Date.now() / 1000) + deadline
 
     if (!tokenA || !tokenB) throw new Error('could not wrap')
@@ -213,10 +213,10 @@ export default function RemoveLiquidity({
       if (oneCurrencyIsOMC) {
         methodNames = ['removeLiquidityETH', 'removeLiquidityETHSupportingFeeOnTransferTokens']
         args = [
-          currencyBIsETH ? tokenA.address : tokenB.address,
+          currencyBIsOMC ? tokenA.address : tokenB.address,
           liquidityAmount.raw.toString(),
-          amountsMin[currencyBIsETH ? Field.CURRENCY_A : Field.CURRENCY_B].toString(),
-          amountsMin[currencyBIsETH ? Field.CURRENCY_B : Field.CURRENCY_A].toString(),
+          amountsMin[currencyBIsOMC ? Field.CURRENCY_A : Field.CURRENCY_B].toString(),
+          amountsMin[currencyBIsOMC ? Field.CURRENCY_B : Field.CURRENCY_A].toString(),
           account,
           deadlineFromNow
         ]
@@ -241,10 +241,10 @@ export default function RemoveLiquidity({
       if (oneCurrencyIsOMC) {
         methodNames = ['removeLiquidityETHWithPermit', 'removeLiquidityETHWithPermitSupportingFeeOnTransferTokens']
         args = [
-          currencyBIsETH ? tokenA.address : tokenB.address,
+          currencyBIsOMC ? tokenA.address : tokenB.address,
           liquidityAmount.raw.toString(),
-          amountsMin[currencyBIsETH ? Field.CURRENCY_A : Field.CURRENCY_B].toString(),
-          amountsMin[currencyBIsETH ? Field.CURRENCY_B : Field.CURRENCY_A].toString(),
+          amountsMin[currencyBIsOMC ? Field.CURRENCY_A : Field.CURRENCY_B].toString(),
+          amountsMin[currencyBIsOMC ? Field.CURRENCY_B : Field.CURRENCY_A].toString(),
           account,
           signatureData.deadline,
           false,
@@ -551,7 +551,7 @@ export default function RemoveLiquidity({
                               currencyB === OMC ? WOMC[chainId].address : currencyIdB
                             }`}
                           >
-                            Receive WETH
+                            Receive WOMC
                           </StyledInternalLink>
                         ) : oneCurrencyIsWOMC ? (
                           <StyledInternalLink
@@ -559,7 +559,7 @@ export default function RemoveLiquidity({
                               currencyA && currencyEquals(currencyA, WOMC[chainId]) ? 'OMC' : currencyIdA
                             }/${currencyB && currencyEquals(currencyB, WOMC[chainId]) ? 'OMC' : currencyIdB}`}
                           >
-                            Receive ETH
+                            Receive OMC
                           </StyledInternalLink>
                         ) : null}
                       </RowBetween>

@@ -44,13 +44,13 @@ export default function useWrapCallback(
             ? async () => {
                 try {
                   const txReceipt = await wethContract.deposit({ value: `0x${inputAmount.raw.toString(16)}` })
-                  addTransaction(txReceipt, { summary: `Wrap ${inputAmount.toSignificant(6)} ETH to WETH` })
+                  addTransaction(txReceipt, { summary: `Wrap ${inputAmount.toSignificant(6)} OMC to WOMC` })
                 } catch (error) {
                   console.error('Could not deposit', error)
                 }
               }
             : undefined,
-        error: sufficientBalance ? undefined : 'Insufficient ETH balance'
+        error: sufficientBalance ? undefined : 'Insufficient OMC balance'
       }
     } else if (currencyEquals(WOMC[chainId], inputCurrency) && outputCurrency === OMC) {
       return {
@@ -60,13 +60,13 @@ export default function useWrapCallback(
             ? async () => {
                 try {
                   const txReceipt = await wethContract.withdraw(`0x${inputAmount.raw.toString(16)}`)
-                  addTransaction(txReceipt, { summary: `Unwrap ${inputAmount.toSignificant(6)} WETH to ETH` })
+                  addTransaction(txReceipt, { summary: `Unwrap ${inputAmount.toSignificant(6)} WOMC to OMC` })
                 } catch (error) {
                   console.error('Could not withdraw', error)
                 }
               }
             : undefined,
-        error: sufficientBalance ? undefined : 'Insufficient WETH balance'
+        error: sufficientBalance ? undefined : 'Insufficient WOMC balance'
       }
     } else {
       return NOT_APPLICABLE
