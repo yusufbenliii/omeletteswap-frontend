@@ -87,14 +87,29 @@ export function useDerivedMintInfo(
     [Field.CURRENCY_B]: independentField === Field.CURRENCY_A ? dependentAmount : independentAmount
   }
 
+  // price
   const price = useMemo(() => {
     const { [Field.CURRENCY_A]: currencyAAmount, [Field.CURRENCY_B]: currencyBAmount } = parsedAmounts
     if (noLiquidity && currencyAAmount && currencyBAmount) {
       return new Price(currencyAAmount.currency, currencyBAmount.currency, currencyAAmount.raw, currencyBAmount.raw)
+    } else if (!noLiquidity && pair) {
+      // when there is liquidity, compute the price based on reserves
+      if (currencyA && currencyB) {
+        const tokenA = wrappedCurrency(currencyA, chainId)
+        const tokenB = wrappedCurrency(currencyB, chainId)
+        if (tokenA && tokenB) {
+          const reserveA = pair.reserveOf(tokenA)
+          const reserveB = pair.reserveOf(tokenB)
+          return reserveA && reserveB
+            ? new Price(reserveA.currency, reserveB.currency, reserveA.raw, reserveB.raw)
+            : undefined
+        }
+      }
+      return
     } else {
       return
     }
-  }, [noLiquidity, parsedAmounts])
+  }, [noLiquidity, pair, parsedAmounts, currencyA, chainId, currencyB])
 
   // liquidity minted
   const totalSupply = useTotalSupply(pair?.liquidityToken)
