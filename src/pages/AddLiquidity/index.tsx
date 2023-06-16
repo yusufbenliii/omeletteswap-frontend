@@ -50,7 +50,7 @@ export default function AddLiquidity({
   const currencyA = useCurrency(currencyIdA)
   const currencyB = useCurrency(currencyIdB)
 
-  const oneCurrencyIsWETH = Boolean(
+  const oneCurrencyIsWOMC = Boolean(
     chainId &&
       ((currencyA && currencyEquals(currencyA, WOMC[chainId])) ||
         (currencyB && currencyEquals(currencyB, WOMC[chainId])))
@@ -142,18 +142,18 @@ export default function AddLiquidity({
       args: Array<string | string[] | number>,
       value: BigNumber | null
     if (currencyA === OMC || currencyB === OMC) {
-      const tokenBIsETH = currencyB === OMC
+      const tokenBIsOMC = currencyB === OMC
       estimate = router.estimateGas.addLiquidityETH
       method = router.addLiquidityETH
       args = [
-        wrappedCurrency(tokenBIsETH ? currencyA : currencyB, chainId)?.address ?? '', // token
-        (tokenBIsETH ? parsedAmountA : parsedAmountB).raw.toString(), // token desired
-        amountsMin[tokenBIsETH ? Field.CURRENCY_A : Field.CURRENCY_B].toString(), // token min
-        amountsMin[tokenBIsETH ? Field.CURRENCY_B : Field.CURRENCY_A].toString(), // eth min
+        wrappedCurrency(tokenBIsOMC ? currencyA : currencyB, chainId)?.address ?? '', // token
+        (tokenBIsOMC ? parsedAmountA : parsedAmountB).raw.toString(), // token desired
+        amountsMin[tokenBIsOMC ? Field.CURRENCY_A : Field.CURRENCY_B].toString(), // token min
+        amountsMin[tokenBIsOMC ? Field.CURRENCY_B : Field.CURRENCY_A].toString(), // eth min
         account,
         deadlineFromNow
       ]
-      value = BigNumber.from((tokenBIsETH ? parsedAmountB : parsedAmountA).raw.toString())
+      value = BigNumber.from((tokenBIsOMC ? parsedAmountB : parsedAmountA).raw.toString())
     } else {
       estimate = router.estimateGas.addLiquidity
       method = router.addLiquidity
@@ -438,7 +438,7 @@ export default function AddLiquidity({
 
       {pair && !noLiquidity && pairState !== PairState.INVALID ? (
         <AutoColumn style={{ minWidth: '20rem', marginTop: '1rem' }}>
-          <MinimalPositionCard showUnwrapped={oneCurrencyIsWETH} pair={pair} />
+          <MinimalPositionCard showUnwrapped={oneCurrencyIsWOMC} pair={pair} />
         </AutoColumn>
       ) : null}
     </>

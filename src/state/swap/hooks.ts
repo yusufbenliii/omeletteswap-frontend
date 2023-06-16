@@ -194,10 +194,10 @@ function parseCurrencyFromURLParameter(urlParam: any): string {
   if (typeof urlParam === 'string') {
     const valid = isAddress(urlParam)
     if (valid) return valid
-    if (urlParam.toUpperCase() === 'ETH') return 'ETH'
-    if (valid === false) return 'ETH'
+    if (urlParam.toUpperCase() === 'OMC') return 'OMC'
+    if (valid === false) return 'OMC'
   }
-  return 'ETH' ?? ''
+  return 'OMC' ?? ''
 }
 
 function parseTokenAmountURLParameter(urlParam: any): string {

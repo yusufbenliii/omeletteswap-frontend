@@ -281,7 +281,11 @@ export default function WalletModal({
           <HeaderRow>{error instanceof UnsupportedChainIdError ? 'Wrong Network' : 'Error connecting'}</HeaderRow>
           <ContentWrapper>
             {error instanceof UnsupportedChainIdError ? (
+<<<<<<< HEAD
               <h5>Please connect to the appropriate Omchain network.</h5>
+=======
+              <h5>Please connect to the Omchain Network.</h5>
+>>>>>>> f0c75e2323639fa631c66d78e5d0d3a80b24467d
             ) : (
               'Error connecting. Try refreshing the page.'
             )}

@@ -2668,9 +2668,9 @@
   resolved "https://registry.yarnpkg.com/@uniswap/lib/-/lib-1.1.1.tgz#0afd29601846c16e5d082866cbb24a9e0758e6bc"
   integrity sha512-2yK7sLpKIT91TiS5sewHtOa7YuM8IuBXVl4GZv2jZFys4D2sY7K5vZh6MqD25TPA95Od+0YzCVq6cTF2IKrOmg==
 
-"@uniswap/sdk@github:berkayermis/v2-sdk":
+"@uniswap/sdk@github:yusufbenliii/v2-sdk":
   version "3.0.3"
-  resolved "https://codeload.github.com/berkayermis/v2-sdk/tar.gz/622a3cf62b370aeeaf649a3dab20ab90f3741d49"
+  resolved "https://codeload.github.com/yusufbenliii/v2-sdk/tar.gz/723a5346b6a90c69fe589ee71712fd6c7cee65ce"
   dependencies:
     "@uniswap/v2-core" "^1.0.0"
     big.js "^5.2.2"
