@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-undef */
 import { ChainId } from '@uniswap/sdk'
 import React from 'react'
 import { isMobile } from 'react-device-detect'
@@ -5,10 +6,6 @@ import { Text } from 'rebass'
 
 import styled from 'styled-components'
 
-/* import Logo from '../../assets/svg/logo.svg'
-import LogoDark from '../../assets/svg/logo_white.svg'
-import Wordmark from '../../assets/svg/wordmark.svg'
-import WordmarkDark from '../../assets/svg/wordmark_white.svg' */
 import OmeletteLogoDark from '../../assets/images/omelette_logo.png'
 import { useActiveWeb3React } from '../../hooks'
 import { useDarkModeManager } from '../../state/user/hooks'
@@ -17,8 +14,9 @@ import { useETHBalances } from '../../state/wallet/hooks'
 import { YellowCard } from '../Card'
 import Settings from '../Settings'
 import Menu from '../Menu'
+import { NavLink } from 'react-router-dom'
 
-import { RowBetween } from '../Row'
+import Row, { RowBetween } from '../Row'
 import Web3Status from '../Web3Status'
 //import VersionSwitch from './VersionSwitch'
 
@@ -50,6 +48,37 @@ const HeaderElementWrap = styled.div`
   ${({ theme }) => theme.mediaWidth.upToSmall`
     margin-top: 0.5rem;
 `};
+`
+
+const HeaderLinks = styled(Row)`
+  justify-content: center;
+  ${({ theme }) => theme.mediaWidth.upToMedium`
+    padding: 1rem 0 1rem 1rem;
+    justify-content: flex-end;
+`};
+`
+const activeClassName = 'ACTIVE'
+
+const StyledNavLink = styled(NavLink).attrs({
+  activeClassName
+})`
+  ${({ theme }) => theme.flexRowNoWrap}
+  align-items: left;
+  border-radius: 3rem;
+  outline: none;
+  cursor: pointer;
+  text-decoration: none;
+  color: ${({ theme }) => theme.text2};
+  font-size: 1.2rem;
+  width: fit-content;
+  margin: 0 18px;
+  font-weight: 600;
+
+  &.${activeClassName} {
+    border-radius: 12px;
+    font-weight: 600;
+    color: ${({ theme }) => theme.text1};
+  }
 `
 
 const Title = styled.a`
@@ -100,6 +129,7 @@ const NetworkCard = styled(YellowCard)`
 
 const UniIcon = styled.div`
   transition: transform 0.3s ease;
+  margin: 0 1rem 0 0;
   :hover {
     transform: rotate(-5deg);
   }
@@ -143,12 +173,23 @@ export default function Header() {
         <HeaderElement>
           <Title href=".">
             <UniIcon>
-              <img width={60} height={60} src={isDark ? OmeletteLogoDark : OmeletteLogoDark} alt="logo" />
+              <img width={50} height={50} src={isDark ? OmeletteLogoDark : OmeletteLogoDark} alt="logo" />
             </UniIcon>
-            {/*         <TitleText>
-               <img style={{ marginLeft: '4px', marginTop: '4px' }} src={isDark ? WordmarkDark : Wordmark} alt="logo" />
-            </TitleText> */}
           </Title>
+          <HeaderLinks>
+            <StyledNavLink id={`swap-nav-link`} to={'/ido'}>
+              IDO
+            </StyledNavLink>
+            <StyledNavLink id={`swap-nav-link`} to={'/swap'}>
+              Swap
+            </StyledNavLink>
+            <StyledNavLink id={`swap-nav-link`} to={'/pool'}>
+              Pool
+            </StyledNavLink>
+            <StyledNavLink id={`swap-nav-link`} to={'/farm'}>
+              Farm
+            </StyledNavLink>
+          </HeaderLinks>
         </HeaderElement>
         <HeaderControls>
           <HeaderElement>

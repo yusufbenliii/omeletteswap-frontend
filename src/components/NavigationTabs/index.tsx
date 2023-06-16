@@ -14,7 +14,7 @@ const Tabs = styled.div`
   border-radius: 3rem;
   justify-content: space-evenly;
 `
-
+/* 
 const activeClassName = 'ACTIVE'
 
 const StyledNavLink = styled(NavLink).attrs({
@@ -41,7 +41,7 @@ const StyledNavLink = styled(NavLink).attrs({
   :focus {
     color: ${({ theme }) => darken(0.1, theme.text1)};
   }
-`
+` */
 
 const ActiveText = styled.div`
   font-weight: 500;
@@ -52,7 +52,7 @@ const StyledArrowLeft = styled(ArrowLeft)`
   color: ${({ theme }) => theme.text1};
 `
 
-export function SwapPoolTabs({ active }: { active: 'swap' | 'pool' }) {
+/* export function SwapPoolTabs({ active }: { active: 'swap' | 'pool' }) {
   const { t } = useTranslation()
   return (
     <Tabs style={{ marginBottom: '20px' }}>
@@ -64,7 +64,7 @@ export function SwapPoolTabs({ active }: { active: 'swap' | 'pool' }) {
       </StyledNavLink>
     </Tabs>
   )
-}
+} */
 
 export function FindPoolTabs() {
   return (
