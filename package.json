@@ -1,6 +1,6 @@
 {
-  "name": "@uniswap/interface",
-  "description": "Uniswap Interface",
+  "name": "@omeletteswap/interface",
+  "description": "OmeletteSwap Interface",
   "homepage": ".",
   "private": true,
   "devDependencies": {
