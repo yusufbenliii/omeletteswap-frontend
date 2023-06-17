@@ -96,13 +96,7 @@ export function useToken(tokenAddress?: string): Token | undefined | null {
 }
 
 export function useCurrency(currencyId: string | undefined): Currency | null | undefined {
-<<<<<<< HEAD
   const isETH = currencyId?.toUpperCase() === 'OMC'
   const token = useToken(isETH ? undefined : currencyId)
   return isETH ? OMC : token
-=======
-  const isOMC = currencyId?.toUpperCase() === 'OMC'
-  const token = useToken(isOMC ? undefined : currencyId)
-  return isOMC ? OMC : token
->>>>>>> f0c75e2323639fa631c66d78e5d0d3a80b24467d
 }
