@@ -4,42 +4,51 @@ export const IDO_STATUS_ENDED = 'Ended'
 interface AnnouncedIDOItem {
   id: number
   title: string
-  description?: string
+  symbol: string
+  price: string
+  description: string
   status: string
-  launchpad: string
-  announcementUrl: string
+  target: number
+  tokenAddress: string
+  announcementUrl?: string
   projectIconLocation: string
   projectUrl: string
-  startTime?: string
-  endTime?: string
+  whitelistRound?: string
+  publicRound?: string
+  saleEnds?: string
 }
 
 export const IDO_LIST: Array<AnnouncedIDOItem> = [
   {
     id: 1,
-    title: 'Sherpa Cash',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-    status: IDO_STATUS_ENDED,
-    launchpad: 'Penguin Finance',
-    announcementUrl:
-      'https://penguin-finance.medium.com/penguin-launchpad-staking-for-the-upcoming-sherpa-distribution-is-now-live-239267f2b9db',
-    projectIconLocation: require('../assets/images/omelette_logo.png'),
-    projectUrl: 'https://sherpa.cash/',
-    startTime: '',
-    endTime: ''
-  },
-  {
-    id: 10,
-    title: 'Colony',
+    title: 'OmeletteSwap',
+    symbol: 'OMLT',
+    price: '0.006',
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
     status: IDO_STATUS_UPCOMING,
-    launchpad: 'Avalaunch',
-    announcementUrl: 'https://launchpad.avalaunch.app/project-details?id=12',
+    target: 100000000,
+    tokenAddress: '0x0',
     projectIconLocation: require('../assets/images/omelette_logo.png'),
-    projectUrl: 'https://colonylab.io/',
-    startTime: '',
-    endTime: ''
+    projectUrl: 'https://twitter.com/omeletteswap',
+    whitelistRound: '',
+    publicRound: '',
+    saleEnds: ''
   }
+  /*   {
+    id: 2,
+    title: 'OmeletteSwap',
+    symbol: 'OMLT',
+    price: '0.006',
+    description:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    status: IDO_STATUS_ENDED,
+    target: 100000000,
+    tokenAddress: '0x0',
+    projectIconLocation: require('../assets/images/omelette_logo.png'),
+    projectUrl: 'https://twitter.com/omeletteswap',
+    whitelistRound: '',
+    publicRound: '',
+    saleEnds: ''
+  } */
 ]

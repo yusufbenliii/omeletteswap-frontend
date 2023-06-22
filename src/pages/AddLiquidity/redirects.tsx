@@ -1,6 +1,7 @@
 import React from 'react'
 import { Redirect, RouteComponentProps } from 'react-router-dom'
 import AddLiquidity from './index'
+import IDO from '../Ido/index'
 
 export function RedirectToAddLiquidity() {
   return <Redirect to="/add/" />
@@ -19,6 +20,16 @@ export function RedirectOldAddLiquidityPathStructure(props: RouteComponentProps<
   }
 
   return <AddLiquidity {...props} />
+}
+
+export function RedirectToIDOPage(props: RouteComponentProps<{ id: string }>) {
+  const {
+    match: {
+      params: { id }
+    }
+  } = props
+
+  return <Redirect to={`/ido/${id}`} />
 }
 
 export function RedirectDuplicateTokenIds(props: RouteComponentProps<{ currencyIdA: string; currencyIdB: string }>) {

@@ -177,9 +177,6 @@ export default function Header() {
             </UniIcon>
           </Title>
           <HeaderLinks>
-            <StyledNavLink id={`swap-nav-link`} to={'/ido'}>
-              IDO
-            </StyledNavLink>
             <StyledNavLink id={`swap-nav-link`} to={'/swap'}>
               Swap
             </StyledNavLink>
@@ -188,6 +185,9 @@ export default function Header() {
             </StyledNavLink>
             <StyledNavLink id={`swap-nav-link`} to={'/farm'}>
               Farm
+            </StyledNavLink>
+            <StyledNavLink id={`swap-nav-link`} to={'/ido'}>
+              IDO
             </StyledNavLink>
           </HeaderLinks>
         </HeaderElement>

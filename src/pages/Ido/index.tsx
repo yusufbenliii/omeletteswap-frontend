@@ -4,12 +4,13 @@ import { CardSection, DataCard, CardNoise, CardBGImage } from '../../components/
 
 import { IDO_LIST, IDO_STATUS_UPCOMING, IDO_STATUS_ENDED } from '../../constants/idos'
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import { AutoColumn } from '../../components/Column'
 import styled from 'styled-components'
 import { TYPE, ExternalLink } from '../../theme'
 
 import { RowBetween } from '../../components/Row'
+import { RouteComponentProps } from 'react-router-dom'
 
 import { useTranslation } from 'react-i18next'
 
@@ -104,9 +105,8 @@ const EmptyProposals = styled.div`
   align-items: center;
 `
 
-export default function IDO() {
+export default function IDO({ history }: RouteComponentProps) {
   const { t } = useTranslation()
-
   return (
     <PageWrapper gap="lg" justify="center">
       {/* This is the top section of the page */}
@@ -122,7 +122,7 @@ export default function IDO() {
               <RowBetween>
                 <TYPE.main fontSize={14}>
                   Initial DEX Offerings (IDO) allows projects to crowdfund their native tokens on decentralized
-                  exchanges. We've partnered with amazing teams to bring great projects to the Avalanche community.
+                  exchanges. We've partnered with amazing teams to bring great projects to the Omchain community.
                 </TYPE.main>
               </RowBetween>
               <RowBetween></RowBetween>
@@ -132,7 +132,6 @@ export default function IDO() {
           <CardNoise />
         </IDOCard>
       </TopSection>
-
       <TopSection gap="2px">
         <WrapSmall>
           {/* This is the title section of the IDO list */}
@@ -149,36 +148,49 @@ export default function IDO() {
             </TYPE.subHeader>
           </EmptyProposals>
         )}
-        {IDO_LIST?.filter(ido => ido.status === IDO_STATUS_UPCOMING).map(filteredIDO => {
-          return (
-            <IDOs key={filteredIDO.id}>
-              <PngIcon>
-                <img width={'50px'} src={filteredIDO.projectIconLocation} alt="logo" />
-              </PngIcon>
-              <StyledExternalLink id={`gov-nav-link`} href={filteredIDO.announcementUrl}>
-                {filteredIDO.title} by {filteredIDO.launchpad} <span style={{ fontSize: '11px' }}>↗</span>
-              </StyledExternalLink>
-            </IDOs>
-          )
-        })}
+        {IDO_LIST.filter(ido => ido.status === IDO_STATUS_UPCOMING).length === 0 ? (
+          <p>Nothing found.</p>
+        ) : (
+          IDO_LIST.filter(ido => ido.status === IDO_STATUS_UPCOMING).map(filteredIDO => {
+            return (
+              <IDOs key={filteredIDO.id}>
+                <PngIcon>
+                  <img width={'50px'} src={filteredIDO.projectIconLocation} alt="logo" />
+                </PngIcon>
+                <a
+                  id={`gov-nav-link`}
+                  onClick={() => {
+                    history.push(`/ido/${filteredIDO.id}`)
+                  }}
+                >
+                  {filteredIDO.title} - ${filteredIDO.symbol} IDO<span style={{ fontSize: '11px' }}>↗</span>
+                </a>
+              </IDOs>
+            )
+          })
+        )}
       </TopSection>
       <TopSection gap="2px">
         <WrapSmall>
           {/* This is the title section of the IDO list */}
           <TYPE.mediumHeader style={{ margin: '0.5rem 0.5rem 0.5rem 0', flexShrink: 0 }}>Ended IDOs</TYPE.mediumHeader>
         </WrapSmall>
-        {IDO_LIST.filter(ido => ido.status === IDO_STATUS_ENDED).map(filteredIDO => {
-          return (
-            <IDOs key={filteredIDO.id}>
-              <PngIcon>
-                <img width={'50px'} src={filteredIDO.projectIconLocation} alt="logo" />
-              </PngIcon>
-              <StyledExternalLink id={`gov-nav-link`} href={filteredIDO.announcementUrl}>
-                {filteredIDO.title} by {filteredIDO.launchpad} <span style={{ fontSize: '11px' }}>↗</span>
-              </StyledExternalLink>
-            </IDOs>
-          )
-        })}
+        {IDO_LIST.filter(ido => ido.status === IDO_STATUS_ENDED).length === 0 ? (
+          <p>Nothing found.</p>
+        ) : (
+          IDO_LIST.filter(ido => ido.status === IDO_STATUS_ENDED).map(filteredIDO => {
+            return (
+              <IDOs key={filteredIDO.id}>
+                <PngIcon>
+                  <img width={'50px'} src={filteredIDO.projectIconLocation} alt="logo" />
+                </PngIcon>
+                <StyledExternalLink id={`gov-nav-link`} href={filteredIDO.projectUrl}>
+                  {filteredIDO.title} Airdrop<span style={{ fontSize: '11px' }}>↗</span>
+                </StyledExternalLink>
+              </IDOs>
+            )
+          })
+        )}
       </TopSection>
     </PageWrapper>
   )
