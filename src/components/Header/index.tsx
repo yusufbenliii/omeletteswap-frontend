@@ -263,6 +263,9 @@ export default function Header() {
           <StyledNavLink id={`swap-nav-link`} to={'/pool'}>
             Pool
           </StyledNavLink>
+          <StyledNavLink id={`swap-nav-link`} to={'/ido'}>
+            IDO
+          </StyledNavLink>
         </HeaderLinks>
       </HeaderRow>
       <HeaderControls>

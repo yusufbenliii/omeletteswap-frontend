@@ -7,20 +7,18 @@ import { RouteComponentProps } from 'react-router-dom'
 
 import { useTranslation } from 'react-i18next'
 import omeletteLogo from '../../assets/images/omelette_logo.png'
-const PageWrapper = styled(AutoColumn)``
+import { Hidden } from '../../theme/components'
+import { theme } from '../../theme'
 
-const ProcessContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-top: 6px;
-`
+const PageWrapper = styled(AutoColumn)``
 
 const IDOContainer = styled.div`
   display: flex;
   flex-direction: row;
-  height: 100%;
+  align-items: center;
+  ${({ theme }) => theme.mediaWidth.upToMedium`
+    flex-direction: column;
+  `};
 `
 
 const Title = styled.div`
@@ -35,6 +33,8 @@ const Description = styled.div`
 
 const Buttons = styled.div`
   margin-top: 16px;
+  display: flex;
+  flex-direction: column;
 `
 
 const ProgressText = styled.div`
@@ -52,6 +52,9 @@ const LeftSection = styled.div`
   align-items: center;
   width: 45%;
   height: 100%;
+  ${({ theme }) => theme.mediaWidth.upToMedium`
+  width: 95%;
+  `};
 `
 
 const RightSection = styled.div`
@@ -63,6 +66,9 @@ const RightSection = styled.div`
   border-radius: 12px;
   align-items: center;
   width: 55%;
+  ${({ theme }) => theme.mediaWidth.upToMedium`
+  width: 100%;
+`};
 `
 
 const Box = styled.div`
@@ -83,8 +89,8 @@ const InfoBox = styled.div`
   border-radius: 12px;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  text-align: left;
+  align-items: center;
+  text-align: center;
   outline: none;
   color: ${({ theme }) => theme.text1};
   text-decoration: none;
@@ -105,18 +111,24 @@ const ProgressBox = styled(Box)`
 const RightRound = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
-  margin-left: auto; /* Added margin-left to align to the end */
+  align-items: flex-start;
+  justify-content: center;
 `
 
 const LogoTitle = styled.div`
   font-size: 20px;
   font-weight: bold;
+  ${({ theme }) => theme.mediaWidth.upToSmall`
+    font-size: 15px;
+  `};
 `
 
 const Symbol = styled.div`
   font-size: 16px;
   color: #888;
+  ${({ theme }) => theme.mediaWidth.upToExtraSmall`
+    font-size: 10px;
+  `};
 `
 
 const ProgressBar = styled.div`
@@ -159,7 +171,7 @@ const LeftHeader = styled.div`
   border-radius: 12px;
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: left;
   justify-content: space-between;
   width: 100%;
 `
@@ -176,15 +188,31 @@ const InputHeader = styled.div`
 const RightHeader = styled.div`
   display: flex;
   flex-direction: column;
-  margin-left: 10px;
+`
+
+const RightHeaderText = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-right: 30px;
+  justify-content: center;
 `
 
 const TimeLine = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
   width: 100%;
+`
+
+const TimeLineContainer = styled(TimeLine)`
+  flex-direction: column;
+  width: 100%;
+  gap: 16px;
+`
+
+const TimeLineBox = styled(Box)`
+  width: 95%;
+  flex-direction: row;
 `
 
 const ProgressIcon = styled.div`
@@ -199,13 +227,20 @@ const ProgressIcon = styled.div`
   justify-content: center;
   font-size: 12px;
   font-weight: bold;
+  ${({ theme }) => theme.mediaWidth.upToMedium`
+  width: 26px;
+  height: 26px;
+  `};
 `
 
 const IconSize = styled.div`
   font-size: 24px;
+  ${({ theme }) => theme.mediaWidth.upToExtraSmall`
+    font-size: 14px;
+  `};
 `
 
-const Dots = styled.div`
+/* const Dots = styled.div`
   position: relative;
   top: auto;
   right: auto;
@@ -215,7 +250,7 @@ const Dots = styled.div`
   padding-top: 0;
   flex: 1;
   border-bottom: 1px dashed #ccc;
-`
+` */
 
 const Input = styled.input`
   width: 50%;
@@ -252,38 +287,6 @@ export default function IdoDetail({
   console.log('this is the id', id)
   return (
     <PageWrapper gap="lg" justify="center">
-      {!modalOpen && (
-        <ProcessContainer>
-          <TimeLine>
-            <ProgressBox>
-              <ProgressIcon className="process-icon border border-light bg-custom-light rounded-custom p-3">
-                <IconSize>1</IconSize>
-              </ProgressIcon>
-              <h3>Whitelist Round</h3>
-              <p>Date: 25/07/2023</p>
-              <p>Time: 14 days</p>
-            </ProgressBox>
-            <Dots></Dots>
-            <ProgressBox className="process-card text-center px-4 py-lg-5 py-3 rounded-custom shadow-hover mb-2 mb-lg-0">
-              <ProgressIcon className="process-icon border border-light bg-custom-light rounded-custom p-3">
-                <IconSize>2</IconSize>
-              </ProgressIcon>
-              <h3>Public Round</h3>
-              <p>Date: 25/07/2023</p>
-              <p>Time: 14 days</p>
-            </ProgressBox>
-            <Dots></Dots>
-            <ProgressBox>
-              <ProgressIcon className="process-icon border border-light bg-custom-light rounded-custom p-3">
-                <IconSize>3</IconSize>
-              </ProgressIcon>
-              <h3>Sale Ends</h3>
-              <p>Date: 25/07/2023</p>
-              <p>Time: 14 days</p>
-            </ProgressBox>
-          </TimeLine>
-        </ProcessContainer>
-      )}
       <IDOContainer>
         <LeftSection>
           <InfoBox>
@@ -303,11 +306,11 @@ export default function IdoDetail({
         <RightSection>
           <Box>
             <LeftHeader>
-              <img src={omeletteLogo} alt="logo" width={60} height={60} />
-              <RightHeader>
+              <img src={omeletteLogo} alt="logo" width={50} height={50} />
+              <RightHeaderText>
                 <Symbol>OmelletteSwap</Symbol>
                 <LogoTitle>OMLT</LogoTitle>
-              </RightHeader>
+              </RightHeaderText>
               <RightRound>
                 <Symbol>Price</Symbol>
                 <LogoTitle>$0.006</LogoTitle>
@@ -375,6 +378,96 @@ export default function IdoDetail({
           )}
         </RightSection>
       </IDOContainer>
+      {/*       <Hidden upToMedium={true}>
+        {!modalOpen && (
+          <TimeLine>
+            <ProgressBox>
+              <ProgressIcon>
+                <IconSize>1</IconSize>
+              </ProgressIcon>
+              <h3>Whitelist Round</h3>
+              <p>Date: 25/07/2023</p>
+              <p>Time: 14 days</p>
+            </ProgressBox>
+            <Dots></Dots>
+            <ProgressBox className="process-card text-center px-4 py-lg-5 py-3 rounded-custom shadow-hover mb-2 mb-lg-0">
+              <ProgressIcon>
+                <IconSize>2</IconSize>
+              </ProgressIcon>
+              <h3>Public Round</h3>
+              <p>Date: 25/07/2023</p>
+              <p>Time: 14 days</p>
+            </ProgressBox>
+            <Dots></Dots>
+            <ProgressBox>
+              <ProgressIcon>
+                <IconSize>3</IconSize>
+              </ProgressIcon>
+              <h3>Sale Ends</h3>
+              <p>Date: 25/07/2023</p>
+              <p>Time: 14 days</p>
+            </ProgressBox>
+          </TimeLine>
+        )}
+      </Hidden> */}
+      {!modalOpen && (
+        <TimeLineContainer>
+          <TimeLineBox>
+            <LeftHeader>
+              <ProgressIcon>
+                <IconSize>1</IconSize>
+              </ProgressIcon>{' '}
+              <RightRound>
+                <LogoTitle>Whitelist Round</LogoTitle>
+              </RightRound>
+              <RightRound>
+                <Symbol>Date</Symbol>
+                <Symbol>25/07/2023</Symbol>
+              </RightRound>
+              <RightRound>
+                <Symbol>Time</Symbol>
+                <Symbol>14 days</Symbol>
+              </RightRound>
+            </LeftHeader>
+          </TimeLineBox>
+          <TimeLineBox>
+            <LeftHeader>
+              <ProgressIcon>
+                <IconSize>2</IconSize>
+              </ProgressIcon>{' '}
+              <RightRound>
+                <LogoTitle>Public Round</LogoTitle>
+              </RightRound>
+              <RightRound>
+                <Symbol>Date</Symbol>
+                <Symbol>25/07/2023</Symbol>
+              </RightRound>
+              <RightRound>
+                <Symbol>Time</Symbol>
+                <Symbol>14 days</Symbol>
+              </RightRound>
+            </LeftHeader>
+          </TimeLineBox>
+          <TimeLineBox>
+            <LeftHeader>
+              <ProgressIcon>
+                <IconSize>3</IconSize>
+              </ProgressIcon>{' '}
+              <RightRound>
+                <LogoTitle>Sale Ends</LogoTitle>
+              </RightRound>
+              <RightRound>
+                <Symbol>Date</Symbol>
+                <Symbol>25/07/2023</Symbol>
+              </RightRound>
+              <RightRound>
+                <Symbol>Time</Symbol>
+                <Symbol>14 days</Symbol>
+              </RightRound>
+            </LeftHeader>
+          </TimeLineBox>
+        </TimeLineContainer>
+      )}
     </PageWrapper>
   )
 }
