@@ -334,7 +334,7 @@ export default function WalletModal({
           )}
           {walletView !== WALLET_VIEWS.PENDING && (
             <Blurb>
-              <span>New to Ethereum? &nbsp;</span>{' '}
+              <span>New to Omchain? &nbsp;</span>{' '}
               <ExternalLink href="https://ethereum.org/use/#3-what-is-a-wallet-and-which-one-should-i-use">
                 Learn more about wallets
               </ExternalLink>

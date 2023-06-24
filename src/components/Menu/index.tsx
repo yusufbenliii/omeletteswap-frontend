@@ -61,6 +61,10 @@ const MenuFlyout = styled.span`
   top: 3rem;
   right: 0rem;
   z-index: 100;
+
+  ${({ theme }) => theme.mediaWidth.upToMedium`
+  top: -13rem;
+`};
 `
 
 const MenuItem = styled(ExternalLink)`

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import styled, { keyframes } from 'styled-components'
 import { darken } from 'polished'
 import { ArrowLeft, X } from 'react-feather'
+import { Box } from '../components/Box'
 
 export const Button = styled.button.attrs<{ warning: boolean }, { backgroundColor: string }>(({ warning, theme }) => ({
   backgroundColor: warning ? theme.red1 : theme.primary1
@@ -32,6 +33,12 @@ export const Button = styled.button.attrs<{ warning: boolean }, { backgroundColo
     background-color: ${({ theme }) => theme.bg1};
     color: ${({ theme }) => theme.text4};
     cursor: auto;
+  }
+`
+
+export const CursorPointer = styled.div`
+  :hover {
+    cursor: pointer;
   }
 `
 
@@ -104,6 +111,16 @@ const StyledLink = styled.a`
   }
 `
 
+const rotateImg = keyframes`
+  0% {
+    transform: perspective(1000px) rotateY(0deg);
+  }
+
+  100% {
+    transform: perspective(1000px) rotateY(360deg);
+  }
+`
+
 /**
  * Outbound link that handles firing google analytics events
  */
@@ -148,12 +165,6 @@ export const Spinner = styled.img`
   height: 16px;
 `
 
-export const CursorPointer = styled.div`
-  :hover {
-    cursor: pointer;
-  }
-`
-
 const BackArrowLink = styled(StyledInternalLink)`
   color: ${({ theme }) => theme.text1};
 `
@@ -164,3 +175,77 @@ export function BackArrow({ to }: { to: string }) {
     </BackArrowLink>
   )
 }
+
+export const CustomLightSpinner = styled(Spinner)<{ size: string }>`
+  height: ${({ size }) => size};
+  width: ${({ size }) => size};
+`
+
+export const HideSmall = styled.span`
+  ${({ theme }) => theme.mediaWidth.upToSmall`
+    display: none;
+  `};
+`
+
+export const Hidden = styled(Box)<{
+  upToExtraSmall?: boolean
+  upToSmall?: boolean
+  upToMedium?: boolean
+  upToLarge?: boolean
+}>`
+  ${({ theme, upToExtraSmall }) =>
+    upToExtraSmall &&
+    theme.mediaWidth.upToExtraSmall`
+    display: none;
+  `};
+
+  ${({ theme, upToSmall }) =>
+    upToSmall &&
+    theme.mediaWidth.upToSmall`
+    display: none;
+  `};
+
+  ${({ theme, upToMedium }) =>
+    upToMedium &&
+    theme.mediaWidth.upToMedium`
+    display: none;
+  `};
+
+  ${({ theme, upToLarge }) =>
+    upToLarge &&
+    theme.mediaWidth.upToLarge`
+    display: none;
+  `};
+`
+
+export const Visible = styled(Box)<{
+  upToExtraSmall?: boolean
+  upToSmall?: boolean
+  upToMedium?: boolean
+  upToLarge?: boolean
+}>`
+  display: none;
+  ${({ theme, upToExtraSmall }) =>
+    upToExtraSmall &&
+    theme.mediaWidth.upToExtraSmall`
+    display: block;
+  `};
+
+  ${({ theme, upToSmall }) =>
+    upToSmall &&
+    theme.mediaWidth.upToSmall`
+    display: block;
+  `};
+
+  ${({ theme, upToMedium }) =>
+    upToMedium &&
+    theme.mediaWidth.upToMedium`
+    display: block;
+  `};
+
+  ${({ theme, upToLarge }) =>
+    upToLarge &&
+    theme.mediaWidth.upToLarge`
+    display: block;
+  `};
+`
