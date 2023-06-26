@@ -1,16 +1,14 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable react/no-unescaped-entities */
 import { darken } from 'polished'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { AutoColumn } from '../../components/Column'
 import styled from 'styled-components'
 import { RouteComponentProps } from 'react-router-dom'
-import { transparentize } from 'polished'
 
 import { useTranslation } from 'react-i18next'
 import omeletteLogo from '../../assets/images/omelette_logo.png'
-import { Hidden } from '../../theme/components'
-import { theme, ExternalLink } from '../../theme'
+import { ExternalLink } from '../../theme'
 import { getProviderOrSigner } from '../../utils'
 import { JsonRpcSigner, Provider, Web3Provider } from '@ethersproject/providers'
 import { useActiveWeb3React } from '../../hooks/index'
@@ -111,25 +109,30 @@ const InfoBox = styled.div`
     0px 24px 32px rgba(0, 0, 0, 0.01);
 `
 
-const ProgressBox = styled(Box)`
-  padding: 1rem 4rem;
-  border-radius: 12px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  color: ${({ theme }) => theme.text1};
-  background-color: ${({ theme }) => theme.bg1};
-`
-
 const RightRound = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
+  margin: 0 0 0 30px;
+  width: 20%;
+`
+
+const MenuRightRound = styled(RightRound)`
+  align-items: flex-end;
+  width: 50%;
+`
+
+const RoundSection = styled.div`
+  min-width: 5rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 60%;
 `
 
 const LogoTitle = styled.div`
-  font-size: 20px;
+  font-size: 18px;
   font-weight: bold;
   color: #888;
   ${({ theme }) => theme.mediaWidth.upToSmall`
@@ -137,10 +140,14 @@ const LogoTitle = styled.div`
   `};
 `
 
+const RoundTitle = styled(LogoTitle)`
+  margin-left: 8px;
+`
+
 const Symbol = styled.div`
   font-size: 16px;
   color: #888;
-  ${({ theme }) => theme.mediaWidth.upToExtraSmall`
+  ${({ theme }) => theme.mediaWidth.upToSmall`
     font-size: 10px;
   `};
 `
@@ -241,9 +248,9 @@ const ProgressIcon = styled.div`
   justify-content: center;
   font-size: 12px;
   font-weight: bold;
-  ${({ theme }) => theme.mediaWidth.upToMedium`
-  width: 26px;
-  height: 26px;
+  ${({ theme }) => theme.mediaWidth.upToExtraSmall`
+  width: 22px;
+  height: 22px;
   `};
 `
 
@@ -253,18 +260,6 @@ const IconSize = styled.div`
     font-size: 14px;
   `};
 `
-
-/* const Dots = styled.div`
-  position: relative;
-  top: auto;
-  right: auto;
-  z-index: 2;
-  width: 100px;
-  height: 1px;
-  padding-top: 0;
-  flex: 1;
-  border-bottom: 1px dashed #ccc;
-` */
 
 const Input = styled.input`
   width: 50%;
@@ -288,10 +283,6 @@ const Input = styled.input`
     -webkit-appearance: none;
     margin: 0;
   }
-`
-
-const ExternalLinkStyled = styled.div`
-  color: '#00aaff';
 `
 
 interface ProviderWithRequest extends Web3Provider {
@@ -386,10 +377,10 @@ export default function IdoDetail({
                 <Symbol>OmelletteSwap</Symbol>
                 <LogoTitle>OMLT</LogoTitle>
               </RightHeaderText>
-              <RightRound>
+              <MenuRightRound>
                 <Symbol>Price</Symbol>
                 <LogoTitle>$0.006</LogoTitle>
-              </RightRound>
+              </MenuRightRound>
             </LeftHeader>
           </Box>
           {!modalOpen && (
@@ -399,10 +390,10 @@ export default function IdoDetail({
                   <Symbol>Round</Symbol>
                   <LogoTitle>Public</LogoTitle>
                 </RightHeader>
-                <RightRound>
+                <MenuRightRound>
                   <Symbol>Time Left</Symbol>
                   <LogoTitle>09:22:34:45</LogoTitle>
-                </RightRound>
+                </MenuRightRound>
               </LeftHeader>
             </Box>
           )}
@@ -423,10 +414,10 @@ export default function IdoDetail({
                   <Symbol>Min Allocation</Symbol>
                   <LogoTitle>100 USDT</LogoTitle>
                 </RightHeader>
-                <RightRound>
+                <MenuRightRound>
                   <Symbol>Max Allocation</Symbol>
                   <LogoTitle>5000 USDT</LogoTitle>
-                </RightRound>
+                </MenuRightRound>
               </LeftHeader>
               <InputHeader>
                 <Input type="number" />
@@ -453,93 +444,56 @@ export default function IdoDetail({
           )}
         </RightSection>
       </IDOContainer>
-      {/*       <Hidden upToMedium={true}>
-        {!modalOpen && (
-          <TimeLine>
-            <ProgressBox>
-              <ProgressIcon>
-                <IconSize>1</IconSize>
-              </ProgressIcon>
-              <h3>Whitelist Round</h3>
-              <p>Date: 25/07/2023</p>
-              <p>Time: 14 days</p>
-            </ProgressBox>
-            <Dots></Dots>
-            <ProgressBox className="process-card text-center px-4 py-lg-5 py-3 rounded-custom shadow-hover mb-2 mb-lg-0">
-              <ProgressIcon>
-                <IconSize>2</IconSize>
-              </ProgressIcon>
-              <h3>Public Round</h3>
-              <p>Date: 25/07/2023</p>
-              <p>Time: 14 days</p>
-            </ProgressBox>
-            <Dots></Dots>
-            <ProgressBox>
-              <ProgressIcon>
-                <IconSize>3</IconSize>
-              </ProgressIcon>
-              <h3>Sale Ends</h3>
-              <p>Date: 25/07/2023</p>
-              <p>Time: 14 days</p>
-            </ProgressBox>
-          </TimeLine>
-        )}
-      </Hidden> */}
+
       {!modalOpen && (
         <TimeLineContainer>
           <TimeLineBox>
-            <LeftHeader>
+            <RoundSection>
               <ProgressIcon>
                 <IconSize>1</IconSize>
               </ProgressIcon>{' '}
-              <RightRound>
-                <LogoTitle>Whitelist Round</LogoTitle>
-              </RightRound>
-              <RightRound>
-                <Symbol>Date</Symbol>
-                <Symbol>25/07/2023</Symbol>
-              </RightRound>
-              <RightRound>
-                <Symbol>Time</Symbol>
-                <Symbol>14 days</Symbol>
-              </RightRound>
-            </LeftHeader>
+              <RoundTitle>Whitelist Round</RoundTitle>
+            </RoundSection>
+            <RightRound>
+              <Symbol>Date</Symbol>
+              <Symbol>25/07/2023</Symbol>
+            </RightRound>
+            <RightRound>
+              <Symbol>Time</Symbol>
+              <Symbol>14 days</Symbol>
+            </RightRound>
           </TimeLineBox>
           <TimeLineBox>
-            <LeftHeader>
+            <RoundSection>
               <ProgressIcon>
                 <IconSize>2</IconSize>
               </ProgressIcon>{' '}
-              <RightRound>
-                <LogoTitle>Public Round</LogoTitle>
-              </RightRound>
-              <RightRound>
-                <Symbol>Date</Symbol>
-                <Symbol>25/07/2023</Symbol>
-              </RightRound>
-              <RightRound>
-                <Symbol>Time</Symbol>
-                <Symbol>14 days</Symbol>
-              </RightRound>
-            </LeftHeader>
+              <RoundTitle>Public Round</RoundTitle>
+            </RoundSection>
+            <RightRound>
+              <Symbol>Date</Symbol>
+              <Symbol>25/07/2023</Symbol>
+            </RightRound>
+            <RightRound>
+              <Symbol>Time</Symbol>
+              <Symbol>14 days</Symbol>
+            </RightRound>
           </TimeLineBox>
           <TimeLineBox>
-            <LeftHeader>
+            <RoundSection>
               <ProgressIcon>
                 <IconSize>3</IconSize>
               </ProgressIcon>{' '}
-              <RightRound>
-                <LogoTitle>Sale Ends</LogoTitle>
-              </RightRound>
-              <RightRound>
-                <Symbol>Date</Symbol>
-                <Symbol>25/07/2023</Symbol>
-              </RightRound>
-              <RightRound>
-                <Symbol>Time</Symbol>
-                <Symbol>14 days</Symbol>
-              </RightRound>
-            </LeftHeader>
+              <RoundTitle>Sale Ends</RoundTitle>
+            </RoundSection>
+            <RightRound>
+              <Symbol>Date</Symbol>
+              <Symbol>25/07/2023</Symbol>
+            </RightRound>
+            <RightRound>
+              <Symbol>Time</Symbol>
+              <Symbol>14 days</Symbol>
+            </RightRound>
           </TimeLineBox>
         </TimeLineContainer>
       )}

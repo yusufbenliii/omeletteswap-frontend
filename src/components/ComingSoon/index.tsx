@@ -122,7 +122,7 @@ export default function ComingSoonMenu() {
 
   return (
     <StyledMenu ref={node}>
-      <StyledNavLink onMouseEnter={toggle} id={`swap-nav-link`} to={'/'} aria-disabled={true}>
+      <StyledNavLink onMouseEnter={toggle} id={`swap-nav-link`} to={''} aria-disabled={true}>
         IDO
       </StyledNavLink>
       {open && <MenuFlyout>Coming Soon..</MenuFlyout>}
