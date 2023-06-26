@@ -3,6 +3,7 @@ import { Info, BookOpen, Code, PieChart, MessageCircle } from 'react-feather'
 import styled from 'styled-components'
 import { ReactComponent as MenuIcon } from '../../assets/images/menu.svg'
 import useToggle from '../../hooks/useToggle'
+import { darken } from 'polished'
 
 import { ExternalLink } from '../../theme'
 
@@ -20,7 +21,7 @@ const StyledMenuButton = styled.button`
   margin: 0;
   padding: 0;
   height: 35px;
-  background-color: ${({ theme }) => theme.bg3};
+  background-color: ${({ theme }) => theme.bg6};
 
   padding: 0.15rem 0.5rem;
   border-radius: 0.5rem;
@@ -29,7 +30,7 @@ const StyledMenuButton = styled.button`
   :focus {
     cursor: pointer;
     outline: none;
-    background-color: ${({ theme }) => theme.bg4};
+    background-color: ${({ theme }) => darken(0.05, theme.bg6)};
   }
 
   svg {
@@ -63,7 +64,7 @@ const MenuFlyout = styled.span`
   z-index: 100;
 
   ${({ theme }) => theme.mediaWidth.upToMedium`
-  top: -13rem;
+  top: -6.3rem;
 `};
 `
 
@@ -72,7 +73,7 @@ const MenuItem = styled(ExternalLink)`
   padding: 0.5rem 0.5rem;
   color: ${({ theme }) => theme.text2};
   :hover {
-    color: ${({ theme }) => theme.text1};
+    background-color: ${({ theme }) => darken(0.05, theme.bg3)};
     cursor: pointer;
     text-decoration: none;
   }
@@ -81,7 +82,7 @@ const MenuItem = styled(ExternalLink)`
   }
 `
 
-const CODE_LINK = 'https://github.com/berkayermis/omeletteswap-frontend'
+const CODE_LINK = 'https://github.com/orgs/Omelette-Swap/'
 
 export default function Menu() {
   const node = useRef<HTMLDivElement>()
@@ -113,25 +114,13 @@ export default function Menu() {
       </StyledMenuButton>
       {open && (
         <MenuFlyout>
-          <MenuItem id="link" href="https://uniswap.org/">
-            <Info size={14} />
-            About
-          </MenuItem>
-          <MenuItem id="link" href="https://uniswap.org/docs/v2">
+          <MenuItem id="link" href="http://omeletteswap.gitbook.io/">
             <BookOpen size={14} />
             Docs
           </MenuItem>
           <MenuItem id="link" href={CODE_LINK}>
             <Code size={14} />
-            Code
-          </MenuItem>
-          <MenuItem id="link" href="https://discord.gg/EwFs3Pp">
-            <MessageCircle size={14} />
-            Discord
-          </MenuItem>
-          <MenuItem id="link" href="https://uniswap.info/">
-            <PieChart size={14} />
-            Analytics
+            Github
           </MenuItem>
         </MenuFlyout>
       )}

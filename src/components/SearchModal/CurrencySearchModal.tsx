@@ -145,7 +145,7 @@ export default function CurrencySearchModal({
       <Column style={{ width: '100%' }}>
         <PaddedColumn gap="14px">
           <RowBetween>
-            <Text fontWeight={500} fontSize={16}>
+            <Text fontWeight={500} fontSize={16} color={theme.text2}>
               Select a token
               <QuestionHelper
                 disabled={tooltipOpen}
@@ -175,10 +175,14 @@ export default function CurrencySearchModal({
             <CommonBases chainId={chainId} onSelect={handleCurrencySelect} selectedCurrency={hiddenCurrency} />
           )}
           <RowBetween>
-            <Text fontSize={14} fontWeight={500}>
+            <Text fontSize={14} fontWeight={500} color={theme.text2}>
               Token Name
             </Text>
-            <SortButton ascending={invertSearchOrder} toggleSortOrder={() => setInvertSearchOrder(iso => !iso)} />
+            <SortButton
+              theme={theme}
+              ascending={invertSearchOrder}
+              toggleSortOrder={() => setInvertSearchOrder(iso => !iso)}
+            />
           </RowBetween>
         </PaddedColumn>
         <div style={{ width: '100%', height: '1px', backgroundColor: theme.bg2 }} />

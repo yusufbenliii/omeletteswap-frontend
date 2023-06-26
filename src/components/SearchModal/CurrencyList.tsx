@@ -68,7 +68,9 @@ export default function CurrencyList({
           <RowFixed>
             <CurrencyLogo currency={currency} size={'24px'} style={{ marginRight: '14px' }} />
             <Column>
-              <Text fontWeight={500}>{currency.symbol}</Text>
+              <Text fontWeight={500} color={theme.text2}>
+                {currency.symbol}
+              </Text>
               <FadedSpan>
                 {customAdded ? (
                   <TYPE.main fontWeight={500}>
@@ -101,7 +103,7 @@ export default function CurrencyList({
           </RowFixed>
           <AutoColumn>
             {balance ? (
-              <Text>
+              <Text color={theme.text2}>
                 {zeroBalance && showSendWithSwap ? (
                   <ButtonSecondary padding={'4px 8px'}>
                     <Text textAlign="center" fontWeight={500} fontSize={14} color={theme.primary1}>

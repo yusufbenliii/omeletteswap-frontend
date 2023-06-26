@@ -67,7 +67,7 @@ export default function Pool() {
 
           <AutoColumn gap="12px" style={{ width: '100%' }}>
             <RowBetween padding={'0 8px'}>
-              <Text color={theme.text1} fontWeight={500}>
+              <Text color={theme.text2} fontWeight={500}>
                 Your Liquidity
               </Text>
               <Question text="When you add liquidity, you are given pool tokens that represent your share. If you don’t see a pool you joined in this list, try importing a pool below." />
@@ -75,13 +75,13 @@ export default function Pool() {
 
             {!account ? (
               <LightCard padding="40px">
-                <TYPE.body color={theme.text3} textAlign="center">
+                <TYPE.body color={theme.text2} textAlign="center">
                   Connect to a wallet to view your liquidity.
                 </TYPE.body>
               </LightCard>
             ) : v2IsLoading ? (
               <LightCard padding="40px">
-                <TYPE.body color={theme.text3} textAlign="center">
+                <TYPE.body color={theme.text2} textAlign="center">
                   <Dots>Loading</Dots>
                 </TYPE.body>
               </LightCard>
@@ -93,14 +93,14 @@ export default function Pool() {
               </>
             ) : (
               <LightCard padding="40px">
-                <TYPE.body color={theme.text3} textAlign="center">
+                <TYPE.body color={theme.text2} textAlign="center">
                   No liquidity found.
                 </TYPE.body>
               </LightCard>
             )}
 
             <div>
-              <Text textAlign="center" fontSize={14} style={{ padding: '.5rem 0 .5rem 0' }}>
+              <Text textAlign="center" fontSize={14} color={theme.text2} style={{ padding: '.5rem 0 .5rem 0' }}>
                 {hasV1Liquidity ? 'Uniswap V1 liquidity found!' : "Don't see a pool you joined?"}{' '}
                 <StyledInternalLink id="import-pool-link" to={hasV1Liquidity ? '/migrate/v1' : '/find'}>
                   {hasV1Liquidity ? 'Migrate now.' : 'Import it.'}

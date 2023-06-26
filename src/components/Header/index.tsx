@@ -22,7 +22,7 @@ import Web3Status from '../Web3Status'
 import { darken } from 'polished'
 import { MenuFlyout, MenuNavItem } from '../StyledMenu'
 import { useTranslation } from 'react-i18next'
-import { Hidden } from '../../theme/components'
+import { Hidden, ExternalLink } from '../../theme/components'
 //import VersionSwitch from './VersionSwitch'
 
 const HeaderFrame = styled.div`
@@ -157,6 +157,7 @@ const NetworkCard = styled(YellowCard)`
 `
 
 const BalanceText = styled(Text)`
+  color: ${({ theme }) => theme.text2};
   ${({ theme }) => theme.mediaWidth.upToExtraSmall`
     display: none;
   `};
@@ -209,12 +210,12 @@ const StyledNavLink = styled(NavLink).attrs({
   &.${activeClassName} {
     border-radius: 12px;
     font-weight: 600;
-    color: ${({ theme }) => theme.text1};
+    color: ${({ theme }) => theme.text2};
   }
 
   :hover,
   :focus {
-    color: ${({ theme }) => darken(0.1, theme.text1)};
+    color: ${({ theme }) => darken(0.1, theme.text2)};
   }
 `
 
@@ -253,9 +254,11 @@ export default function Header() {
     <HeaderFrame>
       <HeaderRow>
         <Title href="."></Title>
-        <OmeletteIcon>
-          <img width={50} height={50} src={isDark ? OmeletteLogoDark : OmeletteLogoDark} alt="logo" />
-        </OmeletteIcon>
+        <ExternalLink href="/#/swap" target="_self">
+          <OmeletteIcon>
+            <img width={50} height={50} src={isDark ? OmeletteLogoDark : OmeletteLogoDark} alt="logo" />
+          </OmeletteIcon>
+        </ExternalLink>
         <HeaderLinks>
           <StyledNavLink id={`swap-nav-link`} to={'/swap'}>
             Swap

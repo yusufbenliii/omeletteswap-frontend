@@ -1,11 +1,12 @@
 import { JSBI, Pair, Percent } from '@uniswap/sdk'
 import { darken } from 'polished'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { ChevronDown, ChevronUp } from 'react-feather'
 import { Link } from 'react-router-dom'
 import { Text } from 'rebass'
 import styled from 'styled-components'
 import { useTotalSupply } from '../../data/TotalSupply'
+import { ThemeContext } from 'styled-components'
 
 import { useActiveWeb3React } from '../../hooks'
 import { useTokenBalance } from '../../state/wallet/hooks'
@@ -128,6 +129,7 @@ export default function FullPositionCard({ pair, border }: PositionCardProps) {
 
   const currency0 = unwrappedToken(pair.token0)
   const currency1 = unwrappedToken(pair.token1)
+  const theme = useContext(ThemeContext)
 
   const [showMore, setShowMore] = useState(false)
 
@@ -157,15 +159,15 @@ export default function FullPositionCard({ pair, border }: PositionCardProps) {
         <FixedHeightRow onClick={() => setShowMore(!showMore)} style={{ cursor: 'pointer' }}>
           <RowFixed>
             <DoubleCurrencyLogo currency0={currency0} currency1={currency1} margin={true} size={20} />
-            <Text fontWeight={500} fontSize={20}>
+            <Text fontWeight={500} fontSize={20} color={theme.text2}>
               {!currency0 || !currency1 ? <Dots>Loading</Dots> : `${currency0.symbol}/${currency1.symbol}`}
             </Text>
           </RowFixed>
           <RowFixed>
             {showMore ? (
-              <ChevronUp size="20" style={{ marginLeft: '10px' }} />
+              <ChevronUp color={theme.text2} size="20" style={{ marginLeft: '10px' }} />
             ) : (
-              <ChevronDown size="20" style={{ marginLeft: '10px' }} />
+              <ChevronDown color={theme.text2} size="20" style={{ marginLeft: '10px' }} />
             )}
           </RowFixed>
         </FixedHeightRow>

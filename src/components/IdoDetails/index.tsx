@@ -1,16 +1,23 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable react/no-unescaped-entities */
 import { darken } from 'polished'
 import React, { useEffect } from 'react'
 import { AutoColumn } from '../../components/Column'
 import styled from 'styled-components'
 import { RouteComponentProps } from 'react-router-dom'
+import { transparentize } from 'polished'
 
 import { useTranslation } from 'react-i18next'
 import omeletteLogo from '../../assets/images/omelette_logo.png'
 import { Hidden } from '../../theme/components'
-import { theme } from '../../theme'
+import { theme, ExternalLink } from '../../theme'
+import { getProviderOrSigner } from '../../utils'
+import { JsonRpcSigner, Provider, Web3Provider } from '@ethersproject/providers'
+import { useActiveWeb3React } from '../../hooks/index'
 
-const PageWrapper = styled(AutoColumn)``
+const PageWrapper = styled(AutoColumn)`
+  justify-content: start;
+`
 
 const IDOContainer = styled.div`
   display: flex;
@@ -24,11 +31,13 @@ const IDOContainer = styled.div`
 const Title = styled.div`
   font-size: 18px;
   font-weight: bold;
+  color: #888;
 `
 
 const Description = styled.div`
   margin-top: 8px;
   font-size: 14px;
+  color: #888;
 `
 
 const Buttons = styled.div`
@@ -39,7 +48,7 @@ const Buttons = styled.div`
 
 const ProgressText = styled.div`
   font-size: 14px;
-  color: #fff;
+  color: #888;
   margin-top: 14px;
 `
 
@@ -73,7 +82,7 @@ const RightSection = styled.div`
 
 const Box = styled.div`
   padding: 1.25rem 2rem;
-  border-radius: 12px;
+  border-radius: 30px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -82,11 +91,13 @@ const Box = styled.div`
   color: ${({ theme }) => theme.text1};
   text-decoration: none;
   background-color: ${({ theme }) => theme.bg1};
+  box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.01), 0px 4px 8px rgba(0, 0, 0, 0.04), 0px 16px 24px rgba(0, 0, 0, 0.04),
+    0px 24px 32px rgba(0, 0, 0, 0.01);
 `
 
 const InfoBox = styled.div`
   padding: 3rem 2rem;
-  border-radius: 12px;
+  border-radius: 30px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -96,6 +107,8 @@ const InfoBox = styled.div`
   text-decoration: none;
   background-color: ${({ theme }) => theme.bg1};
   gap: 16px;
+  box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.01), 0px 4px 8px rgba(0, 0, 0, 0.04), 0px 16px 24px rgba(0, 0, 0, 0.04),
+    0px 24px 32px rgba(0, 0, 0, 0.01);
 `
 
 const ProgressBox = styled(Box)`
@@ -118,6 +131,7 @@ const RightRound = styled.div`
 const LogoTitle = styled.div`
   font-size: 20px;
   font-weight: bold;
+  color: #888;
   ${({ theme }) => theme.mediaWidth.upToSmall`
     font-size: 15px;
   `};
@@ -150,7 +164,7 @@ const IdoButton = styled.button`
   padding: 12px 24px;
   font-size: 16px;
   font-weight: bold;
-  border-radius: 16px;
+  border-radius: 30px;
   cursor: pointer;
   width: 100%;
   margin-top: 6px;
@@ -216,8 +230,8 @@ const TimeLineBox = styled(Box)`
 `
 
 const ProgressIcon = styled.div`
-  width: 42px;
-  height: 42px;
+  width: 36px;
+  height: 36px;
   padding: 16px 16px;
   border-radius: 50%;
   background-color: ${({ theme }) => theme.primary1};
@@ -234,7 +248,7 @@ const ProgressIcon = styled.div`
 `
 
 const IconSize = styled.div`
-  font-size: 24px;
+  font-size: 20px;
   ${({ theme }) => theme.mediaWidth.upToExtraSmall`
     font-size: 14px;
   `};
@@ -276,6 +290,14 @@ const Input = styled.input`
   }
 `
 
+const ExternalLinkStyled = styled.div`
+  color: '#00aaff';
+`
+
+interface ProviderWithRequest extends Web3Provider {
+  request(args: any): Promise<any>
+}
+
 export default function IdoDetail({
   match: {
     params: { id }
@@ -283,8 +305,52 @@ export default function IdoDetail({
 }: RouteComponentProps<{ id?: string }>) {
   const [modalOpen, setModalOpen] = React.useState(false)
   const [approved, setApproved] = React.useState(false)
+  const { library } = useActiveWeb3React()
   const { t } = useTranslation()
-  console.log('this is the id', id)
+  console.log('Web3Provider:', Web3Provider)
+  console.log('JsonRpcSigner:', JsonRpcSigner)
+  console.log('library:', library)
+
+  async function addOmchainNetwork(library: Web3Provider) {
+    if (library && library.provider) {
+      const providerWithRequest = library.provider
+
+      const networkData = {
+        chainId: '0x5538', // Chain ID of Omchain (21816 in decimal)
+        chainName: 'omChain Mainnet', // Name of the network
+        nativeCurrency: {
+          name: 'Omchain Token', // Name of the native currency
+          symbol: 'OMC', // Symbol of the native currency
+          decimals: 18 // Decimals of the native currency
+        },
+        rpcUrls: ['https://seed.omchain.io'], // Replace with the RPC URL of Omchain
+        blockExplorerUrls: ['https://explorer.omchain.io'] // Replace with the block explorer URL of Omchain
+      }
+      console.log('networkData:', networkData)
+      try {
+        console.log('Adding Omchain network')
+        await providerWithRequest.sendAsync(
+          {
+            method: 'wallet_addEthereumChain',
+            params: [networkData]
+          },
+          (error: any, response: any) => {
+            console.log('response:', response)
+            if (error) {
+              console.error('Failed to add Omchain network:', error)
+            } else {
+              console.log('Omchain network added successfully')
+            }
+          }
+        )
+      } catch (error) {
+        console.error('Failed to add Omchain network:', error)
+      }
+    } else {
+      console.error('Web3Provider or provider.request not available')
+    }
+  }
+
   return (
     <PageWrapper gap="lg" justify="center">
       <IDOContainer>
@@ -292,13 +358,22 @@ export default function IdoDetail({
           <InfoBox>
             <Title>{'What is Omelette?'}</Title>
             <Description>
-              {
-                'Lorem ipsum dolor sit ametLorem ipsum dolor sit amet Lorem ipsum dolor sit ametLorem ipsum dolor sit amet'
-              }
+              {'#1 Decentralized Exchange for trading and liquidity provisioning on '}
+              <ExternalLink href="https://twitter.com/omchainio">
+                <span>Omchain</span>
+              </ExternalLink>
             </Description>
             <Buttons>
-              <IdoButton>{t('Linktree')}</IdoButton>
-              <IdoButton>{t('Add OMLT to Metamask')}</IdoButton>
+              <ExternalLink href="https://linktr.ee/omeletteswap">
+                <IdoButton>{t('Linktree')}</IdoButton>
+              </ExternalLink>
+              <IdoButton
+                onClick={() => {
+                  addOmchainNetwork(library)
+                }}
+              >
+                {t('Add OMLT to Metamask')}
+              </IdoButton>
               <IdoButton>{t('Add Omchain Network')}</IdoButton>
             </Buttons>
           </InfoBox>

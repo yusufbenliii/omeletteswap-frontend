@@ -19,6 +19,7 @@ import { ButtonError } from '../Button'
 import { useSettingsMenuOpen, useToggleSettingsMenu } from '../../state/application/hooks'
 import { Text } from 'rebass'
 import Modal from '../Modal'
+import { darken } from 'polished'
 
 const StyledMenuIcon = styled(Settings)`
   height: 20px;
@@ -50,7 +51,7 @@ const StyledMenuButton = styled.button`
   margin: 0;
   padding: 0;
   height: 35px;
-  background-color: ${({ theme }) => theme.bg3};
+  background-color: ${({ theme }) => theme.bg6};
 
   padding: 0.15rem 0.5rem;
   border-radius: 0.5rem;
@@ -59,7 +60,7 @@ const StyledMenuButton = styled.button`
   :focus {
     cursor: pointer;
     outline: none;
-    background-color: ${({ theme }) => theme.bg4};
+    background-color: ${({ theme }) => darken(0.05, theme.bg6)};
   }
 
   svg {
@@ -209,7 +210,7 @@ export default function SettingsTab() {
       {open && (
         <MenuFlyout>
           <AutoColumn gap="md" style={{ padding: '1rem' }}>
-            <Text fontWeight={600} fontSize={14}>
+            <Text fontWeight={600} fontSize={14} color={theme.text2}>
               Transaction Settings
             </Text>
             <SlippageTabs
@@ -218,7 +219,7 @@ export default function SettingsTab() {
               deadline={deadline}
               setDeadline={setDeadline}
             />
-            <Text fontWeight={600} fontSize={14}>
+            <Text fontWeight={600} fontSize={14} color={theme.text2}>
               Interface Settings
             </Text>
             <RowBetween>

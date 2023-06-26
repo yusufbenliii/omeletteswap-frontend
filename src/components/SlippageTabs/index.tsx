@@ -43,7 +43,7 @@ const Option = styled(FancyButton)<{ active: boolean }>`
     cursor: pointer;
   }
   background-color: ${({ active, theme }) => active && theme.primary1};
-  color: ${({ active, theme }) => (active ? theme.white : theme.text1)};
+  color: ${({ active, theme }) => (active ? theme.white : theme.text2)};
 `
 
 const Input = styled.input`
@@ -245,7 +245,7 @@ export default function SlippageTabs({ rawSlippage, setRawSlippage, deadline, se
               onChange={parseCustomDeadline}
             />
           </OptionCustom>
-          <TYPE.body style={{ paddingLeft: '8px' }} fontSize={14}>
+          <TYPE.body style={{ paddingLeft: '8px' }} fontSize={14} color={theme.text2}>
             minutes
           </TYPE.body>
         </RowFixed>

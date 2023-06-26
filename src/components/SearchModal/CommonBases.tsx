@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Text } from 'rebass'
 import { ChainId, Currency, currencyEquals, OMC, Token } from '@uniswap/sdk'
 import styled from 'styled-components'
@@ -8,6 +8,7 @@ import { AutoColumn } from '../Column'
 import QuestionHelper from '../QuestionHelper'
 import { AutoRow } from '../Row'
 import CurrencyLogo from '../CurrencyLogo'
+import { ThemeContext } from 'styled-components'
 
 const BaseWrapper = styled.div<{ disable?: boolean }>`
   border: 1px solid ${({ theme, disable }) => (disable ? 'transparent' : theme.bg3)};
@@ -34,6 +35,7 @@ export default function CommonBases({
   selectedCurrency?: Currency
   onSelect: (currency: Currency) => void
 }) {
+  const theme = useContext(ThemeContext)
   return (
     <AutoColumn gap="md">
       <AutoRow>
@@ -48,7 +50,7 @@ export default function CommonBases({
           disable={selectedCurrency === OMC}
         >
           <CurrencyLogo currency={OMC} style={{ marginRight: 8 }} />
-          <Text fontWeight={500} fontSize={16}>
+          <Text fontWeight={500} fontSize={16} color={theme.text2}>
             OMC
           </Text>
         </BaseWrapper>
@@ -57,7 +59,7 @@ export default function CommonBases({
           return (
             <BaseWrapper onClick={() => !selected && onSelect(token)} disable={selected} key={token.address}>
               <CurrencyLogo currency={token} style={{ marginRight: 8 }} />
-              <Text fontWeight={500} fontSize={16}>
+              <Text fontWeight={500} fontSize={16} color={theme.text2}>
                 {token.symbol}
               </Text>
             </BaseWrapper>

@@ -42,17 +42,11 @@ const BodyWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding-top: 160px;
+  padding-top: 40px;
   align-items: center;
   flex: 1;
   overflow-y: auto;
   overflow-x: hidden;
-  z-index: 10;
-
-  ${({ theme }) => theme.mediaWidth.upToExtraSmall`
-      padding: 16px;
-  `};
-
   z-index: 1;
 `
 

@@ -44,6 +44,7 @@ export const CursorPointer = styled.div`
 
 export const CloseIcon = styled(X)<{ onClick: () => void }>`
   cursor: pointer;
+  color: ${({ theme }) => theme.text2};
 `
 
 // A button that triggers some onClick result, but looks like a link.

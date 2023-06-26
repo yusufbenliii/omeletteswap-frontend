@@ -46,6 +46,7 @@ const StyledNavLink = styled(NavLink).attrs({
 const ActiveText = styled.div`
   font-weight: 500;
   font-size: 20px;
+  color: ${({ theme }) => theme.text2};
 `
 
 const StyledArrowLeft = styled(ArrowLeft)`

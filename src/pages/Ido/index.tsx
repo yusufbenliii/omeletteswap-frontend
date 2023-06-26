@@ -7,7 +7,7 @@ import { IDO_LIST, IDO_STATUS_UPCOMING, IDO_STATUS_ENDED } from '../../constants
 import React, { useEffect } from 'react'
 import { AutoColumn } from '../../components/Column'
 import styled from 'styled-components'
-import { TYPE, ExternalLink } from '../../theme'
+import { TYPE, theme, ExternalLink } from '../../theme'
 
 import { RowBetween } from '../../components/Row'
 import { RouteComponentProps } from 'react-router-dom'
@@ -29,8 +29,8 @@ const IDOCard = styled(DataCard)`
 const WrapSmall = styled(RowBetween)`
   ${({ theme }) => theme.mediaWidth.upToSmall`
     flex-wrap: wrap;
-
   `};
+  color: ${({ theme }) => theme.text2};
 `
 
 /* the idea is to format the partner logos with this one */
@@ -91,8 +91,14 @@ const IDOs = styled.div`
     background-color: ${({ theme }) => darken(0.05, theme.bg1)};
   }
   &:hover {
-    background-color: ${({ theme }) => darken(0.05, theme.bg1)};
+    background-color: ${({ theme }) => darken(0.01, theme.bg1)};
   }
+  box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.01), 0px 4px 8px rgba(0, 0, 0, 0.04), 0px 16px 24px rgba(0, 0, 0, 0.04),
+    0px 24px 32px rgba(0, 0, 0, 0.01);
+`
+
+const NothingFound = styled.div`
+  color: ${({ theme }) => theme.text2};
 `
 
 const EmptyProposals = styled.div`
@@ -117,13 +123,13 @@ export default function IDO({ history }: RouteComponentProps) {
           <CardSection>
             <AutoColumn gap="md">
               <RowBetween>
-                <TYPE.main fontWeight={600}>Initial DEX Offering (IDO)</TYPE.main>
+                <TYPE.black fontWeight={600}>{'Initial DEX Offering (IDO)'}</TYPE.black>
               </RowBetween>
               <RowBetween>
-                <TYPE.main fontSize={14}>
+                <TYPE.black fontSize={14}>
                   Initial DEX Offerings (IDO) allows projects to crowdfund their native tokens on decentralized
                   exchanges. We've partnered with amazing teams to bring great projects to the Omchain community.
-                </TYPE.main>
+                </TYPE.black>
               </RowBetween>
               <RowBetween></RowBetween>
             </AutoColumn>
@@ -149,7 +155,7 @@ export default function IDO({ history }: RouteComponentProps) {
           </EmptyProposals>
         )}
         {IDO_LIST.filter(ido => ido.status === IDO_STATUS_UPCOMING).length === 0 ? (
-          <p>Nothing found.</p>
+          <NothingFound>Nothing found.</NothingFound>
         ) : (
           IDO_LIST.filter(ido => ido.status === IDO_STATUS_UPCOMING).map(filteredIDO => {
             return (
@@ -163,7 +169,9 @@ export default function IDO({ history }: RouteComponentProps) {
                     history.push(`/ido/${filteredIDO.id}`)
                   }}
                 >
-                  {filteredIDO.title} - ${filteredIDO.symbol} IDO<span style={{ fontSize: '11px' }}>↗</span>
+                  <NothingFound>
+                    {filteredIDO.title} - ${filteredIDO.symbol} IDO<span style={{ fontSize: '11px' }}>↗</span>
+                  </NothingFound>
                 </a>
               </IDOs>
             )
@@ -176,7 +184,7 @@ export default function IDO({ history }: RouteComponentProps) {
           <TYPE.mediumHeader style={{ margin: '0.5rem 0.5rem 0.5rem 0', flexShrink: 0 }}>Ended IDOs</TYPE.mediumHeader>
         </WrapSmall>
         {IDO_LIST.filter(ido => ido.status === IDO_STATUS_ENDED).length === 0 ? (
-          <p>Nothing found.</p>
+          <NothingFound>Nothing found.</NothingFound>
         ) : (
           IDO_LIST.filter(ido => ido.status === IDO_STATUS_ENDED).map(filteredIDO => {
             return (
