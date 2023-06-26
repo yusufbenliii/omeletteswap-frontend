@@ -107,18 +107,13 @@ export const ButtonGray = styled(Base)`
 `
 
 export const ButtonSecondary = styled(Base)`
-  background-color: ${({ theme }) => theme.primary5};
-  color: ${({ theme }) => theme.primaryText1};
+  background-color: ${({ theme }) => theme.bg6};
+  color: ${({ theme }) => theme.text1};
   font-size: 16px;
   border-radius: 8px;
   padding: ${({ padding }) => (padding ? padding : '10px')};
-
-  &:focus {
-    box-shadow: 0 0 0 1pt ${({ theme }) => theme.primary4};
-    background-color: ${({ theme }) => theme.primary4};
-  }
   &:hover {
-    background-color: ${({ theme }) => theme.primary4};
+    background-color: ${({ theme }) => darken(0.05, theme.bg6)};
   }
   &:active {
     box-shadow: 0 0 0 1pt ${({ theme }) => theme.primary4};

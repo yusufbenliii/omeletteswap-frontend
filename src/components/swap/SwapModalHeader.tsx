@@ -31,12 +31,12 @@ export default function SwapModalHeader({
   return (
     <AutoColumn gap={'md'} style={{ marginTop: '20px' }}>
       <RowBetween align="flex-end">
-        <TruncatedText fontSize={24} fontWeight={500}>
+        <TruncatedText color={theme.text2} fontSize={24} fontWeight={500}>
           {formattedAmounts[Field.INPUT]}
         </TruncatedText>
         <RowFixed gap="4px">
           <CurrencyLogo currency={currencies[Field.INPUT]} size={'24px'} />
-          <Text fontSize={24} fontWeight={500} style={{ marginLeft: '10px' }}>
+          <Text color={theme.text2} fontSize={24} fontWeight={500} style={{ marginLeft: '10px' }}>
             {currencies[Field.INPUT]?.symbol}
           </Text>
         </RowFixed>
@@ -45,12 +45,12 @@ export default function SwapModalHeader({
         <ArrowDown size="16" color={theme.text2} />
       </RowFixed>
       <RowBetween align="flex-end">
-        <TruncatedText fontSize={24} fontWeight={500} color={priceImpactSeverity > 2 ? theme.red1 : ''}>
+        <TruncatedText fontSize={24} fontWeight={500} color={priceImpactSeverity > 2 ? theme.red1 : theme.text2}>
           {formattedAmounts[Field.OUTPUT]}
         </TruncatedText>
         <RowFixed gap="4px">
           <CurrencyLogo currency={currencies[Field.OUTPUT]} size={'24px'} />
-          <Text fontSize={24} fontWeight={500} style={{ marginLeft: '10px' }}>
+          <Text color={theme.text2} fontSize={24} fontWeight={500} style={{ marginLeft: '10px' }}>
             {currencies[Field.OUTPUT]?.symbol}
           </Text>
         </RowFixed>

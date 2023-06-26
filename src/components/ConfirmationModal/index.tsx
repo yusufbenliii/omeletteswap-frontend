@@ -79,11 +79,11 @@ export default function ConfirmationModal({
               )}
             </ConfirmedIcon>
             <AutoColumn gap="12px" justify={'center'}>
-              <Text fontWeight={500} fontSize={20}>
+              <Text fontWeight={500} fontSize={20} color={theme.text2}>
                 {transactionBroadcast ? 'Transaction Submitted' : 'Waiting For Confirmation'}
               </Text>
               <AutoColumn gap="12px" justify={'center'}>
-                <Text fontWeight={600} fontSize={14} color="" textAlign="center">
+                <Text fontWeight={600} fontSize={14} color={theme.text2} textAlign="center">
                   {pendingText}
                 </Text>
               </AutoColumn>
@@ -119,7 +119,7 @@ export default function ConfirmationModal({
       <Wrapper>
         <Section>
           <RowBetween>
-            <Text fontWeight={500} fontSize={20}>
+            <Text fontWeight={500} fontSize={20} color={theme.text2}>
               {title}
             </Text>
             <CloseIcon onClick={onDismiss} />

@@ -24,7 +24,7 @@ const HeaderRow = styled.div`
   ${({ theme }) => theme.flexRowNoWrap};
   padding: 1rem 1rem;
   font-weight: 500;
-  color: ${props => (props.color === 'blue' ? ({ theme }) => theme.primary1 : 'inherit')};
+  color: ${props => (props.color === 'blue' ? ({ theme }) => theme.primary1 : ({ theme }) => theme.text2)};
   ${({ theme }) => theme.mediaWidth.upToMedium`
     padding: 1rem;
   `};
@@ -65,7 +65,7 @@ const AccountGroupingRow = styled.div`
   justify-content: space-between;
   align-items: center;
   font-weight: 400;
-  color: ${({ theme }) => theme.text1};
+  color: ${({ theme }) => theme.text2};
 
   div {
     ${({ theme }) => theme.flexRowNoWrap}
@@ -364,7 +364,7 @@ export default function AccountDetails({
       {!!pendingTransactions.length || !!confirmedTransactions.length ? (
         <LowerSection>
           <AutoRow mb={'1rem'} style={{ justifyContent: 'space-between' }}>
-            <TYPE.body>Recent Transactions</TYPE.body>
+            <TYPE.body color={theme.text2}>Recent Transactions</TYPE.body>
             <LinkStyledButton onClick={clearAllTransactionsCallback}>(clear all)</LinkStyledButton>
           </AutoRow>
           {renderTransactions(pendingTransactions)}
@@ -372,7 +372,7 @@ export default function AccountDetails({
         </LowerSection>
       ) : (
         <LowerSection>
-          <TYPE.body color={theme.text1}>Your transactions will appear here...</TYPE.body>
+          <TYPE.body color={theme.text2}>Your transactions will appear here...</TYPE.body>
         </LowerSection>
       )}
     </>
