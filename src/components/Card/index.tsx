@@ -51,6 +51,13 @@ const BlueCardStyled = styled(Card)`
   width: fit-content;
 `
 
+const LiqCardStyle = styled(Card)`
+  background-color: rgba(255, 127, 80, 0.1);
+  color: ${({ theme }) => theme.text1};
+  border-radius: 12px;
+  width: fit-content;
+`
+
 export const BlueCard = ({ children, ...rest }: CardProps) => {
   return (
     <BlueCardStyled {...rest}>
@@ -58,5 +65,15 @@ export const BlueCard = ({ children, ...rest }: CardProps) => {
         {children}
       </Text>
     </BlueCardStyled>
+  )
+}
+
+export const LiqCard = ({ children, ...rest }: CardProps) => {
+  return (
+    <LiqCardStyle {...rest}>
+      <Text fontWeight={500} color="#2172E5">
+        {children}
+      </Text>
+    </LiqCardStyle>
   )
 }

@@ -41,6 +41,7 @@ interface PositionCardProps {
 
 export function MinimalPositionCard({ pair, showUnwrapped = false, border }: PositionCardProps) {
   const { account } = useActiveWeb3React()
+  const theme = useContext(ThemeContext)
 
   const currency0 = showUnwrapped ? pair.token0 : unwrappedToken(pair.token0)
   const currency1 = showUnwrapped ? pair.token1 : unwrappedToken(pair.token1)
@@ -69,7 +70,7 @@ export function MinimalPositionCard({ pair, showUnwrapped = false, border }: Pos
           <AutoColumn gap="12px">
             <FixedHeightRow>
               <RowFixed>
-                <Text fontWeight={500} fontSize={16}>
+                <Text color={theme.text2} fontWeight={500} fontSize={16}>
                   Your position
                 </Text>
               </RowFixed>
@@ -77,12 +78,12 @@ export function MinimalPositionCard({ pair, showUnwrapped = false, border }: Pos
             <FixedHeightRow onClick={() => setShowMore(!showMore)}>
               <RowFixed>
                 <DoubleCurrencyLogo currency0={currency0} currency1={currency1} margin={true} size={20} />
-                <Text fontWeight={500} fontSize={20}>
+                <Text color={theme.text2} fontWeight={500} fontSize={20}>
                   {currency0.symbol}/{currency1.symbol}
                 </Text>
               </RowFixed>
               <RowFixed>
-                <Text fontWeight={500} fontSize={20}>
+                <Text color={theme.text2} fontWeight={500} fontSize={20}>
                   {userPoolBalance ? userPoolBalance.toSignificant(4) : '-'}
                 </Text>
               </RowFixed>

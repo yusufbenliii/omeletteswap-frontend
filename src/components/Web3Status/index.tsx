@@ -8,7 +8,7 @@ import useENSName from '../../hooks/useENSName'
 import { useHasSocks } from '../../hooks/useSocksBalance'
 import { useWalletModalToggle } from '../../state/application/hooks'
 import { TransactionDetails } from '../../state/transactions/reducer'
-
+import { useIsDarkMode } from '../../state/user/hooks'
 import Identicon from '../Identicon'
 import WalletModal from '../WalletModal'
 import { ButtonSecondary } from '../Button'
@@ -83,16 +83,16 @@ const Web3StatusConnect = styled(Web3StatusGeneric)<{ faded?: boolean }>`
 `
 
 const Web3StatusConnected = styled(Web3StatusGeneric)<{ pending?: boolean }>`
-  background-color: ${({ pending, theme }) => (pending ? theme.primary1 : theme.bg2)};
-  border: 1px solid ${({ pending, theme }) => (pending ? theme.primary1 : theme.bg6)};
+  background-color: ${({ pending, theme }) => (pending ? theme.bg2 : theme.bg2)};
+  border: 1px solid ${({ pending, theme }) => (pending ? theme.bg6 : theme.bg6)};
   color: ${({ pending, theme }) => (pending ? theme.white : theme.text1)};
   font-weight: 500;
   :hover,
   :focus {
-    background-color: ${({ pending, theme }) => (pending ? darken(0.05, theme.primary1) : lighten(0.05, theme.bg4))};
+    background-color: ${({ pending, theme }) => (pending ? darken(0.05, theme.bg4) : lighten(0.05, theme.bg4))};
 
     :focus {
-      border: 1px solid ${({ pending, theme }) => (pending ? darken(0.1, theme.primary1) : darken(0.1, theme.bg3))};
+      border: 1px solid ${({ pending, theme }) => (pending ? darken(0.1, theme.bg3) : darken(0.1, theme.bg3))};
     }
   }
 `
@@ -135,6 +135,7 @@ export default function Web3Status() {
   const { t } = useTranslation()
   const { active, account, connector, error } = useWeb3React()
   const contextNetwork = useWeb3React(NetworkContextName)
+  const darkMode = useIsDarkMode()
 
   const { ENSName } = useENSName(account)
 
@@ -177,7 +178,7 @@ export default function Web3Status() {
         <Web3StatusConnected id="web3-status-connected" onClick={toggleWalletModal} pending={hasPendingTransactions}>
           {hasPendingTransactions ? (
             <RowBetween>
-              <Text>{pending?.length} Pending</Text> <Loader stroke="white" />
+              <Text>{pending?.length} Pending</Text> <Loader stroke={darkMode ? 'white' : 'black'} />
             </RowBetween>
           ) : (
             <>

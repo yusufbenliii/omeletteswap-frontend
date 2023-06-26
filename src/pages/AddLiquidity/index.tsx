@@ -8,7 +8,7 @@ import { RouteComponentProps } from 'react-router-dom'
 import { Text } from 'rebass'
 import { ThemeContext } from 'styled-components'
 import { ButtonError, ButtonLight, ButtonPrimary } from '../../components/Button'
-import { BlueCard, GreyCard, LightCard } from '../../components/Card'
+import { BlueCard, GreyCard, LightCard, LiqCard, OutlineCard } from '../../components/Card'
 import { AutoColumn, ColumnCenter } from '../../components/Column'
 import ConfirmationModal from '../../components/ConfirmationModal'
 import CurrencyInputPanel from '../../components/CurrencyInputPanel'
@@ -214,7 +214,7 @@ export default function AddLiquidity({
       <AutoColumn gap="20px">
         <LightCard mt="20px" borderRadius="20px">
           <RowFlat>
-            <Text fontSize="48px" fontWeight={500} lineHeight="42px" marginRight={10}>
+            <Text color={theme.text2} fontSize="48px" fontWeight={500} lineHeight="42px" marginRight={10}>
               {currencies[Field.CURRENCY_A]?.symbol + '/' + currencies[Field.CURRENCY_B]?.symbol}
             </Text>
             <DoubleCurrencyLogo
@@ -228,7 +228,7 @@ export default function AddLiquidity({
     ) : (
       <AutoColumn gap="20px">
         <RowFlat style={{ marginTop: '20px' }}>
-          <Text fontSize="48px" fontWeight={500} lineHeight="42px" marginRight={10}>
+          <Text color={theme.text2} fontSize="48px" fontWeight={500} lineHeight="42px" marginRight={10}>
             {liquidityMinted?.toSignificant(6)}
           </Text>
           <DoubleCurrencyLogo
@@ -238,7 +238,7 @@ export default function AddLiquidity({
           />
         </RowFlat>
         <Row>
-          <Text fontSize="24px">
+          <Text color={theme.text2} fontSize="24px">
             {currencies[Field.CURRENCY_A]?.symbol + '/' + currencies[Field.CURRENCY_B]?.symbol + ' Pool Tokens'}
           </Text>
         </Row>
@@ -319,19 +319,19 @@ export default function AddLiquidity({
           <AutoColumn gap="20px">
             {noLiquidity && (
               <ColumnCenter>
-                <BlueCard>
+                <LiqCard>
                   <AutoColumn gap="10px">
-                    <TYPE.link fontWeight={600} color={'primaryText1'}>
+                    <TYPE.link fontWeight={600} color={theme.text2}>
                       You are the first liquidity provider.
                     </TYPE.link>
-                    <TYPE.link fontWeight={400} color={'primaryText1'}>
+                    <TYPE.link fontWeight={400} color={theme.text2}>
                       The ratio of tokens you add will set the price of this pool.
                     </TYPE.link>
-                    <TYPE.link fontWeight={400} color={'primaryText1'}>
+                    <TYPE.link fontWeight={400} color={theme.text2}>
                       Once you are happy with the rate click supply to review.
                     </TYPE.link>
                   </AutoColumn>
-                </BlueCard>
+                </LiqCard>
               </ColumnCenter>
             )}
             <CurrencyInputPanel
@@ -365,7 +365,7 @@ export default function AddLiquidity({
               <>
                 <GreyCard padding="0px" borderRadius={'20px'}>
                   <RowBetween padding="1rem">
-                    <TYPE.subHeader fontWeight={500} fontSize={14}>
+                    <TYPE.subHeader fontWeight={500} fontSize={14} color={theme.text2}>
                       {noLiquidity ? 'Initial prices' : 'Prices'} and pool share
                     </TYPE.subHeader>
                   </RowBetween>{' '}
