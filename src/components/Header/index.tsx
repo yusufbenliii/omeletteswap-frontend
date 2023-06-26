@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-no-undef */
 import { ChainId } from '@uniswap/sdk'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { isMobile } from 'react-device-detect'
 import { Text } from 'rebass'
 
@@ -21,6 +21,7 @@ import Web3Status from '../Web3Status'
 
 import { darken } from 'polished'
 import { MenuFlyout, MenuNavItem } from '../StyledMenu'
+import ComingSoon from '../ComingSoon'
 import { useTranslation } from 'react-i18next'
 import { Hidden, ExternalLink } from '../../theme/components'
 //import VersionSwitch from './VersionSwitch'
@@ -249,6 +250,7 @@ export default function Header() {
   const userEthBalance = useETHBalances([account])[account]
   const { t } = useTranslation()
   const [isDark] = useDarkModeManager()
+  const [info, setInfo] = React.useState<any>(null)
 
   return (
     <HeaderFrame>
@@ -266,9 +268,7 @@ export default function Header() {
           <StyledNavLink id={`swap-nav-link`} to={'/pool'}>
             Pool
           </StyledNavLink>
-          <StyledNavLink id={`swap-nav-link`} to={'/ido'}>
-            IDO
-          </StyledNavLink>
+          <ComingSoon />
         </HeaderLinks>
       </HeaderRow>
       <HeaderControls>
