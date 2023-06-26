@@ -1,5 +1,5 @@
 import { Currency, OMC, JSBI, TokenAmount } from '@uniswap/sdk'
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState, useContext } from 'react'
 import { Plus } from 'react-feather'
 import { Text } from 'rebass'
 import { ButtonDropdownLight } from '../../components/Button'
@@ -18,6 +18,7 @@ import { StyledInternalLink } from '../../theme'
 import { currencyId } from '../../utils/currencyId'
 import AppBody from '../AppBody'
 import { Dots } from '../Pool/styleds'
+import { ThemeContext } from 'styled-components'
 
 enum Fields {
   TOKEN0 = 0,
@@ -26,7 +27,7 @@ enum Fields {
 
 export default function PoolFinder() {
   const { account } = useActiveWeb3React()
-
+  const theme = useContext(ThemeContext)
   const [showSearch, setShowSearch] = useState<boolean>(false)
   const [activeField, setActiveField] = useState<number>(Fields.TOKEN1)
 
@@ -70,7 +71,7 @@ export default function PoolFinder() {
 
   const prerequisiteMessage = (
     <LightCard padding="45px 10px">
-      <Text textAlign="center">
+      <Text color={theme.text2} textAlign="center">
         {!account ? 'Connect to a wallet to find pools' : 'Select a token to find your liquidity.'}
       </Text>
     </LightCard>
@@ -89,12 +90,12 @@ export default function PoolFinder() {
           {currency0 ? (
             <Row>
               <CurrencyLogo currency={currency0} />
-              <Text fontWeight={500} fontSize={20} marginLeft={'12px'}>
+              <Text color={theme.text2} fontWeight={500} fontSize={20} marginLeft={'12px'}>
                 {currency0.symbol}
               </Text>
             </Row>
           ) : (
-            <Text fontWeight={500} fontSize={20} marginLeft={'12px'}>
+            <Text color={theme.text2} fontWeight={500} fontSize={20} marginLeft={'12px'}>
               Select a Token
             </Text>
           )}
@@ -113,12 +114,12 @@ export default function PoolFinder() {
           {currency1 ? (
             <Row>
               <CurrencyLogo currency={currency1} />
-              <Text fontWeight={500} fontSize={20} marginLeft={'12px'}>
+              <Text color={theme.text2} fontWeight={500} fontSize={20} marginLeft={'12px'}>
                 {currency1.symbol}
               </Text>
             </Row>
           ) : (
-            <Text fontWeight={500} fontSize={20} marginLeft={'12px'}>
+            <Text color={theme.text2} fontWeight={500} fontSize={20} marginLeft={'12px'}>
               Select a Token
             </Text>
           )}

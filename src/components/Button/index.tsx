@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import styled from 'styled-components'
 import { darken, lighten } from 'polished'
 
 import { RowBetween } from '../Row'
 import { ChevronDown } from 'react-feather'
 import { Button as RebassButton, ButtonProps } from 'rebass/styled-components'
+import { ThemeContext } from 'styled-components'
 
 const Base = styled(RebassButton)<{
   padding?: string
@@ -61,26 +62,26 @@ export const ButtonPrimary = styled(Base)`
 `
 
 export const ButtonLight = styled(Base)`
-  background-color: ${({ theme }) => theme.primary5};
-  color: ${({ theme }) => theme.primaryText1};
+  background-color: ${({ theme }) => theme.notConnectedButton};
+  color: ${({ theme }) => theme.notConnectedText};
   font-size: 16px;
   font-weight: 500;
   &:focus {
-    box-shadow: 0 0 0 1pt ${({ theme, disabled }) => !disabled && darken(0.03, theme.primary5)};
-    background-color: ${({ theme, disabled }) => !disabled && darken(0.03, theme.primary5)};
+    box-shadow: 0 0 0 1pt ${({ theme, disabled }) => !disabled && darken(0.03, theme.notConnectedText)};
+    background-color: ${({ theme, disabled }) => !disabled && darken(0.03, theme.notConnectedButton)};
   }
   &:hover {
-    background-color: ${({ theme, disabled }) => !disabled && darken(0.03, theme.primary5)};
+    background-color: ${({ theme, disabled }) => !disabled && darken(0.2, theme.notConnectedButton)};
   }
   &:active {
-    box-shadow: 0 0 0 1pt ${({ theme, disabled }) => !disabled && darken(0.05, theme.primary5)};
-    background-color: ${({ theme, disabled }) => !disabled && darken(0.05, theme.primary5)};
+    box-shadow: 0 0 0 1pt ${({ theme, disabled }) => !disabled && darken(0.05, theme.notConnectedText)};
+    background-color: ${({ theme, disabled }) => !disabled && darken(0.05, theme.notConnectedButton)};
   }
   :disabled {
     opacity: 0.4;
     :hover {
       cursor: auto;
-      background-color: ${({ theme }) => theme.primary5};
+      background-color: ${({ theme }) => theme.notConnectedButton};
       box-shadow: none;
       border: 1px solid transparent;
       outline: none;
@@ -116,8 +117,8 @@ export const ButtonSecondary = styled(Base)`
     background-color: ${({ theme }) => darken(0.05, theme.bg6)};
   }
   &:active {
-    box-shadow: 0 0 0 1pt ${({ theme }) => theme.primary4};
-    background-color: ${({ theme }) => theme.primary4};
+    box-shadow: 0 0 0 1pt ${({ theme }) => darken(0.1, theme.bg6)};
+    background-color: ${({ theme }) => darken(0.1, theme.bg6)};
   }
   &:disabled {
     background-color: ${({ theme }) => theme.primary5};
@@ -263,22 +264,24 @@ export function ButtonError({ error, ...rest }: { error?: boolean } & ButtonProp
 }
 
 export function ButtonDropdown({ disabled = false, children, ...rest }: { disabled?: boolean } & ButtonProps) {
+  const theme = useContext(ThemeContext)
   return (
     <ButtonPrimary {...rest} disabled={disabled}>
       <RowBetween>
         <div style={{ display: 'flex', alignItems: 'center' }}>{children}</div>
-        <ChevronDown size={24} />
+        <ChevronDown color={theme.text2} size={24} />
       </RowBetween>
     </ButtonPrimary>
   )
 }
 
 export function ButtonDropdownLight({ disabled = false, children, ...rest }: { disabled?: boolean } & ButtonProps) {
+  const theme = useContext(ThemeContext)
   return (
     <ButtonOutlined {...rest} disabled={disabled}>
       <RowBetween>
         <div style={{ display: 'flex', alignItems: 'center' }}>{children}</div>
-        <ChevronDown size={24} />
+        <ChevronDown color={theme.text2} size={24} />
       </RowBetween>
     </ButtonOutlined>
   )

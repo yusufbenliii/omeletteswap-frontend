@@ -9,11 +9,11 @@ export const ClickableText = styled(Text)`
   :hover {
     cursor: pointer;
   }
-  color: ${({ theme }) => theme.primary1};
+  color: #2172e5;
 `
 export const MaxButton = styled.button<{ width: string }>`
   padding: 0.5rem 1rem;
-  background-color: ${({ theme }) => theme.primary5};
+  background-color: ${({ theme }) => theme.removeMaxButton};
   border: 1px solid ${({ theme }) => theme.primary5};
   border-radius: 0.5rem;
   font-size: 1rem;

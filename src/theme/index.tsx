@@ -1,4 +1,4 @@
-import { transparentize } from 'polished'
+import { rgba, transparentize } from 'polished'
 import React, { useMemo } from 'react'
 import styled, {
   ThemeProvider as StyledComponentsThemeProvider,
@@ -67,9 +67,12 @@ export function colors(darkMode: boolean): Colors {
     primary3: darkMode ? '#4D8FEA' : '#FF99C9',
     primary4: darkMode ? '#376bad70' : '#F6DDE8',
     primary5: darkMode ? '#153d6f70' : '#FDEAF1',
+    removeMaxButton: darkMode ? '#153d6f70' : 'null',
+    notConnectedButton: darkMode ? '#153d6f70' : rgba(243, 132, 30, 0.1),
 
     // color text
     primaryText1: darkMode ? '#6da8ff' : '#ff007a',
+    notConnectedText: darkMode ? '#6da8ff' : '#F3841E',
 
     // secondary colors
     secondary1: darkMode ? '#2172E5' : '#ff007a',

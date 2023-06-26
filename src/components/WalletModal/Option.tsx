@@ -68,7 +68,7 @@ const HeaderText = styled.div`
 `
 
 const SubHeader = styled.div`
-  color: ${({ theme }) => theme.text1};
+  color: ${({ theme }) => theme.text2};
   margin-top: 10px;
   font-size: 12px;
 `

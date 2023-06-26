@@ -1,11 +1,12 @@
 import { AbstractConnector } from '@web3-react/abstract-connector'
-import React from 'react'
-import styled from 'styled-components'
+import React, { useContext } from 'react'
+import styled, { ThemeContext } from 'styled-components'
 import Option from './Option'
 import { SUPPORTED_WALLETS } from '../../constants'
 import { injected } from '../../connectors'
 import { darken } from 'polished'
 import Loader from '../Loader'
+import { TYPE } from '../../theme'
 
 const PendingSection = styled.div`
   ${({ theme }) => theme.flexColumnNoWrap};
@@ -75,7 +76,7 @@ export default function PendingView({
   tryActivation: (connector: AbstractConnector) => void
 }) {
   const isMetamask = window?.ethereum?.isMetaMask
-
+  const theme = useContext(ThemeContext)
   return (
     <PendingSection>
       <LoadingMessage error={error}>
@@ -95,7 +96,7 @@ export default function PendingView({
           ) : (
             <>
               <StyledLoader />
-              Initializing...
+              <TYPE.link color={theme.text2}>Initializing...</TYPE.link>
             </>
           )}
         </LoadingWrapper>

@@ -44,6 +44,7 @@ const Web3StatusGeneric = styled(ButtonSecondary)`
     outline: none;
   }
 `
+
 const Web3StatusError = styled(Web3StatusGeneric)`
   background-color: ${({ theme }) => theme.red1};
   border: 1px solid ${({ theme }) => theme.red1};
@@ -56,7 +57,7 @@ const Web3StatusError = styled(Web3StatusGeneric)`
 `
 
 const Web3StatusConnect = styled(Web3StatusGeneric)<{ faded?: boolean }>`
-  background-color: ${({ theme }) => theme.primary4};
+  background-color: ${({ theme }) => theme.bg6};
   border: none;
   color: ${({ theme }) => theme.primaryText1};
   font-weight: 500;
@@ -70,14 +71,13 @@ const Web3StatusConnect = styled(Web3StatusGeneric)<{ faded?: boolean }>`
   ${({ faded }) =>
     faded &&
     css`
-      background-color: ${({ theme }) => theme.primary5};
+      background-color: ${({ theme }) => theme.bg6};
       border: 1px solid ${({ theme }) => theme.primary5};
-      color: ${({ theme }) => theme.primaryText1};
+      color: ${({ theme }) => theme.text3};
 
       :hover,
       :focus {
-        border: 1px solid ${({ theme }) => darken(0.05, theme.primary4)};
-        color: ${({ theme }) => darken(0.05, theme.primaryText1)};
+        color: ${({ theme }) => darken(0.05, theme.bg5)};
       }
     `}
 `
@@ -87,8 +87,7 @@ const Web3StatusConnected = styled(Web3StatusGeneric)<{ pending?: boolean }>`
   border: 1px solid ${({ pending, theme }) => (pending ? theme.bg6 : theme.bg6)};
   color: ${({ pending, theme }) => (pending ? theme.white : theme.text1)};
   font-weight: 500;
-  :hover,
-  :focus {
+  :hover {
     background-color: ${({ pending, theme }) => (pending ? darken(0.05, theme.bg4) : lighten(0.05, theme.bg4))};
 
     :focus {
@@ -198,9 +197,9 @@ export default function Web3Status() {
       )
     } else {
       return (
-        <Web3StatusConnect id="connect-wallet" onClick={toggleWalletModal} faded={!account}>
+        <Web3StatusConnected id="connect-wallet" onClick={toggleWalletModal}>
           <Text>{t('Connect to a wallet')}</Text>
-        </Web3StatusConnect>
+        </Web3StatusConnected>
       )
     }
   }

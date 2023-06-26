@@ -32,8 +32,11 @@ export interface Colors {
   primary3: Color
   primary4: Color
   primary5: Color
+  removeMaxButton: Color
+  notConnectedButton: Color
 
   primaryText1: Color
+  notConnectedText: Color
 
   // pinks
   secondary1: Color

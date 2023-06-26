@@ -176,13 +176,13 @@ export default function FullPositionCard({ pair, border }: PositionCardProps) {
           <AutoColumn gap="8px">
             <FixedHeightRow>
               <RowFixed>
-                <Text fontSize={16} fontWeight={500}>
+                <Text color={theme.text2} fontSize={16} fontWeight={500}>
                   Pooled {currency0.symbol}:
                 </Text>
               </RowFixed>
               {token0Deposited ? (
                 <RowFixed>
-                  <Text fontSize={16} fontWeight={500} marginLeft={'6px'}>
+                  <Text color={theme.text2} fontSize={16} fontWeight={500} marginLeft={'6px'}>
                     {token0Deposited?.toSignificant(6)}
                   </Text>
                   <CurrencyLogo size="20px" style={{ marginLeft: '8px' }} currency={currency0} />
@@ -194,13 +194,13 @@ export default function FullPositionCard({ pair, border }: PositionCardProps) {
 
             <FixedHeightRow>
               <RowFixed>
-                <Text fontSize={16} fontWeight={500}>
+                <Text color={theme.text2} fontSize={16} fontWeight={500}>
                   Pooled {currency1.symbol}:
                 </Text>
               </RowFixed>
               {token1Deposited ? (
                 <RowFixed>
-                  <Text fontSize={16} fontWeight={500} marginLeft={'6px'}>
+                  <Text color={theme.text2} fontSize={16} fontWeight={500} marginLeft={'6px'}>
                     {token1Deposited?.toSignificant(6)}
                   </Text>
                   <CurrencyLogo size="20px" style={{ marginLeft: '8px' }} currency={currency1} />
@@ -210,24 +210,24 @@ export default function FullPositionCard({ pair, border }: PositionCardProps) {
               )}
             </FixedHeightRow>
             <FixedHeightRow>
-              <Text fontSize={16} fontWeight={500}>
+              <Text color={theme.text2} fontSize={16} fontWeight={500}>
                 Your pool tokens:
               </Text>
-              <Text fontSize={16} fontWeight={500}>
+              <Text color={theme.text2} fontSize={16} fontWeight={500}>
                 {userPoolBalance ? userPoolBalance.toSignificant(4) : '-'}
               </Text>
             </FixedHeightRow>
             <FixedHeightRow>
-              <Text fontSize={16} fontWeight={500}>
+              <Text color={theme.text2} fontSize={16} fontWeight={500}>
                 Your pool share:
               </Text>
-              <Text fontSize={16} fontWeight={500}>
+              <Text color={theme.text2} fontSize={16} fontWeight={500}>
                 {poolTokenPercentage ? poolTokenPercentage.toFixed(2) + '%' : '-'}
               </Text>
             </FixedHeightRow>
 
             <AutoRow justify="center" marginTop={'10px'}>
-              <ExternalLink href={`https://uniswap.info/pair/${pair.liquidityToken.address}`}>
+              <ExternalLink href={`https://omeletteswap.info/pair/${pair.liquidityToken.address}`}>
                 View pool information ↗
               </ExternalLink>
             </AutoRow>

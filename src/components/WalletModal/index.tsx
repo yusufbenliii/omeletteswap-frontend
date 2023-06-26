@@ -44,7 +44,7 @@ const HeaderRow = styled.div`
   ${({ theme }) => theme.flexRowNoWrap};
   padding: 1rem 1rem;
   font-weight: 500;
-  color: ${props => (props.color === 'blue' ? ({ theme }) => theme.primary1 : 'inherit')};
+  color: ${props => (props.color === 'blue' ? ({ theme }) => theme.primary1 : ({ theme }) => theme.text2)};
   ${({ theme }) => theme.mediaWidth.upToMedium`
     padding: 1rem;
   `};
@@ -81,6 +81,7 @@ const UpperSection = styled.div`
 
 const Blurb = styled.div`
   ${({ theme }) => theme.flexRowNoWrap}
+  color: ${({ theme }) => theme.text2};
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
@@ -263,7 +264,7 @@ export default function WalletModal({
             color={option.color}
             link={option.href}
             header={option.name}
-            subheader={null} //use option.descriptio to bring back multi-line
+            subheader={option.description} //use option.descriptio to bring back multi-line
             icon={require('../../assets/images/' + option.iconName)}
           />
         )
