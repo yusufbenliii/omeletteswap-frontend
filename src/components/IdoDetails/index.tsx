@@ -1,17 +1,18 @@
+/* eslint-disable @typescript-eslint/no-misused-new */
+/* eslint-disable @typescript-eslint/class-name-casing */
+/* eslint-disable @typescript-eslint/camelcase */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable react/no-unescaped-entities */
 import { darken } from 'polished'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { AutoColumn } from '../../components/Column'
 import styled from 'styled-components'
 import { RouteComponentProps } from 'react-router-dom'
-
 import { useTranslation } from 'react-i18next'
 import omeletteLogo from '../../assets/images/omelette_logo.png'
 import { ExternalLink } from '../../theme'
-import { getProviderOrSigner } from '../../utils'
-import { JsonRpcSigner, Provider, Web3Provider } from '@ethersproject/providers'
 import { useActiveWeb3React } from '../../hooks/index'
+import { injected } from '../../connectors/index'
 
 const PageWrapper = styled(AutoColumn)`
   justify-content: start;
@@ -285,10 +286,6 @@ const Input = styled.input`
   }
 `
 
-interface ProviderWithRequest extends Web3Provider {
-  request(args: any): Promise<any>
-}
-
 export default function IdoDetail({
   match: {
     params: { id }
@@ -296,16 +293,59 @@ export default function IdoDetail({
 }: RouteComponentProps<{ id?: string }>) {
   const [modalOpen, setModalOpen] = React.useState(false)
   const [approved, setApproved] = React.useState(false)
+  const [provider, setProvider] = React.useState<any>()
   const { library } = useActiveWeb3React()
   const { t } = useTranslation()
-  console.log('Web3Provider:', Web3Provider)
-  console.log('JsonRpcSigner:', JsonRpcSigner)
-  console.log('library:', library)
 
-  async function addOmchainNetwork(library: Web3Provider) {
-    if (library && library.provider) {
-      const providerWithRequest = library.provider
+  useEffect(() => {
+    if (injected) {
+      const injectedProvider = async () => {
+        setProvider(await injected.getProvider())
+      }
+      injectedProvider()
+    }
+  }, [injected])
 
+  async function addOMLTtoMetamask() {
+    if (provider) {
+      try {
+        const watchAssetVar = await provider.request(
+          {
+            method: 'wallet_watchAsset',
+            params: {
+              type: 'ERC20', // Corrected type value
+              options: {
+                address: '0x6BEB3a2B9B54178E7EA3D9edb893Bec92f50B4E5',
+                symbol: 'TT',
+                decimals: 18,
+                image:
+                  'https://github.com/yusufbenliii/omeletteswap-frontend/assets/67913214/77a91596-dc80-49aa-bf26-cf0183a61b7e'
+              }
+            }
+          },
+          (error: any, response: any) => {
+            console.log('response:', response)
+            if (error) {
+              console.error('Failed to add OMLT Token:', error)
+            } else {
+              console.log('OMLT Token added successfully')
+            }
+          }
+        )
+        if (watchAssetVar) {
+          console.log('OMLT Token added successfully')
+          alert('OMLT Token added successfully')
+        }
+      } catch (error) {
+        console.error('Failed to add Omchain network:', error)
+      }
+    } else {
+      console.error('Web3Provider or provider.request not available')
+    }
+  }
+
+  async function addOmchainNetwork() {
+    if (provider) {
       const networkData = {
         chainId: '0x5538', // Chain ID of Omchain (21816 in decimal)
         chainName: 'omChain Mainnet', // Name of the network
@@ -317,10 +357,9 @@ export default function IdoDetail({
         rpcUrls: ['https://seed.omchain.io'], // Replace with the RPC URL of Omchain
         blockExplorerUrls: ['https://explorer.omchain.io'] // Replace with the block explorer URL of Omchain
       }
-      console.log('networkData:', networkData)
       try {
         console.log('Adding Omchain network')
-        await providerWithRequest.sendAsync(
+        await provider.request(
           {
             method: 'wallet_addEthereumChain',
             params: [networkData]
@@ -360,12 +399,18 @@ export default function IdoDetail({
               </ExternalLink>
               <IdoButton
                 onClick={() => {
-                  addOmchainNetwork(library)
+                  addOMLTtoMetamask()
                 }}
               >
                 {t('Add OMLT to Metamask')}
               </IdoButton>
-              <IdoButton>{t('Add Omchain Network')}</IdoButton>
+              <IdoButton
+                onClick={() => {
+                  addOmchainNetwork()
+                }}
+              >
+                {t('Add Omchain Network')}
+              </IdoButton>
             </Buttons>
           </InfoBox>
         </LeftSection>

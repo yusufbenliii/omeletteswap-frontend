@@ -14,7 +14,6 @@ import WalletModal from '../WalletModal'
 import { ButtonSecondary } from '../Button'
 import WalletConnectIcon from '../../assets/images/walletConnectIcon.svg'
 import CoinbaseWalletIcon from '../../assets/images/coinbaseWalletIcon.svg'
-
 import { RowBetween } from '../Row'
 import { shortenAddress } from '../../utils'
 import { useAllTransactions } from '../../state/transactions/hooks'

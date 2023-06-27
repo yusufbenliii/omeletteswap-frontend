@@ -1,6 +1,6 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useRef, useEffect, useContext } from 'react'
 import { Info, BookOpen, Code, PieChart, MessageCircle } from 'react-feather'
-import styled from 'styled-components'
+import styled, { ThemeContext } from 'styled-components'
 import { ReactComponent as MenuIcon } from '../../assets/images/menu.svg'
 import useToggle from '../../hooks/useToggle'
 import { darken } from 'polished'
@@ -50,6 +50,7 @@ const StyledMenu = styled.div`
 const MenuFlyout = styled.span`
   min-width: 10.125rem;
   background-color: ${({ theme }) => theme.bg3};
+  color: ${({ theme }) => theme.text2};
   box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.01), 0px 4px 8px rgba(0, 0, 0, 0.04), 0px 16px 24px rgba(0, 0, 0, 0.04),
     0px 24px 32px rgba(0, 0, 0, 0.01);
   border-radius: 0.5rem;
@@ -100,6 +101,7 @@ const StyledNavLink = styled(NavLink).attrs({
 export default function ComingSoonMenu() {
   const node = useRef<HTMLDivElement>()
   const [open, toggle] = useToggle(false)
+  const theme = useContext(ThemeContext)
 
   useEffect(() => {
     const handleClickOutside = e => {
