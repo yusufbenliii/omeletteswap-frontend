@@ -1,10 +1,11 @@
 import { parseBytes32String } from '@ethersproject/strings'
-import { Currency, OMC, Token } from '@uniswap/sdk'
+import { Currency, OMC, Token, ChainId, currencyEquals } from '@uniswap/sdk'
 import { useMemo } from 'react'
 import { useDefaultTokenList } from '../state/lists/hooks'
-import { NEVER_RELOAD, useSingleCallResult } from '../state/multicall/hooks'
+import { NEVER_RELOAD, useSingleCallResult, useMultipleContractSingleData } from '../state/multicall/hooks'
 import { useUserAddedTokens } from '../state/user/hooks'
 import { isAddress } from '../utils'
+import ERC20_INTERFACE, { ERC20_BYTES32_INTERFACE } from '../constants/abis/erc20'
 
 import { useActiveWeb3React } from './index'
 import { useBytes32TokenContract, useTokenContract } from './useContract'
@@ -40,6 +41,67 @@ function parseStringOrBytes32(str: string | undefined, bytes32: string | undefin
     : bytes32 && BYTES32_REGEX.test(bytes32)
     ? parseBytes32String(bytes32)
     : defaultValue
+}
+
+export function useTokens(tokensAddress: string[] = []): Array<Token | undefined | null> | undefined | null {
+  const chainId = ChainId.OMCHAIN
+  const tokens = useAllTokens()
+
+  const tokensName = useMultipleContractSingleData(tokensAddress, ERC20_INTERFACE, 'name', undefined, NEVER_RELOAD)
+  const tokensNameBytes32 = useMultipleContractSingleData(
+    tokensAddress,
+    ERC20_BYTES32_INTERFACE,
+    'name',
+    undefined,
+    NEVER_RELOAD
+  )
+  const symbols = useMultipleContractSingleData(tokensAddress, ERC20_INTERFACE, 'symbol', undefined, NEVER_RELOAD)
+  const symbolsBytes32 = useMultipleContractSingleData(
+    tokensAddress,
+    ERC20_BYTES32_INTERFACE,
+    'symbol',
+    undefined,
+    NEVER_RELOAD
+  )
+  const decimals = useMultipleContractSingleData(tokensAddress, ERC20_INTERFACE, 'decimals', undefined, NEVER_RELOAD)
+
+  return useMemo(() => {
+    if (!tokensAddress || tokensAddress?.length === 0) return []
+    if (!chainId) return []
+
+    return tokensAddress.reduce<Token[]>((acc, tokenAddress, index) => {
+      const tokenName = tokensName?.[index]
+      const tokenNameBytes32 = tokensNameBytes32?.[index]
+      const symbol = symbols?.[index]
+      const symbolBytes32 = symbolsBytes32?.[index]
+      const decimal = decimals?.[index]
+      const address = isAddress(tokenAddress)
+
+      if (!!address && tokens[address]) {
+        // if we have user tokens already
+        acc.push(tokens[address])
+      } else if (
+        tokenName?.loading === false &&
+        tokenNameBytes32?.loading === false &&
+        symbol?.loading === false &&
+        symbolBytes32?.loading === false &&
+        decimal?.loading === false &&
+        address
+      ) {
+        const token = new Token(
+          chainId,
+          tokenAddress,
+          decimal?.result?.[0],
+          parseStringOrBytes32(symbol.result?.[0], symbolBytes32.result?.[0], 'UNKNOWN'),
+          parseStringOrBytes32(tokenName.result?.[0], tokenNameBytes32.result?.[0], 'Unknown Token')
+        )
+
+        acc.push(token)
+      }
+
+      return acc
+    }, [])
+  }, [chainId, decimals, symbols, symbolsBytes32, tokensName, tokensNameBytes32, tokens, tokensAddress])
 }
 
 // undefined if invalid or does not exist

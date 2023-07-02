@@ -33,12 +33,14 @@ const mediaWidthTemplates: { [width in keyof typeof MEDIA_WIDTHS]: typeof css } 
 
 const white = '#FFFFFF'
 const black = '#000000'
+const blue = '#2172E5'
 
 export function colors(darkMode: boolean): Colors {
   return {
     // base
     white,
     black,
+    blue,
 
     // text
     text1: darkMode ? '#FFFFFF' : '#FFFFFF',
@@ -134,6 +136,9 @@ const TextWrapper = styled(Text)<{ color: keyof Colors }>`
 export const TYPE = {
   main(props: TextProps) {
     return <TextWrapper fontWeight={500} color={'text2'} {...props} />
+  },
+  farmWhite(props: TextProps) {
+    return <TextWrapper color={'white'} {...props} />
   },
   link(props: TextProps) {
     return <TextWrapper fontWeight={500} color={'primary1'} {...props} />

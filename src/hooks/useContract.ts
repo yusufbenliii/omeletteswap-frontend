@@ -11,6 +11,10 @@ import { MULTICALL_ABI, MULTICALL_NETWORKS } from '../constants/multicall'
 import { V1_EXCHANGE_ABI, V1_FACTORY_ABI, V1_FACTORY_ADDRESSES } from '../constants/v1'
 import { getContract } from '../utils'
 import { useActiveWeb3React } from './index'
+import { MINICHEF_ADDRESS } from '../constants'
+import MiniChefV2 from '../constants/abis/MiniChefV2.json'
+import StakingRewards from '../constants/abis/StakingRewards.json'
+import { REWARDER_VIA_MULTIPLIER_INTERFACE } from '../constants/abis/rewarderViaMultiplier'
 
 // returns null on errors
 function useContract(address?: string, ABI?: any, withSignerIfPossible = true): Contract | null {
@@ -69,4 +73,17 @@ export function useSocksController(): Contract | null {
     UNISOCKS_ABI,
     false
   )
+}
+
+export function useStakingContract(stakingAddress?: string, withSignerIfPossible?: boolean): Contract | null {
+  const chainId = ChainId.OMCHAIN
+  return useContract(
+    stakingAddress,
+    stakingAddress === MINICHEF_ADDRESS[chainId] ? MiniChefV2.abi : StakingRewards.abi,
+    withSignerIfPossible
+  )
+}
+
+export function useRewardViaMultiplierContract(address?: string, withSignerIfPossible?: boolean): Contract | null {
+  return useContract(address, REWARDER_VIA_MULTIPLIER_INTERFACE, withSignerIfPossible)
 }

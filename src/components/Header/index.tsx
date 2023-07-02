@@ -269,6 +269,9 @@ export default function Header() {
             Pool
           </StyledNavLink>
           <ComingSoon />
+          <StyledNavLink id={`swap-nav-link`} to={'/farm'}>
+            Farm
+          </StyledNavLink>
         </HeaderLinks>
       </HeaderRow>
       <HeaderControls>

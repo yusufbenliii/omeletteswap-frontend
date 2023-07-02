@@ -1,9 +1,10 @@
 import styled from 'styled-components'
 import { AutoColumn } from '../Column'
 
-import uImage from '../../assets/images/omelette_logo.png'
-import xlUnicorn from '../../assets/images/omelette_logo.png'
-import noise from '../../assets/images/omelette_logo.png'
+import uImage from '../../assets/images/big_unicorn.png'
+import xlUnicorn from '../../assets/images/xl_uni.png'
+import noise from '../../assets/images/noise.png'
+import omeletteLogo from '../../assets/images/omelette_logo.png'
 
 export const TextBox = styled.div`
   display: flex;
@@ -17,7 +18,7 @@ export const TextBox = styled.div`
 `
 
 export const DataCard = styled(AutoColumn)<{ disabled?: boolean }>`
-  background: radial-gradient(76.02% 75.41% at 1.84% 0%, #f97316 0%, #e84142 100%);
+  background: linear-gradient(0deg, rgba(161, 99, 35, 1) 0%, rgba(253, 187, 45, 1) 100%);
   border-radius: 12px;
   width: 100%;
   position: relative;
@@ -25,18 +26,21 @@ export const DataCard = styled(AutoColumn)<{ disabled?: boolean }>`
 `
 
 export const CardBGImage = styled.span<{ desaturate?: boolean }>`
-  background: url(${uImage});
+  background: url(${omeletteLogo});
   width: 1000px;
   height: 600px;
   position: absolute;
   border-radius: 12px;
-  opacity: 0.4;
   top: -100px;
   left: -100px;
   transform: rotate(-15deg);
   user-select: none;
 
-  ${({ desaturate }) => desaturate && `filter: saturate(0)`}
+  ${({ desaturate }) =>
+    desaturate &&
+    `
+    filter: saturate(0)
+    `}
 `
 
 export const CardBGImageSmaller = styled.span<{ desaturate?: boolean }>`
@@ -68,7 +72,7 @@ export const CardNoise = styled.span`
 `
 
 export const CardSection = styled(AutoColumn)<{ disabled?: boolean }>`
-  padding: 4rem;
+  padding: 1rem;
   z-index: 1;
   opacity: ${({ disabled }) => disabled && '0.4'};
 `

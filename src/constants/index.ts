@@ -4,16 +4,50 @@ import { injected, walletconnect, walletlink } from '../connectors'
 
 export const ROUTER_ADDRESS = '0x733c1986e736496fcaeEE895017eF3B5d7610461'
 
+export const MINICHEF_ADDRESS: { [chainId in ChainId]: string } = {
+  [ChainId.OMCHAIN]: '0x6baB4aA367931a47e3Ed5A0562Bf8B47430D383F'
+}
+
 // a list of tokens by chain
 type ChainTokenList = {
   readonly [chainId in ChainId]: Token[]
 }
 
 export const USDT = new Token(ChainId.OMCHAIN, '0xeBFe8e1D0929578855DEb4718f0d89eFF7F0bD90', 18, 'USDT', 'Tether USD')
-/* export const DAI = new Token(ChainId.MAINNET, '0x6B175474E89094C44Da98b954EedeAC495271d0F', 18, 'DAI', 'Dai Stablecoin')
-export const USDC = new Token(ChainId.MAINNET, '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48', 6, 'USDC', 'USD//C')
-export const COMP = new Token(ChainId.MAINNET, '0xc00e94Cb662C3520282E6f5717214004A7f26888', 18, 'COMP', 'Compound')
-export const MKR = new Token(ChainId.MAINNET, '0x9f8F72aA9304c8B593d555F12eF6589cC3A579A2', 18, 'MKR', 'Maker') */
+
+export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000'
+
+export const USDCe: { [chainId in ChainId]: Token } = {
+  [ChainId.OMCHAIN]: new Token(ChainId.OMCHAIN, ZERO_ADDRESS, 6, 'USDC.e', 'USD Coin')
+}
+
+export const USDC: { [chainId in ChainId]: Token } = {
+  [ChainId.OMCHAIN]: new Token(ChainId.OMCHAIN, ZERO_ADDRESS, 6, 'USDC', 'USD Coin')
+}
+
+export const OMLT: { [chainId in ChainId]: Token } = {
+  [ChainId.OMCHAIN]: new Token(ChainId.OMCHAIN, '0x0d039A75b39624511B2fad30A709B78E9E72FE74', 18, 'OMLT', 'Omelette')
+}
+
+export const TT: { [chainId in ChainId]: Token } = {
+  [ChainId.OMCHAIN]: new Token(ChainId.OMCHAIN, '0x6BEB3a2B9B54178E7EA3D9edb893Bec92f50B4E5', 18, 'TT', 'TT Token')
+}
+
+export const BIG_INT_ZERO = JSBI.BigInt(0)
+export const BIG_INT_ONE = JSBI.BigInt(1)
+export const BIG_INT_TWO = JSBI.BigInt(2)
+export const BIG_INT_TEN = JSBI.BigInt(10)
+export const BIG_INT_EIGHTEEN = JSBI.BigInt(18)
+export const BIG_INT_SECONDS_IN_WEEK = JSBI.BigInt(60 * 60 * 24 * 7)
+export const ONE_TOKEN = JSBI.exponentiate(JSBI.BigInt(10), JSBI.BigInt(18))
+
+export const OMELETTESWAP_API_BASE_URL = `https://api.omeletteswap.com`
+
+export const OMELETTESWAP_TOKENS_REPO_RAW_BASE_URL = `https://raw.githubusercontent.com/omeletteswap/tokens`
+
+export type LogoSize = 24 | 48
+export const getTokenLogoURL = (address: string, size: LogoSize = 24) =>
+  `${OMELETTESWAP_TOKENS_REPO_RAW_BASE_URL}/main/assets/${address}/logo_${size}.png`
 
 const WOMC_ONLY: ChainTokenList = {
   [ChainId.OMCHAIN]: [WOMC[ChainId.OMCHAIN]]
