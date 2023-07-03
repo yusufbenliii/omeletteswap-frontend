@@ -138,7 +138,7 @@ export default function DoubleSidePoolCard({
         <div style={{ display: 'flex', alignItems: 'center' }}>
           {(isStaking || !stakingInfo.isPeriodFinished) && (
             <StyledInternalLink
-              to={`/png/${currencyId(currency0)}/${currencyId(currency1)}/${version}`}
+              to={`/omlt/${currencyId(currency0)}/${currencyId(currency1)}/${version}`}
               style={{ width: '100%' }}
             >
               <ButtonPrimary padding="12px" borderRadius="8px">

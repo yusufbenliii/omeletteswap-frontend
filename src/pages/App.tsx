@@ -20,7 +20,7 @@ import { RedirectOldRemoveLiquidityPathStructure } from './RemoveLiquidity/redir
 import Swap from './Swap'
 import { RedirectPathToSwapOnly, RedirectToSwap } from './Swap/redirects'
 import IdoDetail from '../components/IdoDetails/index'
-import { EarnV2 } from './Earn'
+import { EarnV2, ManageV2 } from './Earn'
 
 const AppWrapper = styled.div`
   display: flex;
@@ -79,6 +79,7 @@ export default function App() {
                 <Route exact strict path="/remove/:currencyIdA/:currencyIdB" component={RemoveLiquidity} />
                 <Route exact strict path="/ido" component={IDO} />
                 <Route exact strict path="/ido/:id" component={IdoDetail} />
+                <Route exact strict path="/omlt/:currencyIdA/:currencyIdB/2" component={ManageV2} />
                 <Route component={RedirectPathToSwapOnly} />
               </Switch>
             </Web3ReactManager>
