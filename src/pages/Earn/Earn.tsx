@@ -206,13 +206,11 @@ const Earn: React.FC<EarnProps> = ({ version, stakingInfos, poolMap }) => {
           // TODO: update here api call without staking reward address
           .map(stakingInfo => {
             if (poolMap) {
-              return {
-                swapFeeApr: 1,
-                stakingApr: 1,
-                combinedApr: '2',
-                ...stakingInfo
-              }
-              /*               return fetch(
+              console.log('heyo')
+              console.log(
+                `${OMELETTESWAP_API_BASE_URL}/pangolin/apr2/${poolMap[stakingInfo.totalStakedAmount.token.address]}`
+              )
+              return fetch(
                 `${OMELETTESWAP_API_BASE_URL}/pangolin/apr2/${poolMap[stakingInfo.totalStakedAmount.token.address]}`
               )
                 .then(res => res.json())
@@ -221,22 +219,9 @@ const Earn: React.FC<EarnProps> = ({ version, stakingInfos, poolMap }) => {
                   stakingApr: Number(res.stakingApr),
                   combinedApr: Number(res.combinedApr),
                   ...stakingInfo
-                })) */
+                }))
             } else {
-              return {
-                swapFeeApr: 1,
-                stakingApr: 1,
-                combinedApr: '2',
-                ...stakingInfo
-              }
-              /*               return fetch(`${OMELETTESWAP_API_BASE_URL}/pangolin/apr/${stakingInfo.stakingRewardAddress}`)
-                .then(res => res.json())
-                .then(res => ({
-                  swapFeeApr: Number(res.swapFeeApr),
-                  stakingApr: Number(res.stakingApr),
-                  combinedApr: Number(res.combinedApr),
-                  ...stakingInfo
-                })) */
+              alert('poolMap is not defined')
             }
           })
       ).then(updatedStakingInfos => {

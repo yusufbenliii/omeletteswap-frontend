@@ -5,7 +5,7 @@ import { injected, walletconnect, walletlink } from '../connectors'
 export const ROUTER_ADDRESS = '0x733c1986e736496fcaeEE895017eF3B5d7610461'
 
 export const MINICHEF_ADDRESS: { [chainId in ChainId]: string } = {
-  [ChainId.OMCHAIN]: '0x6baB4aA367931a47e3Ed5A0562Bf8B47430D383F'
+  [ChainId.OMCHAIN]: '0xCb9cA8Aa4f55Bd9506f6d3b7ce13B07BBbF4F2d2'
 }
 
 // a list of tokens by chain
@@ -13,7 +13,7 @@ type ChainTokenList = {
   readonly [chainId in ChainId]: Token[]
 }
 
-export const USDT = new Token(ChainId.OMCHAIN, '0xeBFe8e1D0929578855DEb4718f0d89eFF7F0bD90', 18, 'USDT', 'Tether USD')
+export const USDT = new Token(ChainId.OMCHAIN, '0x5D22743749e92dDaFcB88681CFdF7F1D6d57Ce7F', 18, 'USDT', 'Tether USD')
 
 export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000'
 
@@ -22,11 +22,11 @@ export const USDCe: { [chainId in ChainId]: Token } = {
 }
 
 export const USDC: { [chainId in ChainId]: Token } = {
-  [ChainId.OMCHAIN]: new Token(ChainId.OMCHAIN, ZERO_ADDRESS, 6, 'USDC', 'USD Coin')
+  [ChainId.OMCHAIN]: new Token(ChainId.OMCHAIN, '0xa7964ecD7a71007589254D18c72EA7665ED15F4b', 6, 'USDC', 'USD Coin')
 }
 
 export const OMLT: { [chainId in ChainId]: Token } = {
-  [ChainId.OMCHAIN]: new Token(ChainId.OMCHAIN, '0x0d039A75b39624511B2fad30A709B78E9E72FE74', 18, 'OMLT', 'Omelette')
+  [ChainId.OMCHAIN]: new Token(ChainId.OMCHAIN, '0xB25b30Df281074395A84D76C237ee1a46d837FE0', 18, 'OMLT', 'Omelette')
 }
 
 export const TT: { [chainId in ChainId]: Token } = {
@@ -41,7 +41,7 @@ export const BIG_INT_EIGHTEEN = JSBI.BigInt(18)
 export const BIG_INT_SECONDS_IN_WEEK = JSBI.BigInt(60 * 60 * 24 * 7)
 export const ONE_TOKEN = JSBI.exponentiate(JSBI.BigInt(10), JSBI.BigInt(18))
 
-export const OMELETTESWAP_API_BASE_URL = `https://api.omeletteswap.com`
+export const OMELETTESWAP_API_BASE_URL = `http://127.0.0.1:8787`
 
 export const OMELETTESWAP_TOKENS_REPO_RAW_BASE_URL = `https://raw.githubusercontent.com/omeletteswap/tokens`
 

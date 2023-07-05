@@ -334,8 +334,10 @@ export const useMinichefStakingInfos = (version = 2, pairToFilterBy?: Pair | nul
   }, [poolIdArray])
 
   const poolInfos = useSingleContractMultipleData(minichefContract, 'poolInfo', poolsIdInput ?? [])
+  console.log('poolInfos', poolInfos)
 
   const rewarders = useSingleContractMultipleData(minichefContract, 'rewarder', poolsIdInput ?? [])
+  console.log('rewarders', rewarders)
 
   const userInfoInput = useMemo(() => {
     if (!poolIdArray || !account) return []
@@ -343,8 +345,10 @@ export const useMinichefStakingInfos = (version = 2, pairToFilterBy?: Pair | nul
   }, [poolIdArray, account])
 
   const userInfos = useSingleContractMultipleData(minichefContract, 'userInfo', userInfoInput ?? [])
+  console.log('userInfos', userInfos)
 
   const pendingRewards = useSingleContractMultipleData(minichefContract, 'pendingReward', userInfoInput ?? [])
+  console.log('pendingRewards', pendingRewards)
 
   const rewardsAddresses = useMemo(() => {
     if ((rewarders || []).length === 0) return []
@@ -414,6 +418,8 @@ export const useMinichefStakingInfos = (version = 2, pairToFilterBy?: Pair | nul
         // get the LP token
         const token0 = pair?.token0
         const token1 = pair?.token1
+        console.log('token0', token0)
+        console.log('token1', token1)
 
         const tokens = [token0, token1].sort(tokenComparator)
 

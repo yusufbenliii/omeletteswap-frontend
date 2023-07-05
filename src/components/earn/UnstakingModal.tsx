@@ -12,7 +12,6 @@ import { TransactionResponse } from '@ethersproject/providers'
 import { useTransactionAdder } from '../../state/transactions/hooks'
 import FormattedCurrencyAmount from '../FormattedCurrencyAmount'
 import { useActiveWeb3React } from '../../hooks'
-import { useTranslation } from 'react-i18next'
 import { TokenAmount } from '@uniswap/sdk'
 
 const ContentWrapper = styled(AutoColumn)`
@@ -36,8 +35,6 @@ export default function UnstakingModal({
   extraRewardTokensAmount
 }: StakingModalProps) {
   const { account } = useActiveWeb3React()
-  const { t } = useTranslation()
-
   // monitor call to help UI loading state
   const addTransaction = useTransactionAdder()
   const [hash, setHash] = useState<string | undefined>()
@@ -70,7 +67,7 @@ export default function UnstakingModal({
       await stakingContract[method](...args)
         .then((response: TransactionResponse) => {
           addTransaction(response, {
-            summary: t('earn.withdrawDepositedLiquidity')
+            summary: 'Withdraw deposited liquidity'
           })
           setHash(response.hash)
         })
@@ -83,10 +80,10 @@ export default function UnstakingModal({
 
   let error: string | undefined
   if (!account) {
-    error = t('earn.connectWallet')
+    error = 'Connect Wallet'
   }
   if (!stakingInfo?.stakedAmount) {
-    error = error ?? t('earn.enterAmount')
+    error = error ?? 'Enter an Amount'
   }
 
   return (
@@ -102,7 +99,7 @@ export default function UnstakingModal({
               <TYPE.body fontWeight={600} fontSize={36}>
                 {<FormattedCurrencyAmount currencyAmount={stakingInfo.stakedAmount} />}
               </TYPE.body>
-              <TYPE.body>{t('earn.depositedPglLiquidity')}</TYPE.body>
+              <TYPE.body>{'Deposited OMLT-LP liquidity'}</TYPE.body>
             </AutoColumn>
           )}
           {stakingInfo?.earnedAmount && (
@@ -110,7 +107,7 @@ export default function UnstakingModal({
               <TYPE.body fontWeight={600} fontSize={36}>
                 {<FormattedCurrencyAmount currencyAmount={stakingInfo?.earnedAmount} />}
               </TYPE.body>
-              <TYPE.body>{t('earn.unclaimedReward', { symbol: 'PNG' })}</TYPE.body>
+              <TYPE.body>{'Your unclaimed OMLT'}</TYPE.body>
             </AutoColumn>
           )}
           {isSuperFarm &&
@@ -119,12 +116,16 @@ export default function UnstakingModal({
                 <TYPE.body fontWeight={600} fontSize={36}>
                   {<FormattedCurrencyAmount currencyAmount={rewardAmount} />}
                 </TYPE.body>
-                <TYPE.body>{t('earn.unclaimedReward', { symbol: rewardAmount?.token?.symbol })}</TYPE.body>
+                <TYPE.body>{'Your unclaimed ' + rewardAmount?.token?.symbol}</TYPE.body>
               </AutoColumn>
             ))}
-          <TYPE.subHeader style={{ textAlign: 'center' }}>{t('earn.whenYouWithdrawWarning')}</TYPE.subHeader>
+          <TYPE.subHeader style={{ textAlign: 'center' }}>
+            {
+              'When you withdraw, your OMLT is claimed and your Omelette Swap Liquidity tokens, OMLT-LP, are returned to you. You will no longer earn OMLT rewards on this liquidity. Your original token liquidity will remain in its liquidity pool.'
+            }
+          </TYPE.subHeader>
           <ButtonError disabled={!!error} error={!!error && !!stakingInfo?.stakedAmount} onClick={onWithdraw}>
-            {error ?? t('earn.withdrawAndClaim')}
+            {error ?? 'Withdraw & Claim'}
           </ButtonError>
         </ContentWrapper>
       )}
@@ -132,24 +133,14 @@ export default function UnstakingModal({
         <LoadingView onDismiss={wrappedOnDismiss}>
           <AutoColumn gap="12px" justify={'center'}>
             <TYPE.body fontSize={20}>
-              {t('earn.withdrawingLiquidity', {
-                amount: stakingInfo?.stakedAmount?.toSignificant(4),
-                symbol: 'PGL'
-              })}
+              {'Withdrawing ' + stakingInfo?.stakedAmount?.toSignificant(4) + ' OMLT-LP'}
             </TYPE.body>
             <TYPE.body fontSize={20}>
-              {t('earn.claimingReward', {
-                amount: stakingInfo?.earnedAmount?.toSignificant(4),
-                symbol: 'PNG'
-              })}
-
+              {'Claiming ' + stakingInfo?.earnedAmount?.toSignificant(4) + ' OMLT'}
               {isSuperFarm &&
                 extraRewardTokensAmount?.map((rewardAmount, i) => (
                   <TYPE.body fontSize={20} key={i}>
-                    {t('earn.claimingReward', {
-                      amount: rewardAmount?.toSignificant(6),
-                      symbol: rewardAmount?.token?.symbol
-                    })}
+                    {'Claiming ' + rewardAmount?.toSignificant(4) + ' ' + rewardAmount?.token?.symbol}
                   </TYPE.body>
                 ))}
             </TYPE.body>
@@ -159,9 +150,9 @@ export default function UnstakingModal({
       {hash && (
         <SubmittedView onDismiss={wrappedOnDismiss} hash={hash}>
           <AutoColumn gap="12px" justify={'center'}>
-            <TYPE.largeHeader>{t('earn.transactionSubmitted')}</TYPE.largeHeader>
-            <TYPE.body fontSize={20}>{t('earn.withdrewStakingToken', { symbol: 'PGL' })}</TYPE.body>
-            <TYPE.body fontSize={20}>{t('earn.claimedReward', { symbol: 'PNG' })}</TYPE.body>
+            <TYPE.largeHeader>{'Transaction Submitted'}</TYPE.largeHeader>
+            <TYPE.body fontSize={20}>{'Withdrew OMLT-LP'}</TYPE.body>
+            <TYPE.body fontSize={20}>{'Your unclaimed OMLT'}</TYPE.body>
           </AutoColumn>
         </SubmittedView>
       )}

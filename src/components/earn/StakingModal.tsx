@@ -19,7 +19,6 @@ import { wrappedCurrencyAmount } from '../../utils/wrappedCurrency'
 import { TransactionResponse } from '@ethersproject/providers'
 import { useTransactionAdder } from '../../state/transactions/hooks'
 import { LoadingView, SubmittedView } from '../ModalViews'
-import { useTranslation } from 'react-i18next'
 
 const Box = styled.div`
   display: flex;
@@ -98,7 +97,6 @@ export default function StakingModal({
 
   // approval data for stake
   const deadline = useTransactionDeadline()
-  const { t } = useTranslation()
   const [signatureData, setSignatureData] = useState<{ v: number; r: string; s: string; deadline: number } | null>(null)
   const [approval, approveCallback] = useApproveCallback(parsedAmount, stakingInfo.stakingRewardAddress)
 
@@ -119,7 +117,7 @@ export default function StakingModal({
         stakingContract[method](...args)
           .then((response: TransactionResponse) => {
             addTransaction(response, {
-              summary: t('earn.depositLiquidity')
+              summary: 'Deposit liquidity'
             })
             setHash(response.hash)
           })
@@ -154,7 +152,7 @@ export default function StakingModal({
         stakingContract[permitMethod](...permitArgs)
           .then((response: TransactionResponse) => {
             addTransaction(response, {
-              summary: t('earn.depositLiquidity')
+              summary: 'Deposit liquidity'
             })
             setHash(response.hash)
           })
@@ -167,7 +165,7 @@ export default function StakingModal({
           })
       } else {
         setAttempting(false)
-        throw new Error(t('earn.attemptingToStakeError'))
+        throw new Error('Attempting to stake without approval or a signature. Please contact support.')
       }
     }
   }
@@ -186,10 +184,10 @@ export default function StakingModal({
   }, [maxAmountInput, onUserInput])
 
   async function onAttemptToApprove() {
-    if (!pairContract || !library || !deadline) throw new Error(t('earn.missingDependencies'))
+    if (!pairContract || !library || !deadline) throw new Error('missing dependencies.')
 
     const liquidityAmount = parsedAmount
-    if (!liquidityAmount) throw new Error(t('earn.missingLiquidityAmount'))
+    if (!liquidityAmount) throw new Error('missing liquidity amount')
 
     // try to gather a signature for permission
     const nonce = await pairContract.nonces(account)
@@ -201,7 +199,7 @@ export default function StakingModal({
       { name: 'verifyingContract', type: 'address' }
     ]
     const domain = {
-      name: 'Pangolin Liquidity',
+      name: 'OmeletteSwap Liquidity',
       version: '1',
       chainId: chainId,
       verifyingContract: pairContract.address
@@ -254,7 +252,7 @@ export default function StakingModal({
       {!attempting && !hash && (
         <ContentWrapper gap="lg">
           <RowBetween>
-            <TYPE.mediumHeader>{t('earn.deposit')}</TYPE.mediumHeader>
+            <TYPE.mediumHeader>{'Deposit'}</TYPE.mediumHeader>
             <CloseIcon onClick={wrappedOnDismiss} />
           </RowBetween>
           <CurrencyInputPanel
@@ -271,19 +269,18 @@ export default function StakingModal({
 
           <HypotheticalRewardRate dim={!hypotheticalWeeklyRewardRate.greaterThan('0')}>
             <div>
-              <TYPE.black fontWeight={600}>{t('earn.weeklyRewards')}</TYPE.black>
+              <TYPE.black fontWeight={600}>{'Weekly Rewards'}</TYPE.black>
             </div>
 
             <TYPE.black>
-              {hypotheticalWeeklyRewardRate.toSignificant(4, { groupSeparator: ',' })}{' '}
-              {t('earn.rewardPerWeek', { symbol: 'PNG' })}
+              {hypotheticalWeeklyRewardRate.toSignificant(4, { groupSeparator: ',' })} {'OMLT / week'}
             </TYPE.black>
           </HypotheticalRewardRate>
 
           {isSuperFarm && (
             <HypotheticalRewardRate dim={!hypotheticalWeeklyRewardRate.greaterThan('0')}>
               <div>
-                <TYPE.black fontWeight={600}>{t('earn.extraReward')}</TYPE.black>
+                <TYPE.black fontWeight={600}>{'Extra Reward'}</TYPE.black>
               </div>
 
               <Box>
@@ -298,7 +295,7 @@ export default function StakingModal({
                     return (
                       <TYPE.black key={index}>
                         {extraTokenWeeklyRewardRate.toSignificant(4, { groupSeparator: ',' })}{' '}
-                        {t('earn.rewardPerWeek', { symbol: reward?.token?.symbol })}
+                        {reward?.token?.symbol + ' / week'}
                       </TYPE.black>
                     )
                   }
@@ -315,14 +312,14 @@ export default function StakingModal({
               confirmed={approval === ApprovalState.APPROVED || signatureData !== null}
               disabled={approval !== ApprovalState.NOT_APPROVED || signatureData !== null}
             >
-              {t('earn.approve')}
+              {'Approve'}
             </ButtonConfirmed>
             <ButtonError
               disabled={!!error || (signatureData === null && approval !== ApprovalState.APPROVED)}
               error={!!error && !!parsedAmount}
               onClick={onStake}
             >
-              {error ?? t('earn.deposit')}
+              {error ?? 'Deposit'}
             </ButtonError>
           </RowBetween>
           <ProgressCircles steps={[approval === ApprovalState.APPROVED || signatureData !== null]} disabled={true} />
@@ -331,17 +328,17 @@ export default function StakingModal({
       {attempting && !hash && (
         <LoadingView onDismiss={wrappedOnDismiss}>
           <AutoColumn gap="12px" justify={'center'}>
-            <TYPE.largeHeader>{t('earn.depositingLiquidity')}</TYPE.largeHeader>
-            <TYPE.body fontSize={20}>{parsedAmount?.toSignificant(4)} PGL</TYPE.body>
+            <TYPE.largeHeader>{'Depositing Liquidity'}</TYPE.largeHeader>
+            <TYPE.body fontSize={20}>{parsedAmount?.toSignificant(4)} OMLT-LP</TYPE.body>
           </AutoColumn>
         </LoadingView>
       )}
       {attempting && hash && (
         <SubmittedView onDismiss={wrappedOnDismiss} hash={hash}>
           <AutoColumn gap="12px" justify={'center'}>
-            <TYPE.largeHeader>{t('earn.transactionSubmitted')}</TYPE.largeHeader>
+            <TYPE.largeHeader>{'Transaction Submitted'}</TYPE.largeHeader>
             <TYPE.body fontSize={20}>
-              {t('earn.deposited')} {parsedAmount?.toSignificant(4)} PGL
+              {'Deposited'} {parsedAmount?.toSignificant(4)} OMLT-LP
             </TYPE.body>
           </AutoColumn>
         </SubmittedView>

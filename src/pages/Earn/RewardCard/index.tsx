@@ -5,12 +5,11 @@ import styled from 'styled-components'
 import { JSBI, Currency, TokenAmount } from '@uniswap/sdk'
 import { TYPE } from '../../../theme'
 import { RowBetween } from '../../../components/Row'
-import { DataCard, CardNoise, CardBGImage } from '../../../components/earn/styled'
+import { DataCard, CardNoise, CardBGImageSmaller } from '../../../components/earn/styled'
 import { ButtonEmpty } from '../../../components/Button'
 import CountUp from 'react-countup'
 import usePrevious from '../../../hooks/usePrevious'
 import { BIG_INT_ZERO } from '../../../constants'
-import { useTranslation } from 'react-i18next'
 
 const StyledBottomCard = styled(DataCard)<{ dim: any; isOverlay: boolean }>`
   background: ${({ theme }) => theme.bg3};
@@ -43,21 +42,18 @@ const RewardCard: React.FC<ManageProps> = ({
   const countUpAmount = earnedAmount?.toFixed(6) ?? '0'
   const countUpAmountPrevious = usePrevious(countUpAmount) ?? '0'
 
-  const { t } = useTranslation()
-  console.log('translate: ', t('earnPage.unclaimedReward'))
-
   return (
     <StyledBottomCard dim={stakedAmount?.equalTo(BIG_INT_ZERO)} isOverlay={isOverlay}>
-      <CardBGImage desaturate />
+      <CardBGImageSmaller desaturate />
       <CardNoise />
       <AutoColumn gap="sm">
         <RowBetween>
           <div>
-            <TYPE.black>{t('earnPage.unclaimedReward', { symbol: currency ? currency?.symbol : 'PNG' })}</TYPE.black>
+            <TYPE.black>{'Your unclaimed ' + (currency ? currency?.symbol : 'OMLT')}</TYPE.black>
           </div>
           {!isSuperFarm && earnedAmount && JSBI.notEqual(BIG_INT_ZERO, earnedAmount?.raw) && (
             <ButtonEmpty padding="8px" borderRadius="8px" width="fit-content" onClick={() => setShowClaimRewardModal()}>
-              {t('earnPage.claim')}
+              {'Claim'}
             </ButtonEmpty>
           )}
         </RowBetween>
@@ -76,7 +72,7 @@ const RewardCard: React.FC<ManageProps> = ({
               ⚡
             </span>
             {weeklyRewardRate?.toSignificant(4, { groupSeparator: ',' }) ?? '-'}
-            {t('earnPage.rewardPerWeek', { symbol: currency ? currency?.symbol : 'PNG' })}
+            {' ' + (currency ? currency?.symbol : 'OMLT') + ' / week'}
           </TYPE.black>
         </RowBetween>
       </AutoColumn>

@@ -8,7 +8,7 @@ import DoubleCurrencyLogo from '../../components/DoubleLogo'
 import { useWalletModalToggle } from '../../state/application/hooks'
 import { TYPE } from '../../theme'
 import { RowBetween } from '../../components/Row'
-import { CardSection, DataCard, CardNoise, CardBGImage } from '../../components/earn/styled'
+import { CardSection, DataCard, CardNoise, CardBGImage, CardBGImageSmaller } from '../../components/earn/styled'
 import { ButtonPrimary } from '../../components/Button'
 import StakingModal from '../../components/earn/StakingModal'
 import { DoubleSideStakingInfo } from '../../state/stake/hooks'
@@ -124,19 +124,19 @@ const Manage: React.FC<ManageProps> = ({ version, stakingInfo, currencyA, curren
   return (
     <PageWrapper gap="lg" justify="center">
       <RowBetween style={{ gap: '24px' }}>
-        <TYPE.mediumHeader style={{ margin: 0 }}>
+        <TYPE.main style={{ margin: 0 }}>
           {currencyA?.symbol}-{currencyB?.symbol} {'Liquidity Mining'}
-        </TYPE.mediumHeader>
+        </TYPE.main>
         <DoubleCurrencyLogo currency0={currencyA ?? undefined} currency1={currencyB ?? undefined} size={24} />
       </RowBetween>
 
       <MainDataRow style={{ gap: '24px' }}>
         <PoolData>
           <AutoColumn gap="sm">
-            <TYPE.body style={{ margin: 0 }}>{'Total Staked'}</TYPE.body>
-            <TYPE.body fontSize={24} fontWeight={500}>
+            <TYPE.main style={{ margin: 0 }}>{'Total Staked'}</TYPE.main>
+            <TYPE.main fontSize={24} fontWeight={500}>
               {`$${stakingInfo?.totalStakedInUsd?.toFixed(0, { groupSeparator: ',' }) ?? '-'}`}
-            </TYPE.body>
+            </TYPE.main>
           </AutoColumn>
         </PoolData>
         <PoolData>
@@ -237,7 +237,7 @@ const Manage: React.FC<ManageProps> = ({ version, stakingInfo, currencyA, curren
         <BottomSection gap="lg" justify="center">
           <StyledDataCard disabled={disableTop} bgColor={backgroundColor} showBackground={!showAddLiquidityButton}>
             <CardSection>
-              <CardBGImage desaturate />
+              <CardBGImageSmaller desaturate />
               <CardNoise />
               <AutoColumn gap="md">
                 <RowBetween>
@@ -297,15 +297,13 @@ const Manage: React.FC<ManageProps> = ({ version, stakingInfo, currencyA, curren
           <span role="img" aria-label="wizard-icon" style={{ marginRight: '8px' }}>
             ⭐️
           </span>
-          {t('earnPage.automagically')}
+          {'When you withdraw, the contract will automatically claim OMLT on your behalf!'}
         </TYPE.main>
 
         {!showAddLiquidityButton && (
           <DataRow style={{ marginBottom: '1rem' }}>
             <ButtonPrimary padding="8px" borderRadius="8px" width="160px" onClick={handleDepositClick}>
-              {stakingInfo?.stakedAmount?.greaterThan(BIG_INT_ZERO)
-                ? t('earnPage.deposit')
-                : t('earnPage.depositStakingTokens', { symbol: 'PGL' })}
+              {stakingInfo?.stakedAmount?.greaterThan(BIG_INT_ZERO) ? 'Deposit' : 'Deposit OMLT-LP Tokens'}
             </ButtonPrimary>
 
             {isSuperFarm && stakingInfo?.earnedAmount?.greaterThan(BIG_INT_ZERO) && (
@@ -316,7 +314,7 @@ const Manage: React.FC<ManageProps> = ({ version, stakingInfo, currencyA, curren
                   width="160px"
                   onClick={() => setShowClaimRewardModal(true)}
                 >
-                  {t('earnPage.claim')}
+                  {'Claim'}
                 </ButtonPrimary>
               </>
             )}
@@ -337,7 +335,7 @@ const Manage: React.FC<ManageProps> = ({ version, stakingInfo, currencyA, curren
         )}
         {!userLiquidityUnstaked || userLiquidityUnstaked.equalTo('0') ? null : (
           <TYPE.main>
-            {userLiquidityUnstaked.toSignificant(6)} {t('earnPage.stakingTokensAvailable', { symbol: 'PGL' })}
+            {userLiquidityUnstaked.toSignificant(6)} {'OMLT-LP Tokens Avaliable'}
           </TYPE.main>
         )}
       </PositionInfo>

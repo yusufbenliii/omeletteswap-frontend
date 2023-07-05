@@ -11,7 +11,6 @@ import { SubmittedView, LoadingView } from '../ModalViews'
 import { TransactionResponse } from '@ethersproject/providers'
 import { useTransactionAdder } from '../../state/transactions/hooks'
 import { useActiveWeb3React } from '../../hooks'
-import { useTranslation } from 'react-i18next'
 import { TokenAmount } from '@uniswap/sdk'
 
 const ContentWrapper = styled(AutoColumn)`
@@ -35,8 +34,6 @@ export default function ClaimRewardModal({
   extraRewardTokensAmount
 }: StakingModalProps) {
   const { account } = useActiveWeb3React()
-  const { t } = useTranslation()
-
   // monitor call to help UI loading state
   const addTransaction = useTransactionAdder()
   const [hash, setHash] = useState<string | undefined>()
@@ -62,7 +59,7 @@ export default function ClaimRewardModal({
       await stakingContract[method](...args)
         .then((response: TransactionResponse) => {
           addTransaction(response, {
-            summary: t('earn.claimAccumulated', { symbol: 'PNG' })
+            summary: 'Claim accumulated OMLT Rewards'
           })
           setHash(response.hash)
         })
@@ -78,10 +75,10 @@ export default function ClaimRewardModal({
 
   let errorMessage: string | undefined
   if (!account) {
-    errorMessage = t('earn.connectWallet')
+    errorMessage = 'Connect Wallet'
   }
   if (!stakingInfo?.stakedAmount) {
-    errorMessage = errorMessage ?? t('earn.enterAmount')
+    errorMessage = errorMessage ?? 'Enter an Amount'
   }
 
   return (
@@ -89,7 +86,7 @@ export default function ClaimRewardModal({
       {!attempting && !hash && (
         <ContentWrapper gap="lg">
           <RowBetween>
-            <TYPE.mediumHeader>{t('earn.claim')}</TYPE.mediumHeader>
+            <TYPE.mediumHeader>{'Claim'}</TYPE.mediumHeader>
             <CloseIcon onClick={wrappedOnDismiss} />
           </RowBetween>
           {stakingInfo?.earnedAmount && (
@@ -97,7 +94,7 @@ export default function ClaimRewardModal({
               <TYPE.body fontWeight={600} fontSize={36}>
                 {stakingInfo?.earnedAmount?.toSignificant(6)}
               </TYPE.body>
-              <TYPE.body>{t('earn.unclaimedReward', { symbol: 'PNG' })}</TYPE.body>
+              <TYPE.body>{'Unclaimed OMLT'}</TYPE.body>
             </AutoColumn>
           )}
           {isSuperFarm &&
@@ -106,36 +103,30 @@ export default function ClaimRewardModal({
                 <TYPE.body fontWeight={600} fontSize={36}>
                   {rewardAmount?.toSignificant(6)}
                 </TYPE.body>
-                <TYPE.body>{t('earn.unclaimedReward', { symbol: rewardAmount?.token?.symbol })}</TYPE.body>
+                <TYPE.body>{'Unclaimed ' + rewardAmount?.token?.symbol}</TYPE.body>
               </AutoColumn>
             ))}
-          <TYPE.subHeader style={{ textAlign: 'center' }}>{t('earn.liquidityRemainsPool')}</TYPE.subHeader>
+          <TYPE.subHeader style={{ textAlign: 'center' }}>
+            {'When you claim without withdrawing your liquidity remains in the mining pool.'}
+          </TYPE.subHeader>
           <ButtonError
             disabled={!!errorMessage}
             error={!!errorMessage && !!stakingInfo?.stakedAmount}
             onClick={onClaimReward}
           >
-            {errorMessage ? errorMessage : isSuperFarm ? t('earn.claim') : t('earn.claimReward', { symbol: 'PNG' })}
+            {errorMessage ? errorMessage : isSuperFarm ? 'Claim' : 'Claim OMLT'}
           </ButtonError>
         </ContentWrapper>
       )}
       {attempting && !hash && (
         <LoadingView onDismiss={wrappedOnDismiss}>
           <AutoColumn gap="12px" justify={'center'}>
-            <TYPE.body fontSize={20}>
-              {t('earn.claimingReward', {
-                amount: stakingInfo?.earnedAmount?.toSignificant(6),
-                symbol: 'PNG'
-              })}
-            </TYPE.body>
+            <TYPE.body fontSize={20}>{'Claiming ' + stakingInfo?.earnedAmount?.toSignificant(6) + ' OMLT'}</TYPE.body>
 
             {isSuperFarm &&
               extraRewardTokensAmount?.map((rewardAmount, i) => (
                 <TYPE.body fontSize={20} key={i}>
-                  {t('earn.claimingReward', {
-                    amount: rewardAmount?.toSignificant(6),
-                    symbol: rewardAmount?.token?.symbol
-                  })}
+                  {'Claiming ' + rewardAmount?.toSignificant(6) + ' ' + rewardAmount?.token?.symbol}
                 </TYPE.body>
               ))}
           </AutoColumn>
@@ -144,8 +135,8 @@ export default function ClaimRewardModal({
       {hash && (
         <SubmittedView onDismiss={wrappedOnDismiss} hash={hash}>
           <AutoColumn gap="12px" justify={'center'}>
-            <TYPE.largeHeader>{t('earn.transactionSubmitted')}</TYPE.largeHeader>
-            <TYPE.body fontSize={20}>{t('earn.claimedReward', { symbol: 'PNG' })}</TYPE.body>
+            <TYPE.largeHeader>{'Transaction Submitted'}</TYPE.largeHeader>
+            <TYPE.body fontSize={20}>{'Unclaimed OMLT'}</TYPE.body>
           </AutoColumn>
         </SubmittedView>
       )}
