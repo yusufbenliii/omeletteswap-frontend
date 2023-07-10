@@ -139,7 +139,8 @@ export default function CurrencyList({
     removeToken,
     selectedCurrency,
     showSendWithSwap,
-    theme.primary1
+    theme.primary1,
+    theme.text2
   ])
 
   return (

@@ -7,8 +7,6 @@ interface Props {}
 const EarnV2: React.FC<Props> = () => {
   const stakingInfos = useMinichefStakingInfos(2)
   const poolMap = useMinichefPools()
-  console.log('poolMap', poolMap)
-  console.log('stakingInfos', stakingInfos)
 
   return <Earn version="2" stakingInfos={stakingInfos} poolMap={poolMap} />
 }

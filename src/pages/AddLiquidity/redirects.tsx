@@ -1,7 +1,6 @@
 import React from 'react'
 import { Redirect, RouteComponentProps } from 'react-router-dom'
 import AddLiquidity from './index'
-import IDO from '../Ido/index'
 
 export function RedirectToAddLiquidity() {
   return <Redirect to="/add/" />

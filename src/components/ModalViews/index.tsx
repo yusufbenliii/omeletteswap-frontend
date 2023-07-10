@@ -1,16 +1,13 @@
 import React, { useContext } from 'react'
-
 import { AutoColumn, ColumnCenter } from '../Column'
 import styled, { ThemeContext } from 'styled-components'
 import { RowBetween } from '../Row'
 import { TYPE, CloseIcon, CustomLightSpinner } from '../../theme'
 import { ArrowUpCircle } from 'react-feather'
 import { ChainId } from '@uniswap/sdk'
-
 import Circle from '../../assets/images/blue-loader.svg'
 import { getEtherscanLink } from '../../utils'
 import { ExternalLink } from '../../theme/components'
-import { useTranslation } from 'react-i18next'
 
 const ConfirmOrLoadingWrapper = styled.div`
   width: 100%;
@@ -22,7 +19,6 @@ const ConfirmedIcon = styled(ColumnCenter)`
 `
 
 export function LoadingView({ children, onDismiss }: { children: any; onDismiss: () => void }) {
-  const { t } = useTranslation()
   return (
     <ConfirmOrLoadingWrapper>
       <RowBetween>
@@ -51,7 +47,6 @@ export function SubmittedView({
 }) {
   const theme = useContext(ThemeContext)
   const chainId = ChainId.OMCHAIN
-  const { t } = useTranslation()
 
   return (
     <ConfirmOrLoadingWrapper>

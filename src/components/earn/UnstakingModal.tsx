@@ -73,7 +73,6 @@ export default function UnstakingModal({
         })
         .catch((_error: any) => {
           setAttempting(false)
-          console.log(_error)
         })
     }
   }

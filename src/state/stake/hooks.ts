@@ -6,13 +6,12 @@ import {
   USDC,
   USDCe,
   OMLT,
-  TT,
   BIG_INT_SECONDS_IN_WEEK,
   BIG_INT_ZERO,
   BIG_INT_TWO
 } from '../../constants'
 import { useSingleCallResult, useMultipleContractSingleData, useSingleContractMultipleData } from '../multicall/hooks'
-import { useEffect, useMemo } from 'react'
+import { useMemo } from 'react'
 import { useActiveWeb3React } from '../../hooks'
 import { PairState, usePair, usePairs } from '../../data/Reserves'
 import { DOUBLE_SIDE_STAKING_REWARDS_INFO } from './doubleSideConfig'
@@ -142,8 +141,6 @@ export function useDerivedStakeInfo(
   error?: string
 } {
   const { account } = useActiveWeb3React()
-  const chainId = ChainId.OMCHAIN
-
   const { t } = useTranslation()
 
   const parsedInput: CurrencyAmount | undefined = tryParseAmount(typedValue, stakingToken)
@@ -172,7 +169,6 @@ export const useMinichefPools = (): { [key: string]: number } => {
   const minichefContract = useStakingContract(MINICHEF_ADDRESS[chainId])
   const lpTokens = useSingleCallResult(minichefContract, 'lpTokens', []).result
   const lpTokensArr = lpTokens?.[0]
-  console.log('lpTokensArr', lpTokensArr)
 
   return useMemo(() => {
     const poolMap: { [key: string]: number } = {}
@@ -273,7 +269,6 @@ export const useMinichefStakingInfos = (version = 2, pairToFilterBy?: Pair | nul
   const chainId = ChainId.OMCHAIN
 
   const minichefContract = useStakingContract(MINICHEF_ADDRESS[chainId])
-  console.log('minichefContract', minichefContract)
   const poolMap = useMinichefPools()
   //const png = PNG[chainId]
 
@@ -291,36 +286,22 @@ export const useMinichefStakingInfos = (version = 2, pairToFilterBy?: Pair | nul
     [chainId, pairToFilterBy, version]
   )
 
-  console.log('info', info)
-
   const _tokens = useMemo(() => info.map(({ tokens }) => tokens), [info])
-  console.log('_tokens', _tokens)
   const pairs = usePairs(_tokens)
-  console.log('pairs', pairs)
 
   // @dev: If no farms load, you likely loaded an incorrect config from doubleSideConfig.js
   // Enable this and look for an invalid pair
-  // console.log(pairs)
 
   const pairAddresses = useMemo(() => {
     return pairs.map(([, pair]) => pair?.liquidityToken.address)
   }, [pairs])
-  console.log('pairAddresses', pairAddresses)
 
   const pairTotalSupplies = useMultipleContractSingleData(pairAddresses, ERC20_INTERFACE, 'totalSupply')
-  console.log('pairTotalSupplies', pairTotalSupplies)
   const balances = useMultipleContractSingleData(pairAddresses, ERC20_INTERFACE, 'balanceOf', [
     MINICHEF_ADDRESS[chainId]
   ])
-  console.log('balances', balances)
-
-  console.log('pairAddresses', pairAddresses)
-  console.log('pairTotalSupplies', pairTotalSupplies)
-  console.log('balances', balances)
 
   const [omcOmltPairState, omcOmltPair] = usePair(WOMC[chainId], OMLT[chainId])
-  console.log('omcOmltPairState', omcOmltPairState)
-  console.log('omcOmltPair', omcOmltPair)
 
   const poolIdArray = useMemo(() => {
     if (!pairAddresses || !poolMap) return []
@@ -337,10 +318,8 @@ export const useMinichefStakingInfos = (version = 2, pairToFilterBy?: Pair | nul
   }, [poolIdArray])
 
   const poolInfos = useSingleContractMultipleData(minichefContract, 'poolInfo', poolsIdInput ?? [])
-  console.log('poolInfos', poolInfos)
 
   const rewarders = useSingleContractMultipleData(minichefContract, 'rewarder', poolsIdInput ?? [])
-  console.log('rewarders', rewarders)
 
   const userInfoInput = useMemo(() => {
     if (!poolIdArray || !account) return []
@@ -348,10 +327,8 @@ export const useMinichefStakingInfos = (version = 2, pairToFilterBy?: Pair | nul
   }, [poolIdArray, account])
 
   const userInfos = useSingleContractMultipleData(minichefContract, 'userInfo', userInfoInput ?? [])
-  console.log('userInfos', userInfos)
 
   const pendingRewards = useSingleContractMultipleData(minichefContract, 'pendingReward', userInfoInput ?? [])
-  console.log('pendingRewards', pendingRewards)
 
   const rewardsAddresses = useMemo(() => {
     if ((rewarders || []).length === 0) return []
@@ -385,7 +362,6 @@ export const useMinichefStakingInfos = (version = 2, pairToFilterBy?: Pair | nul
     return pairAddresses.reduce<any[]>((memo: any, _pairAddress: any, index: any) => {
       const pairTotalSupplyState = pairTotalSupplies[index]
       const balanceState = balances[index]
-      console.log('balanceState', balanceState)
       const poolInfo = poolInfos[index]
       const userPoolInfo = userInfos[index]
       const [pairState, pair] = pairs[index]
@@ -393,8 +369,6 @@ export const useMinichefStakingInfos = (version = 2, pairToFilterBy?: Pair | nul
       const rewardTokensAddress = rewardTokensAddresses[index]
       const rewardTokensMultiplier = rewardTokensMultipliers[index]
       const rewardsAddress = rewardsAddresses[index]
-      console.log('pairState', pairState)
-      console.log('pair', pair)
       if (
         pairTotalSupplyState?.loading === false &&
         poolInfo?.loading === false &&
@@ -423,8 +397,6 @@ export const useMinichefStakingInfos = (version = 2, pairToFilterBy?: Pair | nul
         // get the LP token
         const token0 = pair?.token0
         const token1 = pair?.token1
-        console.log('token0', token0)
-        console.log('token1', token1)
 
         const tokens = [token0, token1].sort(tokenComparator)
 
@@ -450,7 +422,6 @@ export const useMinichefStakingInfos = (version = 2, pairToFilterBy?: Pair | nul
           periodFinishMs === 0 ? false : periodFinishMs < Date.now() || poolAllocPointAmount.equalTo('0')
 
         const totalSupplyStaked = JSBI.BigInt(balanceState?.result?.[0])
-        console.log('totalSupplyStaked', totalSupplyStaked.toString())
         const totalSupplyAvailable = JSBI.BigInt(pairTotalSupplyState?.result?.[0])
         const totalStakedAmount = new TokenAmount(lpToken, JSBI.BigInt(balanceState?.result?.[0]))
         const stakedAmount = new TokenAmount(lpToken, JSBI.BigInt(userPoolInfo?.result?.['amount'] ?? 0))
@@ -458,7 +429,6 @@ export const useMinichefStakingInfos = (version = 2, pairToFilterBy?: Pair | nul
         const multiplier = JSBI.BigInt(poolInfo?.result?.['allocPoint'])
 
         const isOmcPool = pair.involvesToken(WOMC[chainId])
-        console.log('isOmcPool', isOmcPool)
         const isOmltPool = pair.involvesToken(OMLT[chainId])
 
         let totalStakedInUsd
@@ -472,32 +442,17 @@ export const useMinichefStakingInfos = (version = 2, pairToFilterBy?: Pair | nul
           totalStakedInUsd = new TokenAmount(USDCe[chainId], stakedValueInUSDC) || undefined
         } else if (pair.involvesToken(USDC[chainId])) {
           const pairValueInUSDC = JSBI.multiply(pair.reserveOf(USDC[chainId]).raw, BIG_INT_TWO)
-          console.log('pair.reserveOf(USDC[chainId]).raw', pair.reserveOf(USDC[chainId]).raw.toString())
-          console.log('totalSupplyAvailable', totalSupplyAvailable.toString())
-          console.log('pairValueInUSDC', pairValueInUSDC.toString())
-          console.log('pairValueInUSDC', pairValueInUSDC)
           const stakedValueInUSDC = JSBI.divide(JSBI.multiply(pairValueInUSDC, totalSupplyStaked), totalSupplyAvailable)
-          console.log('stakedValueInUSDC', stakedValueInUSDC.toString())
           totalStakedInUsd = new TokenAmount(USDC[chainId], stakedValueInUSDC) || undefined
-          console.log('totalStakedInUsd', totalStakedInUsd.raw.toString())
         } else if (isOmcPool) {
-          console.log(
-            'ajdajsdkasd',
-            totalSupplyStaked.toString(),
-            totalSupplyAvailable.toString(),
-            pair.reserveOf(WOMC[chainId]).raw.toString(),
-            chainId
-          )
           const _totalStakedInWomc = calculateTotalStakedAmountInOmc(
             totalSupplyStaked,
             totalSupplyAvailable,
             pair.reserveOf(WOMC[chainId]).raw,
             chainId
           )
-          console.log('_totalStakedInWomc', _totalStakedInWomc.raw.toString())
-          console.log('usdPrice', usdPrice)
+
           totalStakedInUsd = (_totalStakedInWomc && (usdPrice?.quote(_totalStakedInWomc) as TokenAmount)) || undefined
-          console.log('totalStakedInUsd', totalStakedInUsd.toString())
         } else if (isOmltPool) {
           const _totalStakedInWomc = calculateTotalStakedAmountInOmcFromOmlt(
             totalSupplyStaked,

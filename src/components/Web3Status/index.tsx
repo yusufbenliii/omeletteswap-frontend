@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react'
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 import { useTranslation } from 'react-i18next'
 import { useWeb3React, UnsupportedChainIdError } from '@web3-react/core'
 import { darken, lighten } from 'polished'
@@ -20,6 +20,7 @@ import { useAllTransactions } from '../../state/transactions/hooks'
 import { NetworkContextName } from '../../constants'
 import { injected, walletconnect, walletlink } from '../../connectors'
 import Loader from '../Loader'
+import { TYPE } from '../../theme'
 
 const IconWrapper = styled.div<{ size?: number }>`
   ${({ theme }) => theme.flexColumnNoWrap};
@@ -53,32 +54,6 @@ const Web3StatusError = styled(Web3StatusGeneric)`
   :focus {
     background-color: ${({ theme }) => darken(0.1, theme.red1)};
   }
-`
-
-const Web3StatusConnect = styled(Web3StatusGeneric)<{ faded?: boolean }>`
-  background-color: ${({ theme }) => theme.bg6};
-  border: none;
-  color: ${({ theme }) => theme.primaryText1};
-  font-weight: 500;
-
-  :hover,
-  :focus {
-    border: 1px solid ${({ theme }) => darken(0.05, theme.primary4)};
-    color: ${({ theme }) => theme.primaryText1};
-  }
-
-  ${({ faded }) =>
-    faded &&
-    css`
-      background-color: ${({ theme }) => theme.bg6};
-      border: 1px solid ${({ theme }) => theme.primary5};
-      color: ${({ theme }) => theme.text3};
-
-      :hover,
-      :focus {
-        color: ${({ theme }) => darken(0.05, theme.bg5)};
-      }
-    `}
 `
 
 const Web3StatusConnected = styled(Web3StatusGeneric)<{ pending?: boolean }>`
@@ -134,7 +109,6 @@ export default function Web3Status() {
   const { active, account, connector, error } = useWeb3React()
   const contextNetwork = useWeb3React(NetworkContextName)
   const darkMode = useIsDarkMode()
-
   const { ENSName } = useENSName(account)
 
   const allTransactions = useAllTransactions()
@@ -191,7 +165,7 @@ export default function Web3Status() {
       return (
         <Web3StatusError onClick={toggleWalletModal}>
           <NetworkIcon />
-          <Text>{error instanceof UnsupportedChainIdError ? 'Wrong Network' : 'Error'}</Text>
+          <TYPE.black>{error instanceof UnsupportedChainIdError ? 'Wrong Network' : 'Error'}</TYPE.black>
         </Web3StatusError>
       )
     } else {

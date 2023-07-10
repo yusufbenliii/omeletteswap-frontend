@@ -5,7 +5,8 @@ import { isMobile } from 'react-device-detect'
 import { UnsupportedChainIdError, useWeb3React } from '@web3-react/core'
 import usePrevious from '../../hooks/usePrevious'
 import { useWalletModalOpen, useWalletModalToggle } from '../../state/application/hooks'
-
+import { ButtonLight } from '../../components/Button'
+import { TYPE } from '../../theme'
 import Modal from '../Modal'
 import AccountDetails from '../AccountDetails'
 import PendingView from './PendingView'
@@ -112,6 +113,31 @@ const WALLET_VIEWS = {
   OPTIONS_SECONDARY: 'options_secondary',
   ACCOUNT: 'account',
   PENDING: 'pending'
+}
+
+function addOmchainNetwork() {
+  injected.getProvider().then(provider => {
+    provider
+      ?.request({
+        method: 'wallet_addEthereumChain',
+        params: [
+          {
+            chainId: '0x5538',
+            chainName: 'omChain Mainnet',
+            nativeCurrency: {
+              name: 'Omchain',
+              symbol: 'OMC',
+              decimals: 18
+            },
+            rpcUrls: ['https://seed.omchain.io'],
+            blockExplorerUrls: ['https://explorer.omchain.io']
+          }
+        ]
+      })
+      .catch((error: any) => {
+        console.log(error)
+      })
+  })
 }
 
 export default function WalletModal({
@@ -282,7 +308,10 @@ export default function WalletModal({
           <HeaderRow>{error instanceof UnsupportedChainIdError ? 'Wrong Network' : 'Error connecting'}</HeaderRow>
           <ContentWrapper>
             {error instanceof UnsupportedChainIdError ? (
-              <h5>Please connect to the appropriate Omchain network.</h5>
+              <>
+                <TYPE.main>Please connect to the appropriate Omchain network.</TYPE.main>
+                <ButtonLight onClick={addOmchainNetwork}>{'Switch to Omchain Network'}</ButtonLight>
+              </>
             ) : (
               'Error connecting. Try refreshing the page.'
             )}

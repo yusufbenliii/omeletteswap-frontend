@@ -1,7 +1,6 @@
 /* eslint-disable react/jsx-no-undef */
 import { ChainId } from '@uniswap/sdk'
-import React, { useEffect } from 'react'
-import { isMobile } from 'react-device-detect'
+import React from 'react'
 import { Text } from 'rebass'
 
 import styled from 'styled-components'
@@ -16,13 +15,11 @@ import Settings from '../Settings'
 import Menu from '../Menu'
 import { NavLink } from 'react-router-dom'
 
-import Row, { RowBetween, RowFixed } from '../Row'
+import Row, { RowFixed } from '../Row'
 import Web3Status from '../Web3Status'
 
 import { darken } from 'polished'
-import { MenuFlyout, MenuNavItem } from '../StyledMenu'
 import ComingSoon from '../ComingSoon'
-import { useTranslation } from 'react-i18next'
 import { Hidden, ExternalLink } from '../../theme/components'
 //import VersionSwitch from './VersionSwitch'
 
@@ -123,7 +120,7 @@ const AccountElement = styled.div<{ active: boolean }>`
   } */
 `
 
-const PNGAmount = styled(AccountElement)`
+const OMLTAmount = styled(AccountElement)`
   color: white;
   padding: 4px 8px;
   height: 36px;
@@ -132,7 +129,7 @@ const PNGAmount = styled(AccountElement)`
   background: radial-gradient(174.47% 188.91% at 1.84% 0%, #f97316 0%, #e84142 100%), #edeef2;
 `
 
-const PNGWrapper = styled.span`
+const OMLTWrapper = styled.span`
   width: fit-content;
   position: relative;
   cursor: pointer;
@@ -248,9 +245,7 @@ const NETWORK_LABELS: { [chainId in ChainId]: string | null } = {
 export default function Header() {
   const { account, chainId } = useActiveWeb3React()
   const userEthBalance = useETHBalances([account])[account]
-  const { t } = useTranslation()
   const [isDark] = useDarkModeManager()
-  const [info, setInfo] = React.useState<any>(null)
 
   return (
     <HeaderFrame>

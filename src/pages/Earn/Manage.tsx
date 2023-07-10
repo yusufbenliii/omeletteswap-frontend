@@ -18,7 +18,6 @@ import { useTokenBalance } from '../../state/wallet/hooks'
 import { useActiveWeb3React } from '../../hooks'
 import { currencyId } from '../../utils/currencyId'
 import { BIG_INT_ZERO } from '../../constants'
-import { useTranslation } from 'react-i18next'
 import RewardCard from './RewardCard'
 
 const PageWrapper = styled(AutoColumn)`
@@ -99,7 +98,6 @@ const Manage: React.FC<ManageProps> = ({ version, stakingInfo, currencyA, curren
   // detect existing unstaked LP position to show add button if none found
   const userLiquidityUnstaked = useTokenBalance(account ?? undefined, stakingInfo?.stakedAmount?.token)
   const showAddLiquidityButton = Boolean(stakingInfo?.stakedAmount?.equalTo('0') && userLiquidityUnstaked?.equalTo('0'))
-  console.log('showAddLiquidityButton', showAddLiquidityButton)
   // toggle for staking modal and unstaking modal
   const [showStakingModal, setShowStakingModal] = useState(false)
   const [showUnstakingModal, setShowUnstakingModal] = useState(false)
@@ -109,7 +107,6 @@ const Manage: React.FC<ManageProps> = ({ version, stakingInfo, currencyA, curren
   const disableTop = !stakingInfo?.stakedAmount || stakingInfo.stakedAmount.equalTo(BIG_INT_ZERO)
 
   const toggleWalletModal = useWalletModalToggle()
-  const { t } = useTranslation()
 
   const handleDepositClick = useCallback(() => {
     if (account) {
@@ -153,7 +150,6 @@ const Manage: React.FC<ManageProps> = ({ version, stakingInfo, currencyA, curren
             {isSuperFarm && stakingInfo?.totalRewardRatePerSecond && (
               <>
                 {(extraRewardTokensAmount || []).map((reward, index) => {
-                  console.log('reward', reward)
                   const tokenMultiplier = stakingInfo?.rewardTokensMultiplier?.[index]
                   const weeklyRewardRate =
                     stakingInfo?.getExtraTokensWeeklyRewardRate &&

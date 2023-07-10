@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-misused-new */
 /* eslint-disable @typescript-eslint/class-name-casing */
 /* eslint-disable @typescript-eslint/camelcase */
@@ -324,7 +326,6 @@ export default function IdoDetail({
             }
           },
           (error: any, response: any) => {
-            console.log('response:', response)
             if (error) {
               console.error('Failed to add OMLT Token:', error)
             } else {
@@ -333,7 +334,6 @@ export default function IdoDetail({
           }
         )
         if (watchAssetVar) {
-          console.log('OMLT Token added successfully')
           alert('OMLT Token added successfully')
         }
       } catch (error) {
@@ -358,7 +358,6 @@ export default function IdoDetail({
         blockExplorerUrls: ['https://explorer.omchain.io'] // Replace with the block explorer URL of Omchain
       }
       try {
-        console.log('Adding Omchain network')
         await provider.request(
           {
             method: 'wallet_addEthereumChain',

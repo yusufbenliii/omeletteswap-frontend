@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useContext } from 'react'
+import React, { useRef, useEffect, useContext, useState } from 'react'
 import { Info, BookOpen, Code, PieChart, MessageCircle } from 'react-feather'
 import styled, { ThemeContext } from 'styled-components'
 import { ReactComponent as MenuIcon } from '../../assets/images/menu.svg'
@@ -102,6 +102,15 @@ export default function ComingSoonMenu() {
   const node = useRef<HTMLDivElement>()
   const [open, toggle] = useToggle(false)
   const theme = useContext(ThemeContext)
+  const [isHovered, setIsHovered] = useState(false)
+
+  const handleMouseEnter = () => {
+    setIsHovered(true)
+  }
+
+  const handleMouseLeave = () => {
+    setIsHovered(false)
+  }
 
   useEffect(() => {
     const handleClickOutside = e => {
@@ -124,10 +133,16 @@ export default function ComingSoonMenu() {
 
   return (
     <StyledMenu ref={node}>
-      <StyledNavLink onMouseEnter={toggle} id={`swap-nav-link`} to={''} aria-disabled={true}>
+      <StyledNavLink
+        onMouseLeave={handleMouseLeave}
+        onMouseEnter={handleMouseEnter}
+        id={`swap-nav-link`}
+        to={''}
+        aria-disabled={true}
+      >
         IDO
       </StyledNavLink>
-      {open && <MenuFlyout>Coming Soon..</MenuFlyout>}
+      {isHovered && <MenuFlyout>Coming Soon..</MenuFlyout>}
     </StyledMenu>
   )
 }

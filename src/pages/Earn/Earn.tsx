@@ -8,12 +8,10 @@ import { DoubleSideStakingInfo } from '../../state/stake/hooks'
 import { DOUBLE_SIDE_STAKING_REWARDS_INFO } from '../../state/stake/doubleSideConfig'
 import { TYPE, ExternalLink } from '../../theme'
 import DoubleSidePoolCard from '../../components/earn/DoubleSidePoolCard'
-import { NavLink } from 'react-router-dom'
 import { AutoRow, RowBetween } from '../../components/Row'
 import { CardSection, DataCard, CardNoise, CardBGImage } from '../../components/earn/styled'
 import Loader from '../../components/Loader'
 import { ChainId } from '@uniswap/sdk'
-import { useTranslation } from 'react-i18next'
 import { SearchInput } from '../../components/SearchModal/styleds'
 import useDebounce from '../../hooks/useDebounce'
 import { BIG_INT_ZERO, OMELETTESWAP_API_BASE_URL } from '../../constants'
@@ -27,12 +25,6 @@ const PageWrapper = styled(AutoColumn)`
 const TopSection = styled(AutoColumn)`
   max-width: 720px;
   width: 100%;
-`
-
-const FlexDiv = styled.div`
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
 `
 
 const PoolSection = styled.div`
@@ -105,7 +97,6 @@ export interface EarnProps {
 
 const Earn: React.FC<EarnProps> = ({ version, stakingInfos, poolMap }) => {
   const chainId = ChainId.OMCHAIN
-  const { t } = useTranslation()
 
   const [poolCardsLoading, setPoolCardsLoading] = useState(false)
   const [poolCards, setPoolCards] = useState<any[]>()
@@ -206,10 +197,6 @@ const Earn: React.FC<EarnProps> = ({ version, stakingInfos, poolMap }) => {
           // TODO: update here api call without staking reward address
           .map(stakingInfo => {
             if (poolMap) {
-              console.log('heyo')
-              console.log(
-                `${OMELETTESWAP_API_BASE_URL}/pangolin/apr2/${poolMap[stakingInfo.totalStakedAmount.token.address]}`
-              )
               return fetch(
                 `${OMELETTESWAP_API_BASE_URL}/pangolin/apr2/${poolMap[stakingInfo.totalStakedAmount.token.address]}`
               )

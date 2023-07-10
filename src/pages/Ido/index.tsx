@@ -4,10 +4,10 @@ import { CardSection, DataCard, CardNoise, CardBGImage } from '../../components/
 
 import { IDO_LIST, IDO_STATUS_UPCOMING, IDO_STATUS_ENDED } from '../../constants/idos'
 
-import React, { useEffect } from 'react'
+import React from 'react'
 import { AutoColumn } from '../../components/Column'
 import styled from 'styled-components'
-import { TYPE, theme, ExternalLink } from '../../theme'
+import { TYPE, ExternalLink } from '../../theme'
 
 import { RowBetween } from '../../components/Row'
 import { RouteComponentProps } from 'react-router-dom'

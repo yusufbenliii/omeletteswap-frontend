@@ -67,6 +67,7 @@ export const ButtonLight = styled(Base)`
   color: ${({ theme }) => theme.notConnectedText};
   font-size: 16px;
   font-weight: 500;
+  margin-top: 10px;
   &:focus {
     box-shadow: 0 0 0 1pt ${({ theme, disabled }) => !disabled && darken(0.03, theme.notConnectedText)};
     background-color: ${({ theme, disabled }) => !disabled && darken(0.03, theme.notConnectedButton)};

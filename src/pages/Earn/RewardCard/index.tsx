@@ -41,8 +41,6 @@ const RewardCard: React.FC<ManageProps> = ({
 }) => {
   const countUpAmount = earnedAmount?.toFixed(6) ?? '0'
   const countUpAmountPrevious = usePrevious(countUpAmount) ?? '0'
-  console.log('countUpAmountPrevious', countUpAmountPrevious)
-  console.log('countUpAmount', countUpAmount)
 
   return (
     <StyledBottomCard dim={stakedAmount?.equalTo(BIG_INT_ZERO)} isOverlay={isOverlay}>

@@ -4,18 +4,14 @@ import { RowBetween } from '../Row'
 import styled from 'styled-components'
 import { TYPE, StyledInternalLink } from '../../theme'
 import DoubleCurrencyLogo from '../DoubleLogo'
-import { WOMC, Token } from '@uniswap/sdk'
+import { Token } from '@uniswap/sdk'
 import { ButtonPrimary } from '../Button'
-import { DoubleSideStakingInfo, useMinichefPools } from '../../state/stake/hooks'
+import { DoubleSideStakingInfo } from '../../state/stake/hooks'
 //import { useColor } from '../../hooks/useColor'
 import { currencyId } from '../../utils/currencyId'
-import { Break, CardNoise, CardBGImage } from './styled'
+import { Break, CardNoise } from './styled'
 import { unwrappedToken } from '../../utils/wrappedCurrency'
-import { useTranslation } from 'react-i18next'
-import RewardTokens from '../RewardTokens'
-//import { Box } from '@pangolindex/components'
 import { useTokens } from '../../hooks/Tokens'
-import { ChainId } from '@uniswap/sdk'
 
 const Box = styled.div`
   display: flex;
@@ -98,30 +94,15 @@ export default function DoubleSidePoolCard({
   swapFeeApr: number
   stakingApr: number
 }) {
-  const chainId = ChainId.OMCHAIN
-
   const token0 = stakingInfo.tokens[0]
   const token1 = stakingInfo.tokens[1]
 
   const currency0 = unwrappedToken(token0)
   const currency1 = unwrappedToken(token1)
 
-  const poolMap = useMinichefPools()
-
-  const { t } = useTranslation()
   const isStaking = Boolean(stakingInfo.stakedAmount.greaterThan('0'))
-
-  const token: Token =
-    currency0 === WOMC[chainId] || currency1 === WOMC[chainId]
-      ? currency0 === WOMC[chainId]
-        ? token1
-        : token0
-      : token0
-
   const totalStakedInUsd = stakingInfo.totalStakedInUsd?.toSignificant(4, { groupSeparator: ',' })
-
   const backgroundColor = '#f9ba53'
-
   const rewardTokens = useTokens(stakingInfo?.rewardTokensAddress)
 
   return (
