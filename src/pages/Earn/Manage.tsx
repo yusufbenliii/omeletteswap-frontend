@@ -160,11 +160,11 @@ const Manage: React.FC<ManageProps> = ({ version, stakingInfo, currencyA, curren
                     )
 
                   return (
-                    <TYPE.body fontSize={18} fontWeight={500} key={index}>
+                    <TYPE.main fontSize={18} fontWeight={500} key={index}>
                       {weeklyRewardRate?.toFixed(0, { groupSeparator: ',' }) ?? '-'}
 
                       {' ' + reward?.token.symbol + ' / Week'}
-                    </TYPE.body>
+                    </TYPE.main>
                   )
                 })}
               </>

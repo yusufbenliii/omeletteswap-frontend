@@ -170,9 +170,9 @@ export default function DoubleSidePoolCard({
 
             {(stakingInfo?.rewardTokensAddress || []).length > 0 && (rewardTokens || []).length > 0 && (
               <BottomSection showBackground={true}>
-                <TYPE.black color={'black'} fontWeight={500}>
+                <TYPE.main fontWeight={500}>
                   <span>{'Extra Reward'}</span>
-                </TYPE.black>
+                </TYPE.main>
 
                 <AutoColumn gap="sm">
                   {(rewardTokens || []).map((token, index) => {
@@ -186,12 +186,12 @@ export default function DoubleSidePoolCard({
                       )
 
                     return (
-                      <TYPE.black style={{ textAlign: 'right' }} color={'black'} fontWeight={500} key={index}>
+                      <TYPE.main style={{ textAlign: 'right' }} fontWeight={500} key={index}>
                         <span role="img" aria-label="wizard-icon" style={{ marginRight: '0.5rem' }}>
                           ⚡
                         </span>
                         {`${weeklyExtraRewardRate?.toSignificant(4, { groupSeparator: ',' })} ${token?.symbol} / week`}
-                      </TYPE.black>
+                      </TYPE.main>
                     )
                   })}
                 </AutoColumn>

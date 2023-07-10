@@ -95,34 +95,34 @@ export default function UnstakingModal({
           </RowBetween>
           {stakingInfo?.stakedAmount && (
             <AutoColumn justify="center" gap="md">
-              <TYPE.body fontWeight={600} fontSize={36}>
+              <TYPE.main fontWeight={600} fontSize={36}>
                 {<FormattedCurrencyAmount currencyAmount={stakingInfo.stakedAmount} />}
-              </TYPE.body>
-              <TYPE.body>{'Deposited OMLT-LP liquidity'}</TYPE.body>
+              </TYPE.main>
+              <TYPE.main>{'Deposited OMLT-LP liquidity'}</TYPE.main>
             </AutoColumn>
           )}
           {stakingInfo?.earnedAmount && (
             <AutoColumn justify="center" gap="md">
-              <TYPE.body fontWeight={600} fontSize={36}>
+              <TYPE.main fontWeight={600} fontSize={36}>
                 {<FormattedCurrencyAmount currencyAmount={stakingInfo?.earnedAmount} />}
-              </TYPE.body>
+              </TYPE.main>
               <TYPE.main>{'Your unclaimed OMLT'}</TYPE.main>
             </AutoColumn>
           )}
           {isSuperFarm &&
             extraRewardTokensAmount?.map((rewardAmount, i) => (
               <AutoColumn justify="center" gap="md" key={i}>
-                <TYPE.body fontWeight={600} fontSize={36}>
+                <TYPE.main fontWeight={600} fontSize={36}>
                   {<FormattedCurrencyAmount currencyAmount={rewardAmount} />}
-                </TYPE.body>
+                </TYPE.main>
                 <TYPE.main>{'Your unclaimed ' + rewardAmount?.token?.symbol}</TYPE.main>
               </AutoColumn>
             ))}
-          <TYPE.subHeader style={{ textAlign: 'center' }}>
+          <TYPE.main fontWeight={400} fontSize={14} style={{ textAlign: 'center' }}>
             {
               'When you withdraw, your OMLT is claimed and your Omelette Swap Liquidity tokens, OMLT-LP, are returned to you. You will no longer earn OMLT rewards on this liquidity. Your original token liquidity will remain in its liquidity pool.'
             }
-          </TYPE.subHeader>
+          </TYPE.main>
           <ButtonError disabled={!!error} error={!!error && !!stakingInfo?.stakedAmount} onClick={onWithdraw}>
             {error ?? 'Withdraw & Claim'}
           </ButtonError>
@@ -131,27 +131,29 @@ export default function UnstakingModal({
       {attempting && !hash && (
         <LoadingView onDismiss={wrappedOnDismiss}>
           <AutoColumn gap="12px" justify={'center'}>
-            <TYPE.body fontSize={20}>
+            <TYPE.main fontSize={20}>
               {'Withdrawing ' + stakingInfo?.stakedAmount?.toSignificant(4) + ' OMLT-LP'}
-            </TYPE.body>
-            <TYPE.body fontSize={20}>
+            </TYPE.main>
+            <TYPE.main fontSize={20}>
               {'Claiming ' + stakingInfo?.earnedAmount?.toSignificant(4) + ' OMLT'}
               {isSuperFarm &&
                 extraRewardTokensAmount?.map((rewardAmount, i) => (
-                  <TYPE.body fontSize={20} key={i}>
+                  <TYPE.main fontSize={20} key={i}>
                     {'Claiming ' + rewardAmount?.toSignificant(4) + ' ' + rewardAmount?.token?.symbol}
-                  </TYPE.body>
+                  </TYPE.main>
                 ))}
-            </TYPE.body>
+            </TYPE.main>
           </AutoColumn>
         </LoadingView>
       )}
       {hash && (
         <SubmittedView onDismiss={wrappedOnDismiss} hash={hash}>
           <AutoColumn gap="12px" justify={'center'}>
-            <TYPE.largeHeader>{'Transaction Submitted'}</TYPE.largeHeader>
-            <TYPE.body fontSize={20}>{'Withdrew OMLT-LP'}</TYPE.body>
-            <TYPE.body fontSize={20}>{'Your unclaimed OMLT'}</TYPE.body>
+            <TYPE.main fontWeight={600} fontSize={24}>
+              {'Transaction Submitted'}
+            </TYPE.main>
+            <TYPE.main fontSize={20}>{'Withdrew OMLT-LP'}</TYPE.main>
+            <TYPE.main fontSize={20}>{'Your unclaimed OMLT'}</TYPE.main>
           </AutoColumn>
         </SubmittedView>
       )}

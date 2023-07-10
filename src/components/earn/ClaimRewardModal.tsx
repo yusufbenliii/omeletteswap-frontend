@@ -12,6 +12,7 @@ import { TransactionResponse } from '@ethersproject/providers'
 import { useTransactionAdder } from '../../state/transactions/hooks'
 import { useActiveWeb3React } from '../../hooks'
 import { TokenAmount } from '@uniswap/sdk'
+import { theme } from '../../theme'
 
 const ContentWrapper = styled(AutoColumn)`
   width: 100%;
@@ -91,24 +92,24 @@ export default function ClaimRewardModal({
           </RowBetween>
           {stakingInfo?.earnedAmount && (
             <AutoColumn justify="center" gap="md">
-              <TYPE.body fontWeight={600} fontSize={36}>
+              <TYPE.main fontWeight={600} fontSize={36}>
                 {stakingInfo?.earnedAmount?.toSignificant(6)}
-              </TYPE.body>
-              <TYPE.body>{'Unclaimed OMLT'}</TYPE.body>
+              </TYPE.main>
+              <TYPE.main>{'Unclaimed OMLT'}</TYPE.main>
             </AutoColumn>
           )}
           {isSuperFarm &&
             extraRewardTokensAmount?.map((rewardAmount, i) => (
               <AutoColumn justify="center" gap="md" key={i}>
-                <TYPE.body fontWeight={600} fontSize={36}>
+                <TYPE.main fontWeight={600} fontSize={36}>
                   {rewardAmount?.toSignificant(6)}
-                </TYPE.body>
-                <TYPE.body>{'Unclaimed ' + rewardAmount?.token?.symbol}</TYPE.body>
+                </TYPE.main>
+                <TYPE.main>{'Unclaimed ' + rewardAmount?.token?.symbol}</TYPE.main>
               </AutoColumn>
             ))}
-          <TYPE.subHeader style={{ textAlign: 'center' }}>
+          <TYPE.main style={{ textAlign: 'center' }}>
             {'When you claim without withdrawing your liquidity remains in the mining pool.'}
-          </TYPE.subHeader>
+          </TYPE.main>
           <ButtonError
             disabled={!!errorMessage}
             error={!!errorMessage && !!stakingInfo?.stakedAmount}
@@ -121,13 +122,13 @@ export default function ClaimRewardModal({
       {attempting && !hash && (
         <LoadingView onDismiss={wrappedOnDismiss}>
           <AutoColumn gap="12px" justify={'center'}>
-            <TYPE.body fontSize={20}>{'Claiming ' + stakingInfo?.earnedAmount?.toSignificant(6) + ' OMLT'}</TYPE.body>
+            <TYPE.main fontSize={20}>{'Claiming ' + stakingInfo?.earnedAmount?.toSignificant(6) + ' OMLT'}</TYPE.main>
 
             {isSuperFarm &&
               extraRewardTokensAmount?.map((rewardAmount, i) => (
-                <TYPE.body fontSize={20} key={i}>
+                <TYPE.main fontSize={20} key={i}>
                   {'Claiming ' + rewardAmount?.toSignificant(6) + ' ' + rewardAmount?.token?.symbol}
-                </TYPE.body>
+                </TYPE.main>
               ))}
           </AutoColumn>
         </LoadingView>
@@ -135,8 +136,10 @@ export default function ClaimRewardModal({
       {hash && (
         <SubmittedView onDismiss={wrappedOnDismiss} hash={hash}>
           <AutoColumn gap="12px" justify={'center'}>
-            <TYPE.largeHeader>{'Transaction Submitted'}</TYPE.largeHeader>
-            <TYPE.body fontSize={20}>{'Unclaimed OMLT'}</TYPE.body>
+            <TYPE.main fontWeight={600} fontSize={24}>
+              {'Transaction Submitted'}
+            </TYPE.main>
+            <TYPE.main fontSize={20}>{'Unclaimed OMLT'}</TYPE.main>
           </AutoColumn>
         </SubmittedView>
       )}

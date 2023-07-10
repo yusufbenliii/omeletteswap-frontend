@@ -268,39 +268,37 @@ export default function StakingModal({
 
           <HypotheticalRewardRate dim={!hypotheticalWeeklyRewardRate.greaterThan('0')}>
             <div>
-              <TYPE.black fontWeight={600}>{'Weekly Rewards'}</TYPE.black>
+              <TYPE.main fontWeight={600}>{'Weekly Rewards'}</TYPE.main>
             </div>
 
-            <TYPE.black>
+            <TYPE.main>
               {hypotheticalWeeklyRewardRate.toSignificant(4, { groupSeparator: ',' })} {'OMLT / week'}
-            </TYPE.black>
+            </TYPE.main>
           </HypotheticalRewardRate>
 
           {isSuperFarm && (
             <HypotheticalRewardRate dim={!hypotheticalWeeklyRewardRate.greaterThan('0')}>
               <div>
-                <TYPE.black fontWeight={600}>{'Extra Reward'}</TYPE.black>
+                <TYPE.main fontWeight={600}>{'Extra Reward'}</TYPE.main>
               </div>
 
-              <Box>
-                {extraRewardTokensAmount?.map((reward, index) => {
-                  const tokenMultiplier = stakingInfo?.rewardTokensMultiplier?.[index]
-                  const extraTokenWeeklyRewardRate = stakingInfo?.getExtraTokensWeeklyRewardRate?.(
-                    hypotheticalWeeklyRewardRate,
-                    reward?.token,
-                    tokenMultiplier
+              {extraRewardTokensAmount?.map((reward, index) => {
+                const tokenMultiplier = stakingInfo?.rewardTokensMultiplier?.[index]
+                const extraTokenWeeklyRewardRate = stakingInfo?.getExtraTokensWeeklyRewardRate?.(
+                  hypotheticalWeeklyRewardRate,
+                  reward?.token,
+                  tokenMultiplier
+                )
+                if (extraTokenWeeklyRewardRate) {
+                  return (
+                    <TYPE.main key={index}>
+                      {extraTokenWeeklyRewardRate.toSignificant(4, { groupSeparator: ',' })}{' '}
+                      {reward?.token?.symbol + ' / week'}
+                    </TYPE.main>
                   )
-                  if (extraTokenWeeklyRewardRate) {
-                    return (
-                      <TYPE.black key={index}>
-                        {extraTokenWeeklyRewardRate.toSignificant(4, { groupSeparator: ',' })}{' '}
-                        {reward?.token?.symbol + ' / week'}
-                      </TYPE.black>
-                    )
-                  }
-                  return null
-                })}
-              </Box>
+                }
+                return null
+              })}
             </HypotheticalRewardRate>
           )}
 
@@ -327,18 +325,22 @@ export default function StakingModal({
       {attempting && !hash && (
         <LoadingView onDismiss={wrappedOnDismiss}>
           <AutoColumn gap="12px" justify={'center'}>
-            <TYPE.largeHeader>{'Depositing Liquidity'}</TYPE.largeHeader>
-            <TYPE.body fontSize={20}>{parsedAmount?.toSignificant(4)} OMLT-LP</TYPE.body>
+            <TYPE.main fontWeight={600} fontSize={24}>
+              {'Depositing Liquidity'}
+            </TYPE.main>
+            <TYPE.main fontSize={20}>{parsedAmount?.toSignificant(4)} OMLT-LP</TYPE.main>
           </AutoColumn>
         </LoadingView>
       )}
       {attempting && hash && (
         <SubmittedView onDismiss={wrappedOnDismiss} hash={hash}>
           <AutoColumn gap="12px" justify={'center'}>
-            <TYPE.largeHeader>{'Transaction Submitted'}</TYPE.largeHeader>
-            <TYPE.body fontSize={20}>
+            <TYPE.main fontWeight={600} fontSize={24}>
+              {'Transaction Submitted'}
+            </TYPE.main>
+            <TYPE.main fontSize={20}>
               {'Deposited'} {parsedAmount?.toSignificant(4)} OMLT-LP
-            </TYPE.body>
+            </TYPE.main>
           </AutoColumn>
         </SubmittedView>
       )}
