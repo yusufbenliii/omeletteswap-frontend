@@ -107,7 +107,7 @@ export default function UnstakingModal({
               <TYPE.body fontWeight={600} fontSize={36}>
                 {<FormattedCurrencyAmount currencyAmount={stakingInfo?.earnedAmount} />}
               </TYPE.body>
-              <TYPE.body>{'Your unclaimed OMLT'}</TYPE.body>
+              <TYPE.main>{'Your unclaimed OMLT'}</TYPE.main>
             </AutoColumn>
           )}
           {isSuperFarm &&
@@ -116,7 +116,7 @@ export default function UnstakingModal({
                 <TYPE.body fontWeight={600} fontSize={36}>
                   {<FormattedCurrencyAmount currencyAmount={rewardAmount} />}
                 </TYPE.body>
-                <TYPE.body>{'Your unclaimed ' + rewardAmount?.token?.symbol}</TYPE.body>
+                <TYPE.main>{'Your unclaimed ' + rewardAmount?.token?.symbol}</TYPE.main>
               </AutoColumn>
             ))}
           <TYPE.subHeader style={{ textAlign: 'center' }}>

@@ -22,7 +22,11 @@ export const USDCe: { [chainId in ChainId]: Token } = {
 }
 
 export const USDC: { [chainId in ChainId]: Token } = {
-  [ChainId.OMCHAIN]: new Token(ChainId.OMCHAIN, '0xa7964ecD7a71007589254D18c72EA7665ED15F4b', 6, 'USDC', 'USD Coin')
+  [ChainId.OMCHAIN]: new Token(ChainId.OMCHAIN, '0xa7964ecD7a71007589254D18c72EA7665ED15F4b', 18, 'USDC', 'USD Coin')
+}
+
+export const YGT: { [chainId in ChainId]: Token } = {
+  [ChainId.OMCHAIN]: new Token(ChainId.OMCHAIN, '0x8a2d0c4D3c03037cfA2cad9BEFC67C92820A9735', 18, 'YGT', 'YG Token')
 }
 
 export const OMLT: { [chainId in ChainId]: Token } = {
@@ -41,7 +45,7 @@ export const BIG_INT_EIGHTEEN = JSBI.BigInt(18)
 export const BIG_INT_SECONDS_IN_WEEK = JSBI.BigInt(60 * 60 * 24 * 7)
 export const ONE_TOKEN = JSBI.exponentiate(JSBI.BigInt(10), JSBI.BigInt(18))
 
-export const OMELETTESWAP_API_BASE_URL = `http://127.0.0.1:8787`
+export const OMELETTESWAP_API_BASE_URL = 'https://omeletteswap-api.yusufbenli2000.workers.dev'
 
 export const OMELETTESWAP_TOKENS_REPO_RAW_BASE_URL = `https://raw.githubusercontent.com/omeletteswap/tokens`
 

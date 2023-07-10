@@ -141,14 +141,14 @@ const Manage: React.FC<ManageProps> = ({ version, stakingInfo, currencyA, curren
         </PoolData>
         <PoolData>
           <AutoColumn gap="sm">
-            <TYPE.body style={{ margin: 0 }}>{'Pool Rate'}</TYPE.body>
+            <TYPE.main style={{ margin: 0 }}>{'Pool Rate'}</TYPE.main>
 
-            <TYPE.body fontSize={isSuperFarm ? 18 : 24} fontWeight={500}>
+            <TYPE.main fontSize={isSuperFarm ? 18 : 24} fontWeight={500}>
               {stakingInfo?.totalRewardRatePerSecond
                 ?.multiply((60 * 60 * 24 * 7).toString())
                 ?.toFixed(0, { groupSeparator: ',' }) ?? '-'}
               {' OMLT / Week'}
-            </TYPE.body>
+            </TYPE.main>
 
             {isSuperFarm && stakingInfo?.totalRewardRatePerSecond && (
               <>
@@ -184,11 +184,13 @@ const Manage: React.FC<ManageProps> = ({ version, stakingInfo, currencyA, curren
           <CardSection>
             <AutoColumn gap="md">
               <RowBetween>
-                <TYPE.farmWhite fontWeight={600}>{t('earnPage.step1')}</TYPE.farmWhite>
+                <TYPE.farmWhite fontWeight={600}>{'Step 1. Get OMLT Liquidity tokens (OMLT-LP)'}</TYPE.farmWhite>
               </RowBetween>
               <RowBetween style={{ marginBottom: '1rem' }}>
                 <TYPE.farmWhite fontSize={14}>
-                  {t('earnPage.pglTokenRequired', { poolHandle: currencyA?.symbol + '-' + currencyB?.symbol })}
+                  {`OMLT-LP tokens are required. Once you've added liquidity to the ${currencyA?.symbol +
+                    '-' +
+                    currencyB?.symbol} pool you can stake your liquidity tokens on this page.`}
                 </TYPE.farmWhite>
               </RowBetween>
               <ButtonPrimary
@@ -197,7 +199,7 @@ const Manage: React.FC<ManageProps> = ({ version, stakingInfo, currencyA, curren
                 as={Link}
                 to={`/add/${currencyA && currencyId(currencyA)}/${currencyB && currencyId(currencyB)}`}
               >
-                {t('earnPage.addPoolLiquidity', { poolHandle: currencyA?.symbol + '-' + currencyB?.symbol })}
+                {`Add ${currencyA?.symbol}-${currencyB?.symbol} liquidity`}
               </ButtonPrimary>
             </AutoColumn>
           </CardSection>

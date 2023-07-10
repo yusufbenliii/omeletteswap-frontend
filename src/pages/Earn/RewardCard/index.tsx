@@ -6,7 +6,7 @@ import { JSBI, Currency, TokenAmount } from '@uniswap/sdk'
 import { TYPE } from '../../../theme'
 import { RowBetween } from '../../../components/Row'
 import { DataCard, CardNoise, CardBGImageSmaller } from '../../../components/earn/styled'
-import { ButtonEmpty } from '../../../components/Button'
+import { ButtonPrimary } from '../../../components/Button'
 import CountUp from 'react-countup'
 import usePrevious from '../../../hooks/usePrevious'
 import { BIG_INT_ZERO } from '../../../constants'
@@ -41,6 +41,8 @@ const RewardCard: React.FC<ManageProps> = ({
 }) => {
   const countUpAmount = earnedAmount?.toFixed(6) ?? '0'
   const countUpAmountPrevious = usePrevious(countUpAmount) ?? '0'
+  console.log('countUpAmountPrevious', countUpAmountPrevious)
+  console.log('countUpAmount', countUpAmount)
 
   return (
     <StyledBottomCard dim={stakedAmount?.equalTo(BIG_INT_ZERO)} isOverlay={isOverlay}>
@@ -49,12 +51,19 @@ const RewardCard: React.FC<ManageProps> = ({
       <AutoColumn gap="sm">
         <RowBetween>
           <div>
-            <TYPE.black>{'Your unclaimed ' + (currency ? currency?.symbol : 'OMLT')}</TYPE.black>
+            <TYPE.main>{'Your unclaimed ' + (currency ? currency?.symbol : 'OMLT')}</TYPE.main>
           </div>
           {!isSuperFarm && earnedAmount && JSBI.notEqual(BIG_INT_ZERO, earnedAmount?.raw) && (
-            <ButtonEmpty padding="8px" borderRadius="8px" width="fit-content" onClick={() => setShowClaimRewardModal()}>
+            <ButtonPrimary
+              padding="8px"
+              borderRadius="8px"
+              width="fit-content"
+              onClick={() => {
+                setShowClaimRewardModal()
+              }}
+            >
               {'Claim'}
-            </ButtonEmpty>
+            </ButtonPrimary>
           )}
         </RowBetween>
         <RowBetween style={{ alignItems: 'baseline' }}>
@@ -67,13 +76,13 @@ const RewardCard: React.FC<ManageProps> = ({
               duration={1}
             />
           </TYPE.largeHeader>
-          <TYPE.black fontSize={16} fontWeight={500}>
+          <TYPE.main fontSize={16} fontWeight={500}>
             <span role="img" aria-label="wizard-icon" style={{ marginRight: '8px ' }}>
               ⚡
             </span>
             {weeklyRewardRate?.toSignificant(4, { groupSeparator: ',' }) ?? '-'}
             {' ' + (currency ? currency?.symbol : 'OMLT') + ' / week'}
-          </TYPE.black>
+          </TYPE.main>
         </RowBetween>
       </AutoColumn>
     </StyledBottomCard>

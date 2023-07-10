@@ -8,6 +8,11 @@ export const DOUBLE_SIDE_STAKING: { [key: string]: DoubleSideStaking } = {
     tokens: [WOMC[ChainId.OMCHAIN], TOKENS.USDC[ChainId.OMCHAIN]],
     stakingRewardAddress: MINICHEF_ADDRESS[ChainId.OMCHAIN],
     version: 2
+  },
+  WOMC_YGT_V2: {
+    tokens: [WOMC[ChainId.OMCHAIN], TOKENS.YGT[ChainId.OMCHAIN]],
+    stakingRewardAddress: MINICHEF_ADDRESS[ChainId.OMCHAIN],
+    version: 2
   }
 }
 

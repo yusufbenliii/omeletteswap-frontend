@@ -112,7 +112,8 @@ export default function StakingModal({
         version < 2
           ? [`0x${parsedAmount.raw.toString(16)}`]
           : [poolMap[stakingInfo.stakedAmount.token.address], `0x${parsedAmount.raw.toString(16)}`, account]
-
+      console.log('args', args)
+      console.log('approval', approval)
       if (approval === ApprovalState.APPROVED) {
         stakingContract[method](...args)
           .then((response: TransactionResponse) => {
@@ -199,7 +200,7 @@ export default function StakingModal({
       { name: 'verifyingContract', type: 'address' }
     ]
     const domain = {
-      name: 'OmeletteSwap Liquidity',
+      name: 'Omelette LP Token',
       version: '1',
       chainId: chainId,
       verifyingContract: pairContract.address
