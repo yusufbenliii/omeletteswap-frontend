@@ -156,16 +156,16 @@ export default function DoubleSidePoolCard({
           <Break />
           <Box>
             <BottomSection showBackground={true}>
-              <TYPE.black color={'black'} fontWeight={500}>
+              <TYPE.main fontWeight={500}>
                 <span>{'Your Rate'}</span>
-              </TYPE.black>
+              </TYPE.main>
 
-              <TYPE.black style={{ textAlign: 'right' }} color={'black'} fontWeight={500}>
+              <TYPE.main style={{ textAlign: 'right' }} fontWeight={500}>
                 <span role="img" aria-label="wizard-icon" style={{ marginRight: '0.5rem' }}>
                   ⚡
                 </span>
                 {`${stakingInfo.rewardRatePerWeek?.toSignificant(4, { groupSeparator: ',' })} OMLT / week`}
-              </TYPE.black>
+              </TYPE.main>
             </BottomSection>
 
             {(stakingInfo?.rewardTokensAddress || []).length > 0 && (rewardTokens || []).length > 0 && (
