@@ -39,7 +39,7 @@ export default function CommonBases({
   return (
     <AutoColumn gap="md">
       <AutoRow>
-        <Text fontWeight={500} fontSize={14}>
+        <Text fontWeight={500} fontSize={14} color={theme.text2}>
           Common bases
         </Text>
         <QuestionHelper text="These tokens are commonly paired with other tokens." />
