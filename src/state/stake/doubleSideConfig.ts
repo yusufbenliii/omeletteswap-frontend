@@ -4,13 +4,13 @@ import { MINICHEF_ADDRESS } from '../../constants'
 import * as TOKENS from '../../constants'
 
 export const DOUBLE_SIDE_STAKING: { [key: string]: DoubleSideStaking } = {
-  WOMC_USDC_V2: {
-    tokens: [WOMC[ChainId.OMCHAIN], TOKENS.USDC[ChainId.OMCHAIN]],
+  WOMC_CKN_V2: {
+    tokens: [WOMC[ChainId.OMCHAIN], TOKENS.CKN[ChainId.OMCHAIN]],
     stakingRewardAddress: MINICHEF_ADDRESS[ChainId.OMCHAIN],
     version: 2
   },
-  WOMC_YGT_V2: {
-    tokens: [WOMC[ChainId.OMCHAIN], TOKENS.YGT[ChainId.OMCHAIN]],
+  WOMC_EGG_V2: {
+    tokens: [WOMC[ChainId.OMCHAIN], TOKENS.EGG[ChainId.OMCHAIN]],
     stakingRewardAddress: MINICHEF_ADDRESS[ChainId.OMCHAIN],
     version: 2
   }

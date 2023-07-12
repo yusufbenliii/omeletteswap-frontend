@@ -25,16 +25,16 @@ export const USDC: { [chainId in ChainId]: Token } = {
   [ChainId.OMCHAIN]: new Token(ChainId.OMCHAIN, '0xa7964ecD7a71007589254D18c72EA7665ED15F4b', 18, 'USDC', 'USD Coin')
 }
 
-export const YGT: { [chainId in ChainId]: Token } = {
-  [ChainId.OMCHAIN]: new Token(ChainId.OMCHAIN, '0x8a2d0c4D3c03037cfA2cad9BEFC67C92820A9735', 18, 'YGT', 'YG Token')
-}
-
 export const OMLT: { [chainId in ChainId]: Token } = {
   [ChainId.OMCHAIN]: new Token(ChainId.OMCHAIN, '0xB25b30Df281074395A84D76C237ee1a46d837FE0', 18, 'OMLT', 'Omelette')
 }
 
-export const TT: { [chainId in ChainId]: Token } = {
-  [ChainId.OMCHAIN]: new Token(ChainId.OMCHAIN, '0x6BEB3a2B9B54178E7EA3D9edb893Bec92f50B4E5', 18, 'TT', 'TT Token')
+export const CKN: { [chainId in ChainId]: Token } = {
+  [ChainId.OMCHAIN]: new Token(ChainId.OMCHAIN, '0xf923302EDCEF3A3660B39A5eC458B18a75736A23', 18, 'CKN', 'Chicken')
+}
+
+export const EGG: { [chainId in ChainId]: Token } = {
+  [ChainId.OMCHAIN]: new Token(ChainId.OMCHAIN, '0x3fc9953aE9c208E8fed9377B6FFB046bFA846cB7', 18, 'EGG', 'Egg')
 }
 
 export const BIG_INT_ZERO = JSBI.BigInt(0)
@@ -60,27 +60,27 @@ const WOMC_ONLY: ChainTokenList = {
 // used to construct intermediary pairs for trading
 export const BASES_TO_CHECK_TRADES_AGAINST: ChainTokenList = {
   ...WOMC_ONLY,
-  [ChainId.OMCHAIN]: [...WOMC_ONLY[ChainId.OMCHAIN], USDT]
+  [ChainId.OMCHAIN]: [...WOMC_ONLY[ChainId.OMCHAIN]]
 }
 
 // used for display in the default list when adding liquidity
 export const SUGGESTED_BASES: ChainTokenList = {
   ...WOMC_ONLY,
-  [ChainId.OMCHAIN]: [...WOMC_ONLY[ChainId.OMCHAIN], USDT]
+  [ChainId.OMCHAIN]: [...WOMC_ONLY[ChainId.OMCHAIN]]
 }
 
 // used to construct the list of all pairs we consider by default in the frontend
 export const BASES_TO_TRACK_LIQUIDITY_FOR: ChainTokenList = {
   ...WOMC_ONLY,
-  [ChainId.OMCHAIN]: [...WOMC_ONLY[ChainId.OMCHAIN], USDT]
+  [ChainId.OMCHAIN]: [...WOMC_ONLY[ChainId.OMCHAIN]]
 }
 
 export const PINNED_PAIRS: { readonly [chainId in ChainId]?: [Token, Token][] } = {
-  [ChainId.OMCHAIN]: [
-    [USDT, WOMC[ChainId.OMCHAIN]]
-    /*     [USDC, USDT],
+  // [ChainId.OMCHAIN]: [
+  //   [USDT, WOMC[ChainId.OMCHAIN]]
+  /*     [USDC, USDT],
     [DAI, USDT] */
-  ]
+  // ]
 }
 
 const TESTNET_CAPABLE_WALLETS = {
