@@ -162,7 +162,7 @@ export default function CurrencySearchModal({
             <SearchInput
               type="text"
               id="token-search-input"
-              placeholder={t('tokenSearchPlaceholder')}
+              placeholder="Search name or paste address" //{t('tokenSearchPlaceholder')}
               value={searchQuery}
               ref={inputRef}
               onChange={handleInput}
