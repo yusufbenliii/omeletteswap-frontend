@@ -5,15 +5,13 @@ import { injected, walletconnect, walletlink } from '../connectors'
 export const ROUTER_ADDRESS = '0x733c1986e736496fcaeEE895017eF3B5d7610461'
 
 export const MINICHEF_ADDRESS: { [chainId in ChainId]: string } = {
-  [ChainId.OMCHAIN]: '0xCb9cA8Aa4f55Bd9506f6d3b7ce13B07BBbF4F2d2'
+  [ChainId.OMCHAIN]: '0xeCc0CE50C5dacfd90c04f5DFd9eB23eC2107F757'
 }
 
 // a list of tokens by chain
 type ChainTokenList = {
   readonly [chainId in ChainId]: Token[]
 }
-
-export const USDT = new Token(ChainId.OMCHAIN, '0x5D22743749e92dDaFcB88681CFdF7F1D6d57Ce7F', 18, 'USDT', 'Tether USD')
 
 export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000'
 
@@ -26,7 +24,13 @@ export const USDC: { [chainId in ChainId]: Token } = {
 }
 
 export const OMLT: { [chainId in ChainId]: Token } = {
-  [ChainId.OMCHAIN]: new Token(ChainId.OMCHAIN, '0xB25b30Df281074395A84D76C237ee1a46d837FE0', 18, 'OMLT', 'Omelette')
+  [ChainId.OMCHAIN]: new Token(
+    ChainId.OMCHAIN,
+    '0x851C8893cD83c94989Cc67A4d564e675f8c53cE3',
+    18,
+    'TOMLT',
+    'Test Omelette Token'
+  )
 }
 
 export const CKN: { [chainId in ChainId]: Token } = {
