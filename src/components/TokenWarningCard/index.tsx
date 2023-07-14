@@ -8,11 +8,16 @@ import { useAllTokens } from '../../hooks/Tokens'
 import { useDefaultTokenList } from '../../state/lists/hooks'
 import { Field } from '../../state/swap/actions'
 import { useTokenWarningDismissal } from '../../state/user/hooks'
-import { ExternalLink, TYPE } from '../../theme'
+import { ExternalLink, TYPE, colors, theme } from '../../theme'
 import { getEtherscanLink, isDefaultToken } from '../../utils'
 import PropsOfExcluding from '../../utils/props-of-excluding'
 import QuestionHelper from '../QuestionHelper'
 import CurrencyLogo from '../CurrencyLogo'
+
+const CurrencyDiv = styled.div`
+  color: ${({ theme }) => theme.text2};
+  fontweight: 500;
+`
 
 const Wrapper = styled.div<{ error: boolean }>`
   background: ${({ theme, error }) => transparentize(0.9, error ? theme.red1 : theme.yellow1)};
@@ -100,16 +105,16 @@ export default function TokenWarningCard({ token, ...rest }: TokenWarningCardPro
         </CloseIcon>
       )}
       <Row>
-        <TYPE.subHeader>{duplicateNameOrSymbol ? 'Duplicate token name or symbol' : 'Imported token'}</TYPE.subHeader>
+        <TYPE.main>{duplicateNameOrSymbol ? 'Duplicate token name or symbol' : 'Imported token'}</TYPE.main>
         <QuestionHelper text={duplicateNameOrSymbol ? DUPLICATE_NAME_HELP_TEXT : HELP_TEXT} />
       </Row>
       <Row>
         <CurrencyLogo currency={token} />
-        <div style={{ fontWeight: 500 }}>
+        <CurrencyDiv>
           {token && token.name && token.symbol && token.name !== token.symbol
             ? `${token.name} (${token.symbol})`
             : token.name || token.symbol}
-        </div>
+        </CurrencyDiv>
         <ExternalLink style={{ fontWeight: 400 }} href={getEtherscanLink(chainId, token.address, 'token')}>
           (View on Omchain Explorer)
         </ExternalLink>
