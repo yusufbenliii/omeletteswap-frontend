@@ -77,8 +77,8 @@ export default function App() {
                 <Route exact path="/add/:currencyIdA/:currencyIdB" component={RedirectDuplicateTokenIds} />
                 <Route exact strict path="/remove/:tokens" component={RedirectOldRemoveLiquidityPathStructure} />
                 <Route exact strict path="/remove/:currencyIdA/:currencyIdB" component={RemoveLiquidity} />
-                <Route exact strict path="/ido" component={IDO} />
-                <Route exact strict path="/ido/:id" component={IdoDetail} />
+                {/* <Route exact strict path="/ido" component={IDO} />
+                <Route exact strict path="/ido/:id" component={IdoDetail} /> */}
                 <Route exact strict path="/omlt/:currencyIdA/:currencyIdB/2" component={ManageV2} />
                 <Route component={RedirectPathToSwapOnly} />
               </Switch>
