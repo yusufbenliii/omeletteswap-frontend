@@ -5,7 +5,7 @@ import { injected, walletconnect, walletlink } from '../connectors'
 export const ROUTER_ADDRESS = '0x733c1986e736496fcaeEE895017eF3B5d7610461'
 
 export const MINICHEF_ADDRESS: { [chainId in ChainId]: string } = {
-  [ChainId.OMCHAIN]: '0xeCc0CE50C5dacfd90c04f5DFd9eB23eC2107F757'
+  [ChainId.OMCHAIN]: '0x6a8951538e4779448E5dbF08E46Fa998Bc3D88D9'
 }
 
 // a list of tokens by chain
@@ -26,11 +26,19 @@ export const USDC: { [chainId in ChainId]: Token } = {
 export const OMLT: { [chainId in ChainId]: Token } = {
   [ChainId.OMCHAIN]: new Token(
     ChainId.OMCHAIN,
-    '0x851C8893cD83c94989Cc67A4d564e675f8c53cE3',
+    '0xF7E326d3fBD9511f34Fac2E1865C989efE7d777c',
     18,
     'TOMLT',
     'Test Omelette Token'
   )
+}
+
+export const DCK: { [chainId in ChainId]: Token } = {
+  [ChainId.OMCHAIN]: new Token(ChainId.OMCHAIN, '0xbC3F33C0474A881BAAa1eD9A64c0A61362aA427d', 18, 'DCK', 'Duckling')
+}
+
+export const RST: { [chainId in ChainId]: Token } = {
+  [ChainId.OMCHAIN]: new Token(ChainId.OMCHAIN, '0x8244FcB9E322036e6C864F7FCee7a7457661c85E', 18, 'RST', 'Rooster')
 }
 
 export const CKN: { [chainId in ChainId]: Token } = {
