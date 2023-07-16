@@ -78,13 +78,29 @@ export const BASES_TO_CHECK_TRADES_AGAINST: ChainTokenList = {
 // used for display in the default list when adding liquidity
 export const SUGGESTED_BASES: ChainTokenList = {
   ...WOMC_ONLY,
-  [ChainId.OMCHAIN]: [...WOMC_ONLY[ChainId.OMCHAIN]]
+  [ChainId.OMCHAIN]: [
+    ...WOMC_ONLY[ChainId.OMCHAIN],
+    CKN[ChainId.OMCHAIN],
+    DCK[ChainId.OMCHAIN],
+    RST[ChainId.OMCHAIN],
+    EGG[ChainId.OMCHAIN],
+    USDC[ChainId.OMCHAIN],
+    OMLT[ChainId.OMCHAIN]
+  ]
 }
 
 // used to construct the list of all pairs we consider by default in the frontend
 export const BASES_TO_TRACK_LIQUIDITY_FOR: ChainTokenList = {
   ...WOMC_ONLY,
-  [ChainId.OMCHAIN]: [...WOMC_ONLY[ChainId.OMCHAIN]]
+  [ChainId.OMCHAIN]: [
+    ...WOMC_ONLY[ChainId.OMCHAIN],
+    CKN[ChainId.OMCHAIN],
+    DCK[ChainId.OMCHAIN],
+    RST[ChainId.OMCHAIN],
+    EGG[ChainId.OMCHAIN],
+    USDC[ChainId.OMCHAIN],
+    OMLT[ChainId.OMCHAIN]
+  ]
 }
 
 export const PINNED_PAIRS: { readonly [chainId in ChainId]?: [Token, Token][] } = {
