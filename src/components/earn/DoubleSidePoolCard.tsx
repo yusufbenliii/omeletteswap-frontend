@@ -139,15 +139,21 @@ export default function DoubleSidePoolCard({
       <AprContainer>
         <RowBetween>
           <TYPE.black>Swap Fee APR</TYPE.black>
-          <TYPE.black>{swapFeeApr && !stakingInfo.isPeriodFinished ? `${swapFeeApr}%` : '-'}</TYPE.black>
+          <TYPE.black>
+            {swapFeeApr && !stakingInfo.isPeriodFinished ? `${(swapFeeApr / 100).toFixed(2)}%` : '-'}
+          </TYPE.black>
         </RowBetween>
         <RowBetween>
           <TYPE.black>{(rewardTokens || [])?.length === 0 ? 'Farming APR' : 'Super Farm APR'}</TYPE.black>
-          <TYPE.black>{stakingApr && !stakingInfo.isPeriodFinished ? `${stakingApr}%` : '-'}</TYPE.black>
+          <TYPE.black>
+            {stakingApr && !stakingInfo.isPeriodFinished ? `${(stakingApr / 100).toFixed(2)}%` : '-'}
+          </TYPE.black>
         </RowBetween>
         <RowBetween>
           <TYPE.black>Total APR</TYPE.black>
-          <TYPE.black>{swapFeeApr && !stakingInfo.isPeriodFinished ? `${swapFeeApr + stakingApr}%` : '-'}</TYPE.black>
+          <TYPE.black>
+            {swapFeeApr && !stakingInfo.isPeriodFinished ? `${(swapFeeApr / 100 + stakingApr / 100).toFixed(2)}%` : '-'}
+          </TYPE.black>
         </RowBetween>
       </AprContainer>
 

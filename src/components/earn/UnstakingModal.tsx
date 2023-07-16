@@ -153,7 +153,7 @@ export default function UnstakingModal({
               {'Transaction Submitted'}
             </TYPE.main>
             <TYPE.main fontSize={20}>{'Withdrew OMLT-LP'}</TYPE.main>
-            <TYPE.main fontSize={20}>{'Your unclaimed OMLT'}</TYPE.main>
+            <TYPE.main fontSize={20}>{'You unclaimed OMLT'}</TYPE.main>
           </AutoColumn>
         </SubmittedView>
       )}

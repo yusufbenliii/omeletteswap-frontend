@@ -87,7 +87,10 @@ enum SortingType {
   totalApr = 'totalApr'
 }
 
-type ExtendedDoubleSideStakingInfo = DoubleSideStakingInfo & { stakingApr: number; swapFeeApr: number }
+type ExtendedDoubleSideStakingInfo = DoubleSideStakingInfo & {
+  stakingApr: number
+  swapFeeApr: number
+}
 
 export interface EarnProps {
   version: string
@@ -97,7 +100,6 @@ export interface EarnProps {
 
 const Earn: React.FC<EarnProps> = ({ version, stakingInfos, poolMap }) => {
   const chainId = ChainId.OMCHAIN
-
   const [poolCardsLoading, setPoolCardsLoading] = useState(false)
   const [poolCards, setPoolCards] = useState<any[]>()
   const [filteredPoolCards, setFilteredPoolCards] = useState<any[]>()
