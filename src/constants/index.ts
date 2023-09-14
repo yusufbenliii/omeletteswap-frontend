@@ -59,11 +59,11 @@ export const ONE_TOKEN = JSBI.exponentiate(JSBI.BigInt(10), JSBI.BigInt(18))
 
 export const OMELETTESWAP_API_BASE_URL = 'https://omeletteswap-api.yusufbenli2000.workers.dev'
 
-export const OMELETTESWAP_TOKENS_REPO_RAW_BASE_URL = `https://raw.githubusercontent.com/omeletteswap/tokens`
+export const OMELETTESWAP_TOKENS_REPO_RAW_BASE_URL = `https://raw.githubusercontent.com/yusufbenliii`
 
 export type LogoSize = 24 | 48
-export const getTokenLogoURL = (address: string, size: LogoSize = 24) =>
-  `${OMELETTESWAP_TOKENS_REPO_RAW_BASE_URL}/main/assets/${address}/logo_${size}.png`
+export const getTokenLogoURL = (address: string) =>
+  `${OMELETTESWAP_TOKENS_REPO_RAW_BASE_URL}/main/assets/${address}/logo.png`
 
 const WOMC_ONLY: ChainTokenList = {
   [ChainId.OMCHAIN]: [WOMC[ChainId.OMCHAIN]]
@@ -191,4 +191,4 @@ export const BETTER_TRADE_LINK_THRESHOLD = new Percent(JSBI.BigInt(75), JSBI.Big
 
 // the Uniswap Default token list lives here
 export const DEFAULT_TOKEN_LIST_URL =
-  'https://unpkg.com/@uniswap/default-token-list@latest/uniswap-default.tokenlist.json'
+  'https://raw.githubusercontent.com/yusufbenliii/assets/master/blockchains/omchain/tokenlist.json'
