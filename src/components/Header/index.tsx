@@ -19,7 +19,6 @@ import Row, { RowFixed } from '../Row'
 import Web3Status from '../Web3Status'
 
 import { darken } from 'polished'
-import ComingSoon from '../ComingSoon'
 import { Hidden, ExternalLink } from '../../theme/components'
 //import VersionSwitch from './VersionSwitch'
 
@@ -211,8 +210,7 @@ const StyledNavLink = styled(NavLink).attrs({
     color: ${({ theme }) => theme.text2};
   }
 
-  :hover,
-  :focus {
+  :hover {
     color: ${({ theme }) => darken(0.1, theme.text2)};
   }
 `
@@ -238,6 +236,32 @@ const StyledLink = styled.div<{ isActive: boolean }>`
   }
 `
 
+const MenuItem = styled(ExternalLink)`
+  ${({ theme }) => theme.flexRowNoWrap}
+  align-items: left;
+  border-radius: 3rem;
+  outline: none;
+  cursor: pointer;
+  text-decoration: none;
+  color: ${({ theme }) => theme.text2};
+  font-size: 1rem;
+  width: fit-content;
+  margin: 0 12px;
+  font-weight: 500;
+
+  &.${activeClassName} {
+    border-radius: 12px;
+    font-weight: 600;
+    color: ${({ theme }) => theme.text2};
+  }
+
+  :hover,
+  :focus {
+    color: ${({ theme }) => darken(0.1, theme.text2)};
+    text-decoration: none;
+  }
+`
+
 const NETWORK_LABELS: { [chainId in ChainId]: string | null } = {
   [ChainId.OMCHAIN]: 'Omchain'
 }
@@ -260,11 +284,13 @@ export default function Header() {
           <StyledNavLink id={`swap-nav-link`} to={'/swap'}>
             Swap
           </StyledNavLink>
-          <StyledNavLink id={`swap-nav-link`} to={'/pool'}>
+          <StyledNavLink id={`pool-nav-link`} to={'/pool'}>
             Pool
           </StyledNavLink>
-          <ComingSoon />
-          <StyledNavLink id={`swap-nav-link`} to={'/farm'}>
+          <MenuItem href="https://info.omeletteswap.finance/" id={`analytics-nav-link`}>
+            Analytics
+          </MenuItem>
+          <StyledNavLink id={`farm-nav-link`} to={'/farm'}>
             Farm
           </StyledNavLink>
         </HeaderLinks>
