@@ -7,7 +7,7 @@ import { WrappedTokenInfo } from '../../state/lists/hooks'
 import uriToHttp from '../../utils/uriToHttp'
 
 const getTokenLogoURL = address =>
-  `https://raw.githubusercontent.com/yusufbenliii/assets/master/blockchains/omchain/assets/${address}/logo.png`
+  `https://raw.githubusercontent.com/omelette-swap/assets/master/blockchains/omchain/assets/${address}/logo.png`
 const BAD_URIS: { [tokenAddress: string]: true } = {}
 
 const Image = styled.img<{ size: string }>`

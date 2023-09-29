@@ -321,7 +321,7 @@ export default function IdoDetail({
                 symbol: 'TT',
                 decimals: 18,
                 image:
-                  'https://github.com/yusufbenliii/omeletteswap-frontend/assets/67913214/77a91596-dc80-49aa-bf26-cf0183a61b7e'
+                  'https://github.com/omelette-swap/omeletteswap-frontend/assets/67913214/77a91596-dc80-49aa-bf26-cf0183a61b7e'
               }
             }
           },
