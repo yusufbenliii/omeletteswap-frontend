@@ -163,4 +163,4 @@ export const BETTER_TRADE_LINK_THRESHOLD = new Percent(JSBI.BigInt(75), JSBI.Big
 
 // the Uniswap Default token list lives here
 export const DEFAULT_TOKEN_LIST_URL =
-  'https://raw.githubusercontent.com/omelette-swap/assets/master/blockchains/omchain/tokenlist.json'
+  'https://raw.githubusercontent.com/omelette-swap/assets/production/blockchains/omchain/tokenlist.json'
