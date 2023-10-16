@@ -317,7 +317,7 @@ export default function IdoDetail({
             params: {
               type: 'ERC20', // Corrected type value
               options: {
-                address: '0x6BEB3a2B9B54178E7EA3D9edb893Bec92f50B4E5',
+                address: '0x779Da1B95e81De928fbe9F293629a346f88e86f7',
                 symbol: 'TT',
                 decimals: 18,
                 image:

@@ -2,10 +2,10 @@ import { ChainId, JSBI, Percent, Token, WOMC } from '@uniswap/sdk'
 
 import { injected, walletconnect, walletlink } from '../connectors'
 
-export const ROUTER_ADDRESS = '0x733c1986e736496fcaeEE895017eF3B5d7610461'
+export const ROUTER_ADDRESS = '0xea4CF5ABD0950824aa53d6CCE0C3B2D026a6EA70'
 
 export const MINICHEF_ADDRESS: { [chainId in ChainId]: string } = {
-  [ChainId.OMCHAIN]: '0x6a8951538e4779448E5dbF08E46Fa998Bc3D88D9'
+  [ChainId.OMCHAIN]: '0xBd6416907B7C6b1855c4Fc87818A391AdDEFfE76'
 }
 
 // a list of tokens by chain
@@ -15,38 +15,18 @@ type ChainTokenList = {
 
 export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000'
 
-export const USDCe: { [chainId in ChainId]: Token } = {
-  [ChainId.OMCHAIN]: new Token(ChainId.OMCHAIN, ZERO_ADDRESS, 6, 'USDC.e', 'USD Coin')
-}
-
-export const USDC: { [chainId in ChainId]: Token } = {
-  [ChainId.OMCHAIN]: new Token(ChainId.OMCHAIN, '0xa7964ecD7a71007589254D18c72EA7665ED15F4b', 18, 'USDC', 'USD Coin')
+export const USDT: { [chainId in ChainId]: Token } = {
+  [ChainId.OMCHAIN]: new Token(ChainId.OMCHAIN, '0xe0796aaf4057603898d2570a6453c9d1af5beeb4', 18, 'USDT.b', 'Tether USD')
 }
 
 export const OMLT: { [chainId in ChainId]: Token } = {
   [ChainId.OMCHAIN]: new Token(
     ChainId.OMCHAIN,
-    '0xF7E326d3fBD9511f34Fac2E1865C989efE7d777c',
+    '0x779Da1B95e81De928fbe9F293629a346f88e86f7',
     18,
-    'TOMLT',
-    'Test Omelette Token'
+    'OMLT',
+    'Omelette'
   )
-}
-
-export const DCK: { [chainId in ChainId]: Token } = {
-  [ChainId.OMCHAIN]: new Token(ChainId.OMCHAIN, '0xbC3F33C0474A881BAAa1eD9A64c0A61362aA427d', 18, 'DCK', 'Duckling')
-}
-
-export const RST: { [chainId in ChainId]: Token } = {
-  [ChainId.OMCHAIN]: new Token(ChainId.OMCHAIN, '0x8244FcB9E322036e6C864F7FCee7a7457661c85E', 18, 'RST', 'Rooster')
-}
-
-export const CKN: { [chainId in ChainId]: Token } = {
-  [ChainId.OMCHAIN]: new Token(ChainId.OMCHAIN, '0xf923302EDCEF3A3660B39A5eC458B18a75736A23', 18, 'CKN', 'Chicken')
-}
-
-export const EGG: { [chainId in ChainId]: Token } = {
-  [ChainId.OMCHAIN]: new Token(ChainId.OMCHAIN, '0x3fc9953aE9c208E8fed9377B6FFB046bFA846cB7', 18, 'EGG', 'Egg')
 }
 
 export const BIG_INT_ZERO = JSBI.BigInt(0)
@@ -57,7 +37,7 @@ export const BIG_INT_EIGHTEEN = JSBI.BigInt(18)
 export const BIG_INT_SECONDS_IN_WEEK = JSBI.BigInt(60 * 60 * 24 * 7)
 export const ONE_TOKEN = JSBI.exponentiate(JSBI.BigInt(10), JSBI.BigInt(18))
 
-export const OMELETTESWAP_API_BASE_URL = 'https://omeletteswap-api.yusufbenli2000.workers.dev'
+export const OMELETTESWAP_API_BASE_URL = 'https://omeletteswap-api.bizbucaliyiz.workers.dev'
 
 export const OMELETTESWAP_TOKENS_REPO_RAW_BASE_URL = `https://raw.githubusercontent.com/omelette-swap`
 
@@ -80,11 +60,7 @@ export const SUGGESTED_BASES: ChainTokenList = {
   ...WOMC_ONLY,
   [ChainId.OMCHAIN]: [
     ...WOMC_ONLY[ChainId.OMCHAIN],
-    CKN[ChainId.OMCHAIN],
-    DCK[ChainId.OMCHAIN],
-    RST[ChainId.OMCHAIN],
-    EGG[ChainId.OMCHAIN],
-    USDC[ChainId.OMCHAIN],
+    USDT[ChainId.OMCHAIN],
     OMLT[ChainId.OMCHAIN]
   ]
 }
@@ -94,11 +70,7 @@ export const BASES_TO_TRACK_LIQUIDITY_FOR: ChainTokenList = {
   ...WOMC_ONLY,
   [ChainId.OMCHAIN]: [
     ...WOMC_ONLY[ChainId.OMCHAIN],
-    CKN[ChainId.OMCHAIN],
-    DCK[ChainId.OMCHAIN],
-    RST[ChainId.OMCHAIN],
-    EGG[ChainId.OMCHAIN],
-    USDC[ChainId.OMCHAIN],
+    USDT[ChainId.OMCHAIN],
     OMLT[ChainId.OMCHAIN]
   ]
 }
