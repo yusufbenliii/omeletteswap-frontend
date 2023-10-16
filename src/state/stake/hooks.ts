@@ -1,15 +1,7 @@
 import { Token, TokenAmount, JSBI, Pair, WOMC, CurrencyAmount } from '@uniswap/sdk'
 import { ChainId } from '@uniswap/sdk'
 import { useStakingContract } from '../../hooks/useContract'
-import {
-  MINICHEF_ADDRESS,
-  USDC,
-  USDCe,
-  OMLT,
-  BIG_INT_SECONDS_IN_WEEK,
-  BIG_INT_ZERO,
-  BIG_INT_TWO
-} from '../../constants'
+import { MINICHEF_ADDRESS, USDT, OMLT, BIG_INT_SECONDS_IN_WEEK, BIG_INT_ZERO, BIG_INT_TWO } from '../../constants'
 import { useSingleCallResult, useMultipleContractSingleData, useSingleContractMultipleData } from '../multicall/hooks'
 import { useMemo } from 'react'
 import { useActiveWeb3React } from '../../hooks'
@@ -17,7 +9,7 @@ import { PairState, usePair, usePairs } from '../../data/Reserves'
 import { DOUBLE_SIDE_STAKING_REWARDS_INFO } from './doubleSideConfig'
 import ERC20_INTERFACE from '../../constants/abis/erc20'
 import { REWARDER_VIA_MULTIPLIER_INTERFACE } from '../../constants/abis/rewarderViaMultiplier'
-import useUSDCPrice from '../../utils/useUSDCPrice'
+import useUSDCPrice from '../../utils/useUSDTPrice'
 import { useTranslation } from 'react-i18next'
 import { tryParseAmount } from '../swap/hooks'
 
@@ -189,11 +181,8 @@ export const tokenComparator = (
   if (addressA === WOMC[ChainId.OMCHAIN].address) return 1
   else if (addressB === WOMC[ChainId.OMCHAIN].address) return -1
   // Sort USDC first
-  else if (addressA === USDC[ChainId.OMCHAIN].address) return -1
-  else if (addressB === USDC[ChainId.OMCHAIN].address) return 1
-  // Sort USDCe first
-  else if (addressA === USDCe[ChainId.OMCHAIN].address) return -1
-  else if (addressB === USDCe[ChainId.OMCHAIN].address) return 1
+  else if (addressA === USDT[ChainId.OMCHAIN].address) return -1
+  else if (addressB === USDT[ChainId.OMCHAIN].address) return 1
   else return 0
 }
 
@@ -436,14 +425,10 @@ export const useMinichefStakingInfos = (version = 2, pairToFilterBy?: Pair | nul
 
         if (JSBI.equal(totalSupplyAvailable, BIG_INT_ZERO)) {
           // Default to 0 values above avoiding division by zero errors
-        } else if (pair.involvesToken(USDCe[chainId])) {
-          const pairValueInUSDC = JSBI.multiply(pair.reserveOf(USDCe[chainId]).raw, BIG_INT_TWO)
+        } else if (pair.involvesToken(USDT[chainId])) {
+          const pairValueInUSDC = JSBI.multiply(pair.reserveOf(USDT[chainId]).raw, BIG_INT_TWO)
           const stakedValueInUSDC = JSBI.divide(JSBI.multiply(pairValueInUSDC, totalSupplyStaked), totalSupplyAvailable)
-          totalStakedInUsd = new TokenAmount(USDCe[chainId], stakedValueInUSDC) || undefined
-        } else if (pair.involvesToken(USDC[chainId])) {
-          const pairValueInUSDC = JSBI.multiply(pair.reserveOf(USDC[chainId]).raw, BIG_INT_TWO)
-          const stakedValueInUSDC = JSBI.divide(JSBI.multiply(pairValueInUSDC, totalSupplyStaked), totalSupplyAvailable)
-          totalStakedInUsd = new TokenAmount(USDC[chainId], stakedValueInUSDC) || undefined
+          totalStakedInUsd = new TokenAmount(USDT[chainId], stakedValueInUSDC) || undefined
         } else if (isOmcPool) {
           const _totalStakedInWomc = calculateTotalStakedAmountInOmc(
             totalSupplyStaked,

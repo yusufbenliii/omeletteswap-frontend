@@ -2,7 +2,7 @@
 
 import { ChainId, Currency, currencyEquals, JSBI, Price, WOMC } from '@uniswap/sdk'
 import { useMemo } from 'react'
-import { USDC as USDCc } from '../constants'
+import { USDT as USDTb } from '../constants'
 import { PairState, usePairs } from '../data/Reserves'
 import { wrappedCurrency } from './wrappedCurrency'
 
@@ -13,7 +13,7 @@ import { wrappedCurrency } from './wrappedCurrency'
 export default function useUSDCPrice(currency?: Currency): Price | undefined {
   const chainId = ChainId.OMCHAIN
   const wrapped = wrappedCurrency(currency, chainId)
-  const USDC = USDCc[chainId]
+  const USDC = USDTb[chainId]
   const tokenPairs: [Currency | undefined, Currency | undefined][] = useMemo(
     () => [
       [

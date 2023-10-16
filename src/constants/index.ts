@@ -16,7 +16,7 @@ type ChainTokenList = {
 export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000'
 
 export const USDT: { [chainId in ChainId]: Token } = {
-  [ChainId.OMCHAIN]: new Token(ChainId.OMCHAIN, '0xe0796aaf4057603898d2570a6453c9d1af5beeb4', 18, 'USDT.b', 'Tether USD')
+  [ChainId.OMCHAIN]: new Token(ChainId.OMCHAIN, '0xe0796AaF4057603898D2570A6453C9d1Af5BEeB4', 18, 'USDT.b', 'Tether USD')
 }
 
 export const OMLT: { [chainId in ChainId]: Token } = {

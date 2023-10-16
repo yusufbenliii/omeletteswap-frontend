@@ -4,26 +4,6 @@ import { MINICHEF_ADDRESS } from '../../constants'
 import * as TOKENS from '../../constants'
 
 export const DOUBLE_SIDE_STAKING: { [key: string]: DoubleSideStaking } = {
-  CKN_OMLT_V2: {
-    tokens: [TOKENS.CKN[ChainId.OMCHAIN], TOKENS.OMLT[ChainId.OMCHAIN]],
-    stakingRewardAddress: MINICHEF_ADDRESS[ChainId.OMCHAIN],
-    version: 2
-  },
-  EGG_OMLT_V2: {
-    tokens: [TOKENS.EGG[ChainId.OMCHAIN], TOKENS.OMLT[ChainId.OMCHAIN]],
-    stakingRewardAddress: MINICHEF_ADDRESS[ChainId.OMCHAIN],
-    version: 2
-  },
-  DCK_OMLT_V2: {
-    tokens: [TOKENS.DCK[ChainId.OMCHAIN], TOKENS.OMLT[ChainId.OMCHAIN]],
-    stakingRewardAddress: MINICHEF_ADDRESS[ChainId.OMCHAIN],
-    version: 2
-  },
-  RST_OMLT_V2: {
-    tokens: [TOKENS.RST[ChainId.OMCHAIN], TOKENS.OMLT[ChainId.OMCHAIN]],
-    stakingRewardAddress: MINICHEF_ADDRESS[ChainId.OMCHAIN],
-    version: 2
-  }
 }
 
 export const DOUBLE_SIDE_STAKING_V0: DoubleSideStaking[] = Object.values(DOUBLE_SIDE_STAKING).filter(
