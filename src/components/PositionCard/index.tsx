@@ -227,7 +227,7 @@ export default function FullPositionCard({ pair, border }: PositionCardProps) {
             </FixedHeightRow>
 
             <AutoRow justify="center" marginTop={'10px'}>
-              <ExternalLink href={`https://omeletteswap.info/pair/${pair.liquidityToken.address}`}>
+              <ExternalLink href={`https://info.omeletteswap.finance/pair/${pair.liquidityToken.address}`}>
                 View pool information ↗
               </ExternalLink>
             </AutoRow>
